@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="GSAP Modern Sites — a living showcase of free GSAP components, interaction patterns, and production-minded motion." />
+  <title>GSAP / Modern Sites Lab</title>
+  <style>
+    :root {
+      --bg: #0a0a0b;
+      --paper: #f1f0eb;
+      --muted: #8c8b86;
+      --line: rgba(241,240,235,.16);
+      --acid: #c5ff32;
+      --orange: #ff6b35;
+      --blue: #6d7cff;
+      --radius: 22px;
+      --pad: clamp(18px, 3vw, 40px);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--bg); }
+    body { margin: 0; color: var(--paper); background: var(--bg); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; }
+    .shell { width: min(1440px, 100%); margin: 0 auto; padding: 0 var(--pad); }
+    .topbar { position: fixed; z-index: 30; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; padding: 18px var(--pad); mix-blend-mode: difference; color: white; pointer-events: none; }
+    .topbar > * { pointer-events: auto; }
+    .brand { display: flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; font-weight: 800; }
+    .brand-mark { display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid currentColor; border-radius: 50%; font-size: 10px; }
+    .toplinks { display: flex; gap: 18px; font-size: 11px; text-transform: uppercase; letter-spacing: .12em; }
+    .toplinks a { opacity: .7; transition: opacity .2s; }
+    .toplinks a:hover { opacity: 1; }
+    .kicker { display: inline-flex; align-items: center; gap: 9px; color: var(--acid); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; font-weight: 800; }
+    .kicker::before { content: ""; width: 25px; height: 1px; background: currentColor; }
+    .hero { min-height: 100svh; display: grid; align-items: end; position: relative; isolation: isolate; padding: 150px 0 72px; overflow: hidden; }
+    .hero::before { content: ""; position: absolute; z-index: -2; width: 68vw; height: 68vw; right: -20vw; top: -12vw; border-radius: 50%; background: radial-gradient(circle at 45% 45%, rgba(197,255,50,.24), transparent 58%); filter: blur(12px); }
+    .hero-grid { position: absolute; inset: 0; z-index: -3; opacity: .14; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 8vw 8vw; mask-image: linear-gradient(to bottom, black, transparent 85%); }
+    .hero-title { max-width: 1020px; margin: 0; font-size: clamp(62px, 11vw, 168px); line-height: .82; letter-spacing: -.085em; text-transform: uppercase; font-weight: 900; }
+    .hero-title .line { display: block; overflow: hidden; }
+    .hero-title .line > span { display: block; transform: translateY(110%); }
+    .hero-copy { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: end; margin-top: 46px; max-width: 900px; }
+    .hero-copy p { max-width: 390px; color: var(--muted); line-height: 1.55; font-size: 14px; }
+    .hero-orbit { position: absolute; right: 14vw; top: 25vh; width: min(28vw, 360px); aspect-ratio: 1; opacity: .9; }
+    .hero-orbit svg { width: 100%; height: 100%; overflow: visible; }
+    .orbit-path { fill: none; stroke: rgba(241,240,235,.25); stroke-width: 1; stroke-dasharray: 2 9; }
+    .orbit-dot { fill: var(--acid); filter: drop-shadow(0 0 18px var(--acid)); }
+    .scroll-note { position: absolute; bottom: 28px; right: var(--pad); color: var(--muted); font: 10px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; text-transform: uppercase; letter-spacing: .14em; }
+    .section { padding: 110px 0; border-top: 1px solid var(--line); }
+    .section-head { display: flex; justify-content: space-between; gap: 28px; align-items: end; margin-bottom: 42px; }
+    .section-head h2 { margin: 0; max-width: 700px; font-size: clamp(36px, 6vw, 88px); line-height: .9; letter-spacing: -.07em; text-transform: uppercase; }
+    .section-head p { margin: 0; max-width: 320px; color: var(--muted); font-size: 13px; line-height: 1.55; }
+    .micro { color: var(--muted); font: 10px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .08em; text-transform: uppercase; }
+    .panel { position: relative; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(255,255,255,.035); overflow: hidden; }
+    .panel-label { position: absolute; z-index: 2; top: 18px; left: 20px; color: var(--muted); font: 10px ui-monospace, SFMono-Regular, Menlo, monospace; text-transform: uppercase; letter-spacing: .1em; }
+    .lab-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+    .lab-grid > .panel { grid-column: span 6; min-height: 440px; }
+    .lab-grid > .panel.wide { grid-column: span 12; }
+    .pointer-lab { min-height: 470px; display: grid; place-items: center; background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(109,124,255,.25), transparent 28%), #111217; }
+    .pointer-cards { display: grid; grid-template-columns: repeat(3, 1fr); width: min(650px, 88%); gap: 12px; }
+    .pointer-card { aspect-ratio: .92; display: flex; flex-direction: column; justify-content: space-between; padding: 18px; border: 1px solid rgba(255,255,255,.16); border-radius: 16px; background: rgba(255,255,255,.06); backdrop-filter: blur(9px); transform: translateZ(0); transition: border-color .2s, background .2s; }
+    .pointer-card:hover { border-color: var(--acid); background: rgba(197,255,50,.09); }
+    .pointer-card strong { font-size: clamp(20px, 3vw, 34px); letter-spacing: -.08em; }
+    .pointer-card span { color: var(--muted); font: 10px ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .magnet-wrap { display: grid; place-items: center; min-height: 180px; }
+    .magnet { display: inline-flex; align-items: center; gap: 12px; border: 1px solid var(--acid); border-radius: 99px; padding: 16px 22px; background: transparent; color: var(--acid); text-transform: uppercase; font-size: 11px; letter-spacing: .12em; cursor: pointer; }
+    .magnet i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+    .cursor-preview { position: fixed; z-index: 20; top: 0; left: 0; width: 170px; aspect-ratio: 1.25; border-radius: 12px; pointer-events: none; opacity: 0; overflow: hidden; border: 1px solid rgba(255,255,255,.45); background: linear-gradient(135deg, #6d7cff, #c5ff32); mix-blend-mode: screen; }
+    .cursor-preview::after { content: "PREVIEW / 01"; position: absolute; left: 11px; bottom: 10px; font: 9px ui-monospace, SFMono-Regular, Menlo, monospace; color: #090909; letter-spacing: .1em; }
+    .timeline-lab { min-height: 440px; padding: 52px 26px 26px; display: flex; flex-direction: column; justify-content: space-between; }
+    .timeline-stage { display: grid; gap: 10px; align-content: center; min-height: 260px; }
+    .timeline-bar { height: 58px; width: 100%; transform: scaleX(0); transform-origin: left; border-radius: 7px; background: var(--acid); }
+    .timeline-bar:nth-child(2) { width: 74%; background: var(--orange); }
+    .timeline-bar:nth-child(3) { width: 48%; background: var(--blue); }
+    .timeline-actions { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .ghost-btn, .filter-btn { border: 1px solid var(--line); border-radius: 99px; background: transparent; padding: 10px 14px; color: var(--muted); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; transition: color .2s, border-color .2s, background .2s; }
+    .ghost-btn:hover, .filter-btn:hover, .filter-btn.active { color: var(--paper); border-color: var(--acid); background: rgba(197,255,50,.08); }
+    .scroll-lab { min-height: 730px; background: #111217; }
+    .scroll-lab .scroll-copy { position: sticky; top: 35vh; z-index: 2; width: min(390px, 70%); padding: 48px; pointer-events: none; }
+    .scroll-copy h3 { margin: 0 0 16px; font-size: clamp(32px, 5vw, 68px); line-height: .9; letter-spacing: -.08em; text-transform: uppercase; }
+    .scroll-copy p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .scroll-art { position: absolute; inset: 0; display: grid; place-items: center; }
+    .scroll-art .orb { width: min(34vw, 430px); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 35% 30%, white, var(--acid) 8%, #7f65ff 39%, #1a1433 69%, transparent 70%); filter: saturate(1.25); transform: scale(.55) rotate(-20deg); }
+    .scroll-art .ring { position: absolute; width: min(44vw, 560px); aspect-ratio: 1; border: 1px solid rgba(197,255,50,.6); border-radius: 50%; transform: rotate(15deg) scale(.65); }
+    .scroll-lab .scroll-index { position: absolute; right: 28px; bottom: 22px; font: 10px ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--muted); }
+    .flip-lab { min-height: 440px; padding: 55px 24px 24px; }
+    .flip-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; min-height: 300px; align-content: center; }
+    .flip-card { display: grid; place-items: center; min-height: 80px; border-radius: 14px; background: linear-gradient(135deg, var(--acid), #78953d); color: #0a0a0b; font: 800 12px ui-monospace, SFMono-Regular, Menlo, monospace; cursor: pointer; }
+    .flip-card:nth-child(2n) { background: linear-gradient(135deg, var(--blue), #353d95); color: white; }
+    .flip-card:nth-child(3n) { background: linear-gradient(135deg, var(--orange), #96371b); color: white; }
+    .flip-grid.list { grid-template-columns: 1fr; }
+    .flip-grid.list .flip-card { min-height: 48px; justify-content: start; padding-left: 20px; }
+    .drag-lab { min-height: 440px; padding: 55px 24px 24px; background: #101511; }
+    .drag-track { position: relative; display: grid; place-items: center; min-height: 300px; }
+    .drag-card { width: min(240px, 65%); aspect-ratio: 1.25; display: grid; place-items: center; border: 1px solid var(--acid); border-radius: 18px; background: repeating-linear-gradient(135deg, rgba(197,255,50,.14) 0 1px, transparent 1px 10px), #1a2117; color: var(--acid); text-transform: uppercase; letter-spacing: .16em; font: 11px ui-monospace, SFMono-Regular, Menlo, monospace; cursor: grab; user-select: none; }
+    .drag-card:active { cursor: grabbing; }
+    .svg-lab { min-height: 440px; padding: 55px 24px 24px; display: grid; place-items: center; background: #111019; }
+    .svg-lab svg { width: min(82%, 430px); overflow: visible; }
+    .svg-path { fill: none; stroke: var(--acid); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .svg-orbit { fill: none; stroke: rgba(109,124,255,.55); stroke-width: 1; stroke-dasharray: 3 8; }
+    .svg-node { fill: var(--orange); filter: drop-shadow(0 0 9px var(--orange)); }
+    .text-lab { min-height: 440px; padding: 58px 26px 26px; display: flex; flex-direction: column; justify-content: space-between; }
+    .split-heading { margin: 0; max-width: 600px; font-size: clamp(36px, 5vw, 72px); line-height: .9; letter-spacing: -.075em; text-transform: uppercase; }
+    .split-heading .char { display: inline-block; }
+    .status-line { color: var(--acid); font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .physics-lab { min-height: 440px; position: relative; overflow: hidden; background: radial-gradient(circle at 50% 50%, rgba(255,107,53,.14), transparent 55%), #14100e; }
+    .physics-origin { position: absolute; left: 50%; top: 58%; width: 12px; height: 12px; border-radius: 50%; background: var(--orange); transform: translate(-50%, -50%); box-shadow: 0 0 30px var(--orange); }
+    .particle { position: absolute; left: 50%; top: 58%; width: 7px; height: 7px; border-radius: 50%; background: var(--acid); transform: translate(-50%, -50%); pointer-events: none; }
+    .physics-lab .ghost-btn { position: absolute; left: 20px; bottom: 18px; }
+    .catalog-controls { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+    .catalog { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; }
+    .component { min-height: 130px; padding: 16px; border: 1px solid var(--line); border-radius: 16px; background: rgba(255,255,255,.025); transition: transform .25s, border-color .25s, background .25s; }
+    .component:hover { transform: translateY(-4px); border-color: rgba(197,255,50,.6); background: rgba(197,255,50,.06); }
+    .component[hidden] { display: none; }
+    .component-name { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; font-weight: 750; letter-spacing: -.02em; }
+    .component-name code { color: var(--acid); font: 11px ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .component p { margin: 20px 0 0; color: var(--muted); font-size: 11px; line-height: 1.45; }
+    .tag { color: var(--muted); border: 1px solid var(--line); border-radius: 99px; padding: 3px 6px; font: 9px ui-monospace, SFMono-Regular, Menlo, monospace; text-transform: uppercase; }
+    .template-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .template-card { min-height: 190px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--line); border-radius: 18px; background: linear-gradient(135deg, rgba(255,255,255,.07), rgba(255,255,255,.015)); }
+    .template-card:nth-child(2) { background: linear-gradient(135deg, rgba(197,255,50,.16), rgba(255,255,255,.02)); }
+    .template-card:nth-child(3) { background: linear-gradient(135deg, rgba(109,124,255,.2), rgba(255,255,255,.02)); }
+    .template-card:nth-child(4) { background: linear-gradient(135deg, rgba(255,107,53,.16), rgba(255,255,255,.02)); }
+    .template-card h3 { margin: 0; font-size: 21px; letter-spacing: -.06em; }
+    .template-card p { color: var(--muted); font-size: 11px; line-height: 1.45; }
+    .template-card a { color: var(--acid); font: 10px ui-monospace, SFMono-Regular, Menlo, monospace; text-transform: uppercase; letter-spacing: .1em; }
+    footer { padding: 52px 0 80px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 20px; color: var(--muted); font: 11px ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .toast { position: fixed; z-index: 40; right: 18px; bottom: 18px; max-width: 300px; padding: 13px 15px; border: 1px solid var(--acid); border-radius: 12px; background: #10140c; color: var(--acid); font: 11px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; transform: translateY(130%); opacity: 0; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    @media (max-width: 900px) {
+      .hero-orbit { right: -7vw; top: 18vh; width: 48vw; opacity: .5; }
+      .hero-copy { grid-template-columns: 1fr; gap: 0; }
+      .lab-grid > .panel, .lab-grid > .panel.wide { grid-column: span 12; }
+      .catalog, .template-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .toplinks a:not(:last-child) { display: none; }
+      .hero { padding-top: 130px; }
+      .hero-title { font-size: clamp(52px, 16vw, 100px); }
+      .section { padding: 78px 0; }
+      .section-head { display: block; }
+      .section-head p { margin-top: 20px; }
+      .pointer-cards { width: 92%; gap: 7px; }
+      .pointer-card { padding: 12px; }
+      .catalog, .template-grid { grid-template-columns: 1fr; }
+      footer { display: block; }
+      footer span { display: block; margin-top: 10px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+    }
+  </style>
+  <style id="enterprise-ux-polish">
+    html{scrollbar-color:var(--acid) transparent;}body{min-height:100%;text-rendering:optimizeLegibility;}img{max-width:100%;height:auto;}
+    .enterprise-progress{position:fixed;inset:0 auto auto 0;z-index:9999;width:100%;height:3px;background:var(--acid);transform:scaleX(0);transform-origin:left;pointer-events:none;}.enterprise-skip{position:fixed;z-index:10000;left:1rem;top:-4rem;padding:.75rem 1rem;border-radius:999px;background:var(--paper);color:var(--bg);font:800 .72rem/1 ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;transition:top .2s ease;}.enterprise-skip:focus{top:1rem;outline:3px solid var(--acid);outline-offset:3px;}
+    :where(a,button,input,select,textarea,[tabindex]):focus-visible{outline:3px solid var(--acid)!important;outline-offset:4px;border-radius:4px;}@media(hover:hover) and (pointer:fine){.lab,.template-card,.component{transition:transform .25s ease,box-shadow .25s ease;}.lab:hover,.template-card:hover,.component:hover{transform:translateY(-3px);box-shadow:0 18px 34px rgba(0,0,0,.22);}}@media(max-width:700px){.enterprise-progress{height:2px}.enterprise-skip{left:.75rem}body{padding-bottom:env(safe-area-inset-bottom)}}@media(prefers-reduced-motion:reduce){.enterprise-progress{display:none}.enterprise-skip{transition:none}}
+  </style>
+</head>
+<body>
+  <div class="cursor-preview" id="cursorPreview" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="GSAP Modern Sites home"><span class="brand-mark">G</span><span>Modern Sites / 03.15</span></a>
+    <nav class="toplinks" aria-label="Primary navigation"><a href="#labs">Labs</a><a href="#catalog">Catalog</a><a href="#templates">Templates</a><a href="https://github.com/greensock/gsap-skills" target="_blank" rel="noreferrer">Source ↗</a></nav>
+  </header>
+
+  <main id="top">
+    <section class="hero shell">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-orbit" aria-hidden="true">
+        <svg viewBox="0 0 400 400"><path id="heroPath" class="orbit-path" d="M 200 20 C 335 20 380 116 365 220 C 345 360 210 392 90 335 C 5 295 12 180 65 105 C 105 47 146 20 200 20 Z"/><circle id="heroDot" class="orbit-dot" r="8"/></svg>
+      </div>
+      <div>
+        <span class="kicker">Free components / modern motion systems</span>
+        <h1 class="hero-title" aria-label="Motion is a material"><span class="line"><span>Motion</span></span><span class="line"><span>is a</span></span><span class="line"><span>material.</span></span></h1>
+        <div class="hero-copy"><p>A living field guide for building GSAP-driven sites that feel editorial, physical, responsive and unmistakably not like a stack of generic reveal animations.</p><p class="micro">08 labs / 30+ components / 04 template families<br />Scroll, point, drag, flip, draw, split.</p></div>
+      </div>
+      <div class="scroll-note">Scroll to enter the lab ↓</div>
+    </section>
+
+    <section class="section shell" id="labs">
+      <div class="section-head"><div><span class="kicker">01 / interaction lab</span><h2>Input becomes atmosphere.</h2></div><p>These scenes turn the user’s pointer, scroll, gesture, and click into a design material. Every lab is intentionally small enough to steal for a real project.</p></div>
+      <div class="lab-grid">
+        <article class="panel pointer-lab" id="pointerLab"><span class="panel-label">quickTo / proximity / cursor preview</span><div class="pointer-cards"><div class="pointer-card preview-source" data-preview="01"><strong>01</strong><span>PROXIMITY</span></div><div class="pointer-card preview-source" data-preview="02"><strong>02</strong><span>VELOCITY</span></div><div class="pointer-card preview-source" data-preview="03"><strong>03</strong><span>PREVIEW</span></div></div></article>
+        <article class="panel timeline-lab"><span class="panel-label">timeline / labels / reversible scene</span><div class="timeline-stage"><div class="timeline-bar"></div><div class="timeline-bar"></div><div class="timeline-bar"></div></div><div class="timeline-actions"><span class="micro">A scene is a system, not a delay chain.</span><button class="ghost-btn" id="replayTimeline">Replay scene ↗</button></div></article>
+        <article class="panel wide scroll-lab" id="scrollLab"><span class="panel-label">ScrollTrigger / pin / scrub / snap</span><div class="scroll-copy"><span class="kicker">Pinned narrative</span><h3>Scroll is a timeline.</h3><p>Keep the section fixed while the artwork changes. The user can feel progress without losing the origin of the scene.</p></div><div class="scroll-art" aria-hidden="true"><div class="ring"></div><div class="orb"></div></div><span class="scroll-index">scene progress / <b id="scrollProgress">00%</b></span></article>
+        <article class="panel flip-lab"><span class="panel-label">Flip / preserve spatial continuity</span><div class="flip-grid" id="flipGrid"><div class="flip-card">A / 01</div><div class="flip-card">B / 02</div><div class="flip-card">C / 03</div><div class="flip-card">D / 04</div><div class="flip-card">E / 05</div><div class="flip-card">F / 06</div></div><button class="ghost-btn" id="flipToggle">Toggle layout ↗</button></article>
+        <article class="panel drag-lab"><span class="panel-label">Draggable / Inertia / gesture</span><div class="drag-track"><div class="drag-card" id="dragCard">Drag the object</div></div><span class="micro">Throw it. The surface remembers your hand.</span></article>
+        <article class="panel svg-lab"><span class="panel-label">DrawSVG / MotionPath / SVG</span><svg viewBox="0 0 520 250" id="svgLab" aria-label="Animated route diagram"><path class="svg-orbit" d="M25 190 C 140 20, 340 20, 495 160"/><path id="drawPath" class="svg-path" d="M25 190 C 140 20, 340 20, 495 160"/><circle id="svgNode" class="svg-node" r="8"/></svg><button class="ghost-btn" id="replaySvg">Replay route ↗</button></article>
+        <article class="panel text-lab"><span class="panel-label">SplitText / TextPlugin / editorial type</span><div><h3 class="split-heading" id="splitHeading">Words can have a body.</h3><p class="status-line" id="statusLine">STATUS: READY_</p></div><button class="ghost-btn" id="replayType">Rewrite the status ↗</button></article>
+        <article class="panel physics-lab" id="physicsLab"><span class="panel-label">Physics2D / custom motion / particles</span><div class="physics-origin"></div><button class="ghost-btn" id="burstPhysics">Release a burst ↗</button></article>
+      </div>
+    </section>
+
+    <section class="section shell" id="catalog">
+      <div class="section-head"><div><span class="kicker">02 / component catalogue</span><h2>Choose the right physics.</h2></div><p>Every free GSAP component has a job. Filter the catalogue to see the full vocabulary used by the new skill.</p></div>
+      <div class="catalog-controls" role="toolbar" aria-label="Filter component catalogue"><button class="filter-btn active" data-filter="all">All / 32</button><button class="filter-btn" data-filter="core">Core</button><button class="filter-btn" data-filter="scroll">Scroll</button><button class="filter-btn" data-filter="input">Input</button><button class="filter-btn" data-filter="text">Text</button><button class="filter-btn" data-filter="svg">SVG</button><button class="filter-btn" data-filter="physics">Physics</button><button class="filter-btn" data-filter="runtime">Runtime</button></div>
+      <div class="catalog" id="componentCatalog"></div>
+    </section>
+
+    <section class="section shell" id="templates">
+      <div class="section-head"><div><span class="kicker">03 / online template review</span><h2>Starters teach structure. Templates teach taste.</h2></div><p>Official sources split into implementation starters and visual/production templates. Use both, but do not confuse an architectural starter with a finished art direction.</p></div>
+      <div class="template-grid">
+        <article class="template-card"><div><span class="tag">StackBlitz / React + Next</span><h3>Implementation starters</h3><p>React and Next collections cover basic setup, ScrollTrigger, ScrollSmoother, App Router, page transitions and data-mode routing.</p></div><a href="https://stackblitz.com/@GSAP-dev/collections/gsap-react-starters" target="_blank" rel="noreferrer">Open collections ↗</a></article>
+        <article class="template-card"><div><span class="tag">StackBlitz / Svelte + Vue</span><h3>Lifecycle starters</h3><p>Svelte and Vue collections make mount/destroy, route transitions, context cleanup and scroll isolation explicit.</p></div><a href="https://stackblitz.com/@gsap-dev/collections/gsap-vue3-starters" target="_blank" rel="noreferrer">Open collections ↗</a></article>
+        <article class="template-card"><div><span class="tag">Webflow / free + paid</span><h3>Visual templates</h3><p>Looper, GSAP x GiveWell, Learn GSAP and GSAP Draggable show editorial hierarchy, cause-led storytelling and interaction-first composition.</p></div><a href="https://webflow.com/templates/search/gsap" target="_blank" rel="noreferrer">View templates ↗</a></article>
+        <article class="template-card"><div><span class="tag">GSAP / showcase + demos</span><h3>Living references</h3><p>Magnetic controls, cursor trails, velocity skew, card stacks, bento galleries and infinite sliders reveal the contemporary interaction vocabulary.</p></div><a href="https://demos.gsap.com/" target="_blank" rel="noreferrer">Open demo hub ↗</a></article>
+      </div>
+    </section>
+  </main>
+  <footer class="shell"><strong>GSAP / MODERN SITES</strong><span>Built as a self-contained learning surface. Source: github.com/greensock/gsap-skills</span></footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script type="module">
+    import { gsap } from "https://cdn.jsdelivr.net/npm/gsap@3.15.0/index.js";
+    import { ScrollTrigger } from "https://cdn.jsdelivr.net/npm/gsap@3.15.0/ScrollTrigger.js";
+    import { ScrollToPlugin } from "https://cdn.jsdelivr.net/npm/gsap@3.15.0/ScrollToPlugin.js";
+    import { Flip } from "https://cdn.jsdelivr.net/npm/gsap@3.15.0/Flip.js";
+    import { Draggable } from "https://cdn.jsdelivr.net/npm/gsap@3.15.0/Draggable.js";
+    import { Observer } from "https://cdn.jsdelivr.net/npm/gsap@3.15.0/Observer.js";
+    import { SplitText } from "https://cdn.jsdelivr.net/npm/gsap@3.15.0/SplitText.js";
+    import { TextPlugin } from "https://cdn.jsdelivr.net/npm/gsap@3.15.0/TextPlugin.js";
+    import { MotionPathPlugin } from "https://cdn.jsdelivr.net/npm/gsap@3.15.0/MotionPathPlugin.js";
+    import { DrawSVGPlugin } from "https://cdn.jsdelivr.net/npm/gsap@3.15.0/DrawSVGPlugin.js";
+    import { Physics2DPlugin } from "https://cdn.jsdelivr.net/npm/gsap@3.15.0/Physics2DPlugin.js";
+
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Flip, Draggable, Observer, SplitText, TextPlugin, MotionPathPlugin, DrawSVGPlugin, Physics2DPlugin);
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const $ = (selector, scope = document) => scope.querySelector(selector);
+    const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
+    const toast = (message) => { const el = $("#toast"); el.textContent = message; gsap.to(el, { y: 0, autoAlpha: 1, duration: .2 }); gsap.delayedCall(2.2, () => gsap.to(el, { y: "130%", autoAlpha: 0, duration: .35 })); };
+
+    // Hero: SplitText-style line reveal plus MotionPath orbit.
+    const heroIn = gsap.timeline({ defaults: { ease: "power3.out" } });
+    if (reduce) heroIn.set(".hero-title .line > span", { y: 0 });
+    else heroIn.to(".hero-title .line > span", { y: 0, duration: 1.1, stagger: .12 }).from(".hero-copy", { y: 20, autoAlpha: 0, duration: .6 }, "-=.5");
+    if (!reduce) gsap.to("#heroDot", { duration: 7, repeat: -1, ease: "none", motionPath: { path: "#heroPath", align: "#heroPath", alignOrigin: [0.5, 0.5] } });
+
+    // Pointer proximity field: quickTo avoids a new tween per pointer event.
+    const pointerLab = $("#pointerLab");
+    const cards = $$(".pointer-card", pointerLab);
+    const preview = $("#cursorPreview");
+    const previewX = gsap.quickTo(preview, "x", { duration: .35, ease: "power3" });
+    const previewY = gsap.quickTo(preview, "y", { duration: .35, ease: "power3" });
+    pointerLab.addEventListener("pointermove", (event) => {
+      const rect = pointerLab.getBoundingClientRect();
+      pointerLab.style.setProperty("--mx", `${event.clientX - rect.left}px`);
+      pointerLab.style.setProperty("--my", `${event.clientY - rect.top}px`);
+      cards.forEach((card) => { const r = card.getBoundingClientRect(); const dx = event.clientX - (r.left + r.width / 2); const dy = event.clientY - (r.top + r.height / 2); const distance = Math.hypot(dx, dy); const force = gsap.utils.clamp(0, 1, 1 - distance / 240); gsap.to(card, { x: dx * force * .12, y: dy * force * .12, scale: 1 + force * .06, duration: .45, overwrite: "auto", ease: "power3.out" }); });
+      previewX(event.clientX + 18); previewY(event.clientY + 18);
+    });
+    pointerLab.addEventListener("pointerleave", () => { gsap.to(cards, { x: 0, y: 0, scale: 1, duration: .5, overwrite: "auto" }); gsap.to(preview, { autoAlpha: 0, duration: .2 }); });
+    pointerLab.addEventListener("pointerenter", () => { if (!reduce) gsap.to(preview, { autoAlpha: .88, duration: .2 }); });
+
+    // Timeline lab.
+    const playTimeline = () => { const tl = gsap.timeline({ defaults: { duration: .65, ease: "power3.out" } }); tl.set(".timeline-bar", { scaleX: 0 }).to(".timeline-bar", { scaleX: 1, stagger: .12 }).to(".timeline-bar", { scaleX: .32, transformOrigin: "right", stagger: .08 }, "+=.3").to(".timeline-bar", { scaleX: 1, transformOrigin: "left", stagger: .08 }); };
+    $("#replayTimeline").addEventListener("click", () => { playTimeline(); toast("Timeline replayed — labels and overlap are the editable structure."); });
+    playTimeline();
+
+    // ScrollTrigger lab.
+    if (reduce) gsap.set(".scroll-art .orb", { scale: .82, rotation: 0 });
+    else gsap.timeline({ scrollTrigger: { trigger: "#scrollLab", start: "top bottom", end: "bottom top", scrub: 1, onUpdate: self => $("#scrollProgress").textContent = `${Math.round(self.progress * 100).toString().padStart(2, "0")}%` } }).to(".scroll-art .orb", { scale: 1.2, rotation: 210, ease: "none" }).to(".scroll-art .ring", { scale: 1.2, rotation: -70, ease: "none" }, "<");
+
+    // Flip layout continuity.
+    $("#flipToggle").addEventListener("click", () => { const grid = $("#flipGrid"); const state = Flip.getState(".flip-card"); grid.classList.toggle("list"); Flip.from(state, { duration: reduce ? 0 : .65, ease: "power3.inOut", stagger: .04, absolute: true }); toast(grid.classList.contains("list") ? "Layout became a list without losing spatial identity." : "Layout returned to a grid through Flip."); });
+
+    // Draggable / Inertia-like release, bounded to the stage.
+    Draggable.create("#dragCard", { type: "x,y", bounds: ".drag-track", edgeResistance: .75, onRelease() { if (!reduce) gsap.to(this.target, { x: this.x * .25, y: this.y * .25, duration: .8, ease: "elastic.out(1, .5)" }); } });
+
+    // SVG route: DrawSVG + MotionPath.
+    const playSvg = () => { const tl = gsap.timeline(); tl.set("#drawPath", { drawSVG: "0%" }).to("#drawPath", { drawSVG: "100%", duration: reduce ? .01 : 1.4, ease: "power2.inOut" }).to("#svgNode", { duration: reduce ? .01 : 1.4, ease: "none", motionPath: { path: "#drawPath", align: "#drawPath", alignOrigin: [0.5, 0.5] } }, "<"); };
+    $("#replaySvg").addEventListener("click", () => { playSvg(); toast("SVG path drawn and node moved along its route."); });
+    playSvg();
+
+    // SplitText + TextPlugin.
+    let split = SplitText.create("#splitHeading", { type: "words,chars" });
+    gsap.from(split.chars, { y: 40, autoAlpha: 0, duration: reduce ? .01 : .7, stagger: reduce ? 0 : .025, ease: "power3.out" });
+    $("#replayType").addEventListener("click", () => { gsap.to("#statusLine", { duration: reduce ? .01 : .8, text: "STATUS: SYSTEMS FEEL ALIVE_", ease: "none" }); toast("TextPlugin changed a short state label; the semantic heading remains intact."); });
+
+    // Physics2D burst. Each particle is decorative and short-lived.
+    $("#burstPhysics").addEventListener("click", () => { const lab = $("#physicsLab"); const colors = ["#c5ff32", "#ff6b35", "#6d7cff", "#f1f0eb"]; for (let i = 0; i < 22; i++) { const particle = document.createElement("i"); particle.className = "particle"; particle.style.background = colors[i % colors.length]; lab.appendChild(particle); gsap.to(particle, { duration: reduce ? .01 : 1.4, physics2D: { velocity: gsap.utils.random(160, 420), angle: gsap.utils.random(205, 335), gravity: 460 }, scale: 0, ease: "none", onComplete: () => particle.remove() }); } });
+
+    // Observer illustrates direction-aware input without owning scroll position.
+    Observer.create({ target: window, type: "wheel,touch", tolerance: 30, preventDefault: false, onDown: () => { if (!reduce) gsap.to(".hero-orbit", { rotation: "+=4", duration: .3, overwrite: "auto" }); }, onUp: () => { if (!reduce) gsap.to(".hero-orbit", { rotation: "-=4", duration: .3, overwrite: "auto" }); } });
+
+    const components = [
+      ["gsap.to / from / fromTo", "core", "Core tweens for entry, exit, hover, CSS variables, and feedback."], ["gsap.timeline", "core", "Choreograph scenes with labels, defaults, and position parameters."], ["gsap.matchMedia", "runtime", "Responsive scenes and prefers-reduced-motion contexts."], ["ScrollTrigger", "scroll", "Scroll-linked progress, pinning, scrub, snap, batch, and narrative."], ["ScrollToPlugin", "scroll", "Programmatic section travel, anchors, drawers, and route jumps."], ["ScrollSmoother", "scroll", "Momentum-style scroll and parallax with careful accessibility testing."], ["Flip", "input", "Preserve spatial identity through filters, grids, route continuity, and expansion."], ["Draggable", "input", "Direct manipulation for sliders, cards, knobs, and spatial canvases."], ["InertiaPlugin", "input", "Velocity-aware throws and momentum release for drag interactions."], ["Observer", "input", "Wheel, swipe, pointer direction, and full-screen gesture input."], ["gsap.quickTo", "runtime", "Reuse a tween for magnetic controls, followers, and high-frequency input."], ["gsap.utils", "runtime", "Clamp, map, normalize, interpolate, snap, wrap, distribute, and scope."], ["SplitText", "text", "Responsive line, word, and character choreography for editorial type."], ["ScrambleTextPlugin", "text", "Terminal, system, and playful status transitions."], ["TextPlugin", "text", "Short inline label, counter, and state replacement."], ["DrawSVGPlugin", "svg", "Reveal strokes, routes, diagrams, signatures, and progress lines."], ["MorphSVGPlugin", "svg", "Morph icons, logos, and compatible path shapes between states."], ["MotionPathPlugin", "svg", "Orbit, route, guide, and orient objects on a path."], ["MotionPathHelper", "svg", "Tune and align MotionPath geometry during development."], ["CSSRulePlugin", "core", "Animate pseudo-elements or truly shared CSS rule values."], ["CustomEase", "core", "Create a brand-specific timing curve when built-ins are not enough."], ["EasePack", "core", "Additional SlowMo, RoughEase, and expressive easing vocabulary."], ["CustomWiggle", "core", "Controlled shake and alert motion with restrained amplitude."], ["CustomBounce", "core", "Branded elastic response for a small set of surfaces."], ["Physics2DPlugin", "physics", "Gravity, confetti, projectiles, and decorative particle bursts."], ["PhysicsPropsPlugin", "physics", "Velocity and acceleration applied to arbitrary properties."], ["PixiPlugin", "runtime", "GSAP control of PixiJS display objects and render scenes."], ["EaselPlugin", "runtime", "Animate EaselJS display objects while keeping DOM semantics separate."], ["GSDevTools", "runtime", "Development-only scrubbing and timeline inspection."], ["autoAlpha", "core", "Opacity plus visibility for staged UI that must not intercept input."]
+    ];
+    const catalog = $("#componentCatalog");
+    catalog.innerHTML = components.map(([name, category, copy]) => `<article class="component" data-category="${category}"><div class="component-name"><code>${name}</code><span class="tag">${category}</span></div><p>${copy}</p></article>`).join("");
+    $$(".filter-btn").forEach(btn => btn.addEventListener("click", () => { $$(".filter-btn").forEach(item => item.classList.remove("active")); btn.classList.add("active"); const filter = btn.dataset.filter; $$(".component").forEach(card => { card.hidden = filter !== "all" && card.dataset.category !== filter; }); }));
+
+    // Magnetic CTA below the fold is represented by the reusable quickTo recipe.
+    const magnet = document.createElement("button"); magnet.className = "magnet"; magnet.innerHTML = "<i></i> The system is the design"; magnet.setAttribute("aria-label", "The system is the design"); document.querySelector("footer").appendChild(magnet);
+    const mx = gsap.quickTo(magnet, "x", { duration: .35, ease: "power3" }); const my = gsap.quickTo(magnet, "y", { duration: .35, ease: "power3" });
+    magnet.addEventListener("pointermove", (e) => { const r = magnet.getBoundingClientRect(); mx((e.clientX - (r.left + r.width / 2)) * .22); my((e.clientY - (r.top + r.height / 2)) * .22); }); magnet.addEventListener("pointerleave", () => { gsap.to(magnet, { x: 0, y: 0, duration: .5 }); });
+  </script>
+<script id="enterprise-ux-runtime">(()=>{const d=document,reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,root=d.documentElement,target=d.querySelector('main')||d.querySelector('[id]');if(target&&!d.querySelector('.enterprise-skip')){if(!target.id)target.id='main-content';const skip=d.createElement('a');skip.className='enterprise-skip';skip.href='#'+target.id;skip.textContent='Skip to content';d.body.prepend(skip);}d.querySelectorAll('img').forEach((img,i)=>{img.decoding='async';if(i>0&&!img.hasAttribute('loading'))img.loading='lazy';});const bar=d.createElement('i');bar.className='enterprise-progress';bar.setAttribute('aria-hidden','true');d.body.prepend(bar);const set=()=>{const max=d.documentElement.scrollHeight-innerHeight;bar.style.transform='scaleX('+Math.min(1,Math.max(0,scrollY/(max||1)))+')';};if(!reduce){addEventListener('scroll',set,{passive:true});set();}root.classList.add('enterprise-ux-ready');})();</script>
+<script id="enterprise-photo-runtime">(()=>{const d=document,main=d.querySelector('main'),t=d.title;if(!main||d.querySelector('.enterprise-photo-deck'))return;const m=t.includes('Gisela')?['Cuidado em cada detalhe','Uma experiência de saúde construída para acolher',['photo-1584982751601-97dcc096659c','photo-1576091160399-112ba8d25d1d','photo-1559757148-5c350d0d3c56']]:t.includes('Yang')?['Work, made tangible','Systems designed to move business forward',['photo-1497366754035-f200968a6e72','photo-1497215842964-222b430dc094','photo-1558655146-9f40138edfeb']]:t.includes('Lobo')?['Acolhimento que inspira confiança','Um espaço clínico pensado para estar perto',['photo-1576091160399-112ba8d25d1d','photo-1584982751601-97dcc096659c','photo-1559757148-5c350d0d3c56']]:t.includes('Sorriso')?['Sorrisos em boas mãos','Tecnologia, leveza e um atendimento próximo',['photo-1609840114035-3c981b782dfe','photo-1550831107-1553da8c8464','photo-1588776814546-1ffcf47267a5']]:t.includes('Sanare')?['Precisão que se vê','Clareza, tecnologia e atenção em cada consulta',['photo-1505751172876-fa1923c5c528','photo-1584982751601-97dcc096659c','photo-1576091160399-112ba8d25d1d']]:t.includes('TEA')?['Um espaço para cada descoberta','Cores, vínculo e rotina que acolhe',['photo-1596464716127-f2a82984de30','photo-1503454537195-1dcabb73ffb9','photo-1542810634-71277d95dcbb']]:['Visual systems in motion','A gallery for modern digital craft',['photo-1497366754035-f200968a6e72','photo-1558655146-9f40138edfeb','photo-1497215842964-222b430dc094']];const s=d.createElement('style');s.textContent='.enterprise-photo-deck{width:min(1180px,calc(100% - 2rem));margin:clamp(4rem,9vw,9rem) auto;display:grid;gap:clamp(1.5rem,4vw,4rem);align-items:end}.enterprise-photo-copy{max-width:38rem}.enterprise-photo-copy span{display:block;margin-bottom:.8rem;color:var(--enterprise-accent,var(--acid));font:700 .72rem/1.2 system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase}.enterprise-photo-copy h2{margin:0;font-size:clamp(2rem,5vw,4.8rem);line-height:.96;letter-spacing:-.055em}.enterprise-photo-copy p{margin:1.25rem 0 0;max-width:34rem;line-height:1.65;opacity:.76}.enterprise-photo-grid{display:grid;grid-template-columns:1.15fr .85fr;grid-template-rows:repeat(2,minmax(130px,1fr));gap:clamp(.65rem,1.4vw,1.15rem);min-height:clamp(340px,45vw,590px)}.enterprise-photo-frame{margin:0;overflow:hidden;border-radius:clamp(14px,2vw,26px);background:rgba(127,127,127,.14)}.enterprise-photo-frame:first-child{grid-row:span 2}.enterprise-photo-frame img{width:100%;height:100%;display:block;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}@media(hover:hover){.enterprise-photo-frame:hover img{transform:scale(1.055)}}@media(min-width:760px){.enterprise-photo-deck{grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr)}}@media(max-width:520px){.enterprise-photo-deck{width:calc(100% - 1.25rem);margin:3.5rem auto}.enterprise-photo-grid{min-height:300px;gap:.55rem}}@media(prefers-reduced-motion:reduce){.enterprise-photo-frame img{transition:none}}';d.head.append(s);const deck=d.createElement('section');deck.className='enterprise-photo-deck';deck.setAttribute('aria-label',m[0]);deck.innerHTML='<div class="enterprise-photo-copy"><span>'+m[0]+'</span><h2>'+m[1]+'</h2><p>Fotografias de apoio que tornam a experiência digital mais humana, concreta e memorável.</p></div><div class="enterprise-photo-grid">'+m[2].map((id,i)=>'<figure class="enterprise-photo-frame"><img src="https://images.unsplash.com/'+id+'?auto=format&fit=crop&w='+(i?'900':'1400')+'&q=82" alt="Supporting stock photo" loading="lazy" decoding="async"></figure>').join('')+'</div>';main.append(deck);if(window.gsap&&window.ScrollTrigger&&!matchMedia('(prefers-reduced-motion: reduce)').matches){const ctx=gsap.context(()=>{const mm=gsap.matchMedia();mm.add('(min-width:760px)',()=>gsap.to(deck.querySelectorAll('.enterprise-photo-frame img'),{yPercent:i=>i===0?-7:7,ease:'none',scrollTrigger:{trigger:deck,start:'top bottom',end:'bottom top',scrub:.7}}));gsap.from(deck.querySelectorAll('.enterprise-photo-copy>*,.enterprise-photo-frame'),{autoAlpha:0,y:28,duration:.8,stagger:.1,ease:'power3.out',scrollTrigger:{trigger:deck,start:'top 78%',once:true}});});deck.querySelectorAll('img').forEach(i=>i.addEventListener('load',()=>ScrollTrigger.refresh(),{once:true}));addEventListener('pagehide',()=>ctx.revert(),{once:true});}})();</script>
+<script id="enterprise-photo-placement">(()=>{const d=document,deck=d.querySelector('.enterprise-photo-deck'),main=d.querySelector('main');if(!deck||!main)return;const p=deck.querySelector('p');if(p)p.textContent='Referências materiais e espaciais para sistemas digitais que precisam parecer vivos, claros e deliberados.';const children=[...main.children].filter(el=>el!==deck),anchor=children[Math.ceil(children.length/2)];if(anchor)main.insertBefore(deck,anchor);})();</script>
+</body>
+</html>

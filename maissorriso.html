@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0B332D">
+<title>Mais Sorriso Odontologia — São João da Boa Vista</title>
+<meta name="description" content="Mais Sorriso Odontologia, em São João da Boa Vista - SP. Atendimento odontológico humanizado: clareamento, ortodontia, implantes e estética dental.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A6%B7%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#10302B;
+    --ink-soft:#3A544F;
+    --porcelain:#F3F7F3;
+    --porcelain-2:#EAF2ED;
+    --mint:#D8ECE1;
+    --mint-deep:#B9DCC9;
+    --teal-deep:#0B332D;
+    --teal-deeper:#082722;
+    --rose:#E38598;
+    --rose-deep:#C9647A;
+    --gold:#C69A52;
+    --line:rgba(16,48,43,0.14);
+    --line-light:rgba(243,247,243,0.16);
+    --shadow:0 30px 60px -30px rgba(11,51,45,0.35);
+    --shadow-lg:0 50px 90px -40px rgba(11,51,45,0.45);
+    --ease-out:cubic-bezier(.16,1,.3,1);
+    --disp:'Fraunces', serif;
+    --body:'Manrope', sans-serif;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;}
+  html{scroll-behavior:auto;scroll-padding-top:80px;}
+
+  body{
+    margin:0;
+    font-family:var(--body);
+    color:var(--ink);
+    background:var(--porcelain);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    overflow-x:hidden;
+  }
+  img,svg{display:block;max-width:100%;}
+  a{color:inherit;text-decoration:none;touch-action:manipulation;}
+  ul{list-style:none;margin:0;padding:0;}
+  button{font-family:inherit;touch-action:manipulation;}
+
+  ::selection{background:var(--rose);color:var(--teal-deep);}
+
+  :focus-visible{outline:2.5px solid var(--rose-deep);outline-offset:3px;border-radius:2px;}
+
+  /* Smooth scroll-snap for ScrollSmoother */
+  #smooth-wrapper{overflow:hidden;position:relative;width:100%;contain:layout style;}
+  #smooth-content{overflow:visible;width:100%;}
+  @media (max-width:900px){
+    html,body,#smooth-wrapper,#smooth-content{max-width:100%;overflow-x:clip!important;}
+    .yang-mq{max-width:100vw;}
+    .clinic-strip{max-width:100vw;overflow:hidden;}
+    #smooth-wrapper{overflow:visible!important;position:relative!important;inset:auto!important;height:auto!important;contain:none!important;}
+    #smooth-content{transform:none!important;}
+    body{min-height:100%;height:auto!important;overflow-x:hidden;overflow-y:auto;}
+    html,body{display:flow-root!important;}
+    body > #smooth-wrapper{display:block!important;}
+  }
+
+  .wrap{max-width:1220px;margin:0 auto;padding:0 clamp(20px,5vw,64px);}
+
+  h1,h2,h3{font-family:var(--disp);font-weight:600;line-height:1.05;margin:0;color:var(--ink);}
+  p{margin:0;line-height:1.65;color:var(--ink-soft);}
+
+  .eyebrow{
+    font-family:var(--body);font-weight:700;font-size:.72rem;
+    letter-spacing:.18em;text-transform:uppercase;color:#C9647A;
+    display:inline-flex;align-items:center;gap:.7em;
+  }
+  .eyebrow::before{content:'';width:22px;height:2px;background:#C9647A;display:inline-block;border-radius:2px;}
+
+  /* Performance: content-visibility for below-fold */
+  .about,.stats-band,.clinic-strip,.contact,footer{content-visibility:auto;contain-intrinsic-size:auto 600px;}
+
+  /* ---------- Custom cursor (desktop fine pointer only) ---------- */
+  .cursor-dot,.cursor-ring{
+    position:fixed;top:0;left:0;pointer-events:none;z-index:9999;
+    border-radius:50%;transform:translate3d(-50%,-50%,0);
+    will-change:transform;contain:layout style;
+  }
+  .cursor-dot{width:7px;height:7px;background:var(--rose-deep);}
+  .cursor-ring{width:34px;height:34px;border:1.4px solid var(--rose-deep);opacity:.5;transition:width .35s var(--ease-out),height .35s var(--ease-out),opacity .35s var(--ease-out),background .35s var(--ease-out);}
+  body.cursor-hover .cursor-ring{width:52px;height:52px;opacity:.7;background:rgba(227,133,152,0.08);}
+  body.has-custom-cursor, body.has-custom-cursor a, body.has-custom-cursor button{cursor:none;}
+
+  /* ---------- Scroll progress ---------- */
+  #progress{
+    position:fixed;top:0;left:0;width:100%;height:3px;z-index:600;
+    transform-origin:left center;transform:scaleX(0);
+    background:linear-gradient(90deg, var(--rose), var(--gold));
+    will-change:transform;
+  }
+
+  /* ---------- Loader ---------- */
+  #loader{
+    position:fixed;inset:0;background:var(--teal-deep);
+    display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;
+    z-index:9999;
+  }
+  #loader.hidden{visibility:hidden;pointer-events:none;}
+  #loader .mark{
+    font-family:var(--disp);font-style:italic;font-weight:500;
+    font-size:clamp(1.6rem,4vw,2.5rem);color:var(--mint);letter-spacing:.02em;
+  }
+  #loader .mark .word{display:inline-block;overflow:hidden;}
+  #loader .mark .word i{display:inline-block;font-style:inherit;}
+  #loader .mark em{font-style:italic;color:var(--rose);}
+  #loader .bar{width:110px;height:2px;background:rgba(243,247,243,.18);border-radius:2px;overflow:hidden;}
+  #loader .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--rose),var(--gold));border-radius:2px;}
+  .loader-curtain{
+    position:fixed;inset:0;z-index:9997;background:var(--teal-deep);
+    transform:translateY(0);
+  }
+
+  .no-js [data-reveal], .no-gsap [data-reveal]{opacity:1 !important;}
+  .no-js .hero-title .line-inner,
+  .no-gsap .hero-title .line-inner{transform:translateY(0) !important;}
+  .no-js .hero-eyebrow, .no-gsap .hero-eyebrow,
+  .no-js .hero-sub, .no-gsap .hero-sub,
+  .no-js .hero-actions, .no-gsap .hero-actions,
+  .no-js .hero-aside, .no-gsap .hero-aside,
+  .no-js .scroll-cue, .no-gsap .scroll-cue,
+  .no-js .trust-chips, .no-gsap .trust-chips{opacity:1 !important;}
+
+  /* ---------- Header ---------- */
+  header{position:fixed;top:0;left:0;right:0;z-index:500;padding:18px 0;}
+  header .bar{
+    display:flex;align-items:center;justify-content:space-between;
+    background:rgba(243,247,243,0.72);backdrop-filter:blur(16px) saturate(150%);
+    -webkit-backdrop-filter:blur(16px) saturate(150%);
+    border:1px solid var(--line);border-radius:999px;padding:10px 10px 10px 24px;
+    transition:box-shadow .4s var(--ease-out);
+  }
+  .logo{font-family:var(--disp);font-style:italic;font-weight:600;font-size:1.15rem;color:var(--ink);}
+  .logo em{font-style:normal;color:var(--rose-deep);}
+  nav.primary-nav ul{display:flex;gap:2rem;}
+  nav.primary-nav a{font-size:.86rem;font-weight:600;color:var(--ink-soft);position:relative;padding:4px 0;}
+  nav.primary-nav a.active{color:var(--ink);}
+  nav.primary-nav a::after{content:'';position:absolute;left:0;bottom:-2px;width:0;height:2px;background:var(--rose-deep);transition:width .3s var(--ease-out);border-radius:2px;}
+  nav.primary-nav a:hover::after,nav.primary-nav a.active::after{width:100%;}
+  .header-cta{
+    display:inline-flex;align-items:center;gap:.5rem;background:var(--ink);color:var(--porcelain);
+    padding:11px 22px;border-radius:999px;font-size:.84rem;font-weight:700;white-space:nowrap;
+    transition:background .3s, transform .35s var(--ease-out), color .3s;
+  }
+  .header-cta:hover{background:var(--rose-deep);}
+  .menu-toggle{display:none;background:none;border:none;padding:8px;cursor:pointer;min-width:44px;min-height:44px;}
+  .menu-toggle span{display:block;width:20px;min-height:4px;height:2px;background:var(--ink);margin:4px 0;border-radius:2px;transition:transform .35s var(--ease-out),opacity .3s;}
+  .menu-toggle.is-open span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+  .menu-toggle.is-open span:nth-child(2){opacity:0;}
+  .menu-toggle.is-open span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+
+  /* mobile drawer */
+  .mobile-nav{
+    position:fixed;top:0;right:0;width:min(360px,88vw);height:100svh;height:100dvh;
+    background:var(--teal-deep);z-index:550;padding:6.5rem 2rem 2rem;
+    transform:translateX(101%);
+  }
+  .mobile-nav a{
+    display:block;font-family:var(--disp);font-size:1.7rem;font-weight:600;color:var(--porcelain);
+    padding:1rem 0;border-bottom:1px solid var(--line-light);
+  }
+  .mobile-nav a:active{color:var(--rose);}
+  .mobile-backdrop{
+    position:fixed;inset:0;background:rgba(8,39,34,.5);backdrop-filter:blur(4px);z-index:545;
+    opacity:0;visibility:hidden;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;padding:clamp(160px,22vw,210px) 0 110px;
+    background:var(--teal-deep);
+    overflow:hidden;min-height:100svh;display:flex;align-items:center;
+    contain:layout style;
+  }
+  .hero-media{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
+  .hero-media img{
+    width:100%;height:100%;object-fit:cover;object-position:center 28%;
+    transform:scale(1.06);will-change:transform;
+  }
+  .hero-scrim{
+    position:absolute;inset:0;
+    background:
+      linear-gradient(100deg, rgba(6,34,29,.94) 0%, rgba(11,51,45,.82) 42%, rgba(11,51,45,.45) 72%, rgba(11,51,45,.18) 100%),
+      linear-gradient(0deg, rgba(6,34,29,.55), transparent 45%);
+  }
+  .hero-decor{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden;}
+  .hero-decor svg{position:absolute;}
+  .hero-decor .ring-a{top:12%;right:6%;width:min(24vw,260px);opacity:.6;}
+  .hero-decor .ring-b{bottom:8%;left:3%;width:min(14vw,170px);opacity:.5;}
+  .hero-decor .tooth-outline{top:40%;right:20%;width:min(9vw,110px);opacity:.45;}
+
+  .hero .wrap{position:relative;z-index:2;width:100%;}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:4rem;align-items:end;}
+  .hero-eyebrow{}
+  .hero-title{font-size:clamp(2.7rem, 5.6vw, 4.7rem);letter-spacing:-.01em;color:var(--porcelain);}
+  .hero-title .line{overflow:hidden;display:block;padding-bottom:.08em;}
+  .hero-title .line-inner{display:block;transform-origin:left bottom;}
+  .hero-title i{font-style:italic;font-weight:500;color:var(--rose);}
+  .hero-sub{margin-top:1.7rem;max-width:36ch;font-size:1.08rem;color:rgba(243,247,243,.82);}
+  .hero-actions{display:flex;gap:1rem;margin-top:2.5rem;flex-wrap:wrap;}
+  .hero .btn-ghost{border-color:rgba(243,247,243,.42);color:var(--porcelain);}
+  .hero .btn-ghost:hover{border-color:var(--porcelain);background:rgba(243,247,243,.08);}
+  .btn{
+    display:inline-flex;align-items:center;gap:.55em;padding:15px 28px;border-radius:999px;
+    font-weight:700;font-size:.88rem;position:relative;overflow:hidden;
+    transition:background .3s,color .3s,transform .4s var(--ease-out), box-shadow .4s var(--ease-out);
+    z-index:0;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn .ripple{
+    position:absolute;inset:0;z-index:-1;
+    background:var(--rose-deep);transform:scale(0);border-radius:50%;transform-origin:center;
+  }
+  .btn-solid{background:var(--rose);color:var(--teal-deep);box-shadow:0 18px 40px -18px rgba(201,100,122,.55);}
+  .btn-solid:hover{background:var(--rose-deep);color:var(--porcelain);box-shadow:0 26px 50px -20px rgba(201,100,122,.6);}
+  .btn-ghost{border:1.5px solid var(--line);color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--ink);}
+  .hero-aside{border-left:1px solid rgba(243,247,243,.22);padding-left:2.2rem;}
+  .hero-aside p{font-size:.95rem;color:rgba(243,247,243,.78);}
+  .hero-aside .loc{margin-top:1.2rem;font-family:var(--disp);font-size:1.04rem;color:var(--porcelain);}
+
+  /* trust chips under hero */
+  .trust-chips{display:flex;gap:.8rem;margin-top:2.6rem;flex-wrap:wrap;}
+  .chip{
+    display:inline-flex;align-items:center;gap:.55em;background:rgba(8,39,34,.45);
+    border:1px solid rgba(243,247,243,.24);border-radius:999px;padding:9px 16px;font-size:.78rem;font-weight:700;
+    color:var(--porcelain);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  }
+  .chip svg{width:14px;height:14px;stroke:var(--rose);flex-shrink:0;}
+
+  .scroll-cue{position:absolute;left:50%;bottom:32px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.6rem;z-index:2;}
+  .scroll-cue span{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(243,247,243,.6);}
+  .scroll-cue .line{width:1px;height:36px;background:rgba(243,247,243,.28);position:relative;overflow:hidden;border-radius:1px;}
+  .scroll-cue .line i{position:absolute;top:-100%;left:0;width:100%;height:100%;background:var(--rose);}
+
+  /* ---------- Signature arc ---------- */
+  .arc-section{background:var(--teal-deep);color:var(--porcelain);padding:clamp(100px,13vw,150px) 0;position:relative;overflow:hidden;contain:layout style;}
+  .arc-section .wrap{position:relative;z-index:1;}
+  .arc-section .eyebrow{color:var(--rose);}
+  .arc-section .eyebrow::before{background:var(--rose);}
+  .arc-bg{position:absolute;top:8%;left:0;width:100%;height:86%;pointer-events:none;z-index:0;opacity:.55;}
+  .arc-path{fill:none;stroke:var(--mint);stroke-width:1.6;stroke-linecap:round;}
+  .arc-head{max-width:46ch;margin-bottom:3.6rem;}
+  .arc-head h2{color:var(--porcelain);font-size:clamp(2rem,3.8vw,2.8rem);}
+  .arc-head p{color:rgba(243,247,243,0.66);margin-top:1.1rem;font-size:1.04rem;}
+  .arc-intro{margin-top:2rem;padding-top:2rem;border-top:1px solid var(--line-light);}
+  .arc-intro p{color:rgba(243,247,243,0.75);font-size:1rem;max-width:48ch;}
+
+  .arc-list{border-top:1px solid var(--line-light);}
+  .arc-item{border-bottom:1px solid var(--line-light);}
+  .arc-item-head{
+    width:100%;display:flex;align-items:center;gap:clamp(1rem,3vw,2.2rem);
+    background:none;border:none;padding:clamp(1.4rem,3vw,2.1rem) 0;cursor:pointer;
+    text-align:left;color:var(--porcelain);
+  }
+  .arc-num{
+    font-family:var(--disp);font-style:italic;font-weight:400;
+    font-size:clamp(1.1rem,2vw,1.4rem);color:var(--rose);flex-shrink:0;width:2.4ch;
+  }
+  .arc-title{
+    font-family:var(--disp);font-weight:600;
+    font-size:clamp(1.6rem,4vw,2.7rem);line-height:1.1;flex:1;
+    transition:color .3s, transform .35s var(--ease-out);
+  }
+  .arc-item.is-active .arc-title{color:var(--rose);}
+  .arc-item-head:hover .arc-title{transform:translateX(10px);}
+  .arc-plus{
+    position:relative;width:28px;height:28px;flex-shrink:0;border-radius:50%;
+    border:1px solid rgba(243,247,243,.25);
+  }
+  .arc-plus::before,.arc-plus::after{
+    content:'';position:absolute;top:50%;left:50%;background:var(--porcelain);
+    transition:transform .35s var(--ease-out), background .3s;
+  }
+  .arc-plus::before{width:12px;height:1.6px;transform:translate(-50%,-50%);}
+  .arc-plus::after{width:1.6px;height:12px;transform:translate(-50%,-50%);}
+  .arc-item.is-active .arc-plus{background:rgba(227,133,152,.15);border-color:var(--rose);}
+  .arc-item.is-active .arc-plus::after{transform:translate(-50%,-50%) rotate(90deg);opacity:0;}
+  .arc-item.is-active .arc-plus::before{background:var(--rose);}
+  .arc-item-body{max-height:0;overflow:hidden;}
+  .arc-item-body p{
+    max-width:54ch;padding-bottom:clamp(1.5rem,3vw,2.2rem);
+    padding-left:calc(2.4ch + clamp(1rem,3vw,2.2rem));
+    font-size:1.02rem;color:rgba(243,247,243,0.7);
+  }
+  .no-gsap .arc-item.is-active .arc-item-body,
+  .no-js .arc-item.is-active .arc-item-body{max-height:400px;}
+  @media (max-width:600px){
+    .arc-item-body p{padding-left:0;margin-top:.4rem;}
+  }
+
+  /* ---------- Treatments (horizontal pinned on desktop) ---------- */
+  .treatments{padding:clamp(100px,13vw,140px) 0 0;overflow:hidden;position:relative;contain:layout style;}
+  .treatments::before{
+    content:'';position:absolute;top:60px;right:8%;width:180px;height:180px;
+    border-radius:50%;background:radial-gradient(circle,rgba(227,133,152,.12),transparent 70%);
+    pointer-events:none;
+  }
+  .treatments-decor{
+    position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;
+  }
+  .treatments-decor .decor-dot{
+    position:absolute;width:8px;height:8px;border-radius:50%;background:var(--rose);opacity:.15;
+  }
+  .treatments-decor .decor-dot:nth-child(1){top:80px;left:5%;}
+  .treatments-decor .decor-dot:nth-child(2){top:160px;right:8%;width:12px;height:12px;background:var(--gold);opacity:.12;}
+  .treatments-decor .decor-dot:nth-child(3){bottom:200px;left:18%;width:6px;height:6px;}
+  .treatments-decor .decor-line{
+    position:absolute;width:60px;height:1px;background:var(--line);opacity:.3;transform:rotate(25deg);
+  }
+  .treatments-decor .decor-line:nth-child(4){top:120px;right:15%;}
+  .treatments-decor .decor-line:nth-child(5){bottom:160px;left:8%;transform:rotate(-15deg);width:40px;}
+  .treatments-decor .decor-text{
+    position:absolute;font-family:var(--disp);font-style:italic;font-size:.75rem;
+    color:var(--ink-soft);opacity:.18;white-space:nowrap;
+  }
+  .treatments-decor .decor-text:nth-child(6){top:40px;left:3%;transform:rotate(-8deg);}
+  .treatments-decor .decor-text:nth-child(7){bottom:100px;right:4%;transform:rotate(5deg);}
+  .treatments-decor .decor-emoji{
+    position:absolute;font-size:2.4rem;opacity:.3;cursor:grab;
+    user-select:none;-webkit-user-select:none;pointer-events:all;
+    transition:opacity .3s,transform .3s var(--ease-out);z-index:0;
+    filter:drop-shadow(0 2px 6px rgba(0,0,0,.08));
+  }
+  .treatments-decor .decor-emoji:hover{opacity:.65;transform:scale(1.3) rotate(8deg);}
+  .treatments-decor .decor-emoji:nth-child(8){top:20px;left:4%;font-size:3rem;transform:rotate(-12deg);}
+  .treatments-decor .decor-emoji:nth-child(9){top:70px;right:8%;font-size:2rem;transform:rotate(15deg);}
+  .treatments-decor .decor-emoji:nth-child(10){top:150px;left:18%;font-size:2.2rem;transform:rotate(-6deg);}
+  .treatments-decor .decor-emoji:nth-child(11){top:100px;right:20%;font-size:1.8rem;transform:rotate(10deg);}
+  .treatments-decor .decor-emoji:nth-child(12){bottom:300px;left:6%;font-size:2.6rem;transform:rotate(-20deg);}
+  .treatments-decor .decor-emoji:nth-child(13){bottom:250px;right:5%;font-size:2rem;transform:rotate(8deg);}
+  .treatments-decor .decor-emoji:nth-child(14){bottom:180px;left:15%;font-size:2.2rem;transform:rotate(-10deg);}
+  .treatments-decor .decor-emoji:nth-child(15){bottom:120px;right:12%;font-size:2.8rem;transform:rotate(18deg);}
+  .treatments-decor .decor-emoji:nth-child(16){top:220px;left:10%;font-size:1.8rem;transform:rotate(5deg);}
+  .treatments-decor .decor-emoji:nth-child(17){top:280px;right:15%;font-size:2rem;transform:rotate(-8deg);}
+  .treatments-decor .decor-emoji:nth-child(18){bottom:80px;left:25%;font-size:2.4rem;transform:rotate(12deg);}
+  .treatments-decor .decor-emoji:nth-child(19){bottom:40px;right:22%;font-size:1.6rem;transform:rotate(-15deg);}
+  .treatments-decor .decor-emoji:nth-child(20){top:50px;left:30%;font-size:2rem;transform:rotate(7deg);}
+  .treatments-decor .decor-emoji:nth-child(21){bottom:200px;right:28%;font-size:1.8rem;transform:rotate(-5deg);}
+  .treatments-decor .decor-emoji:nth-child(22){top:180px;left:35%;font-size:2.2rem;transform:rotate(14deg);}
+  .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;margin-bottom:3.4rem;flex-wrap:wrap;padding:0 clamp(20px,5vw,64px);max-width:1220px;margin-left:auto;margin-right:auto;position:relative;z-index:1;}
+  .section-head h2{font-size:clamp(2rem,3.6vw,2.7rem);max-width:15ch;}
+  .section-head p{max-width:34ch;}
+  .head-media{
+    flex:0 0 auto;width:clamp(200px,24vw,280px);aspect-ratio:16/10;border-radius:20px;overflow:hidden;
+    position:relative;box-shadow:var(--shadow);border:1px solid var(--line);
+  }
+  .head-media img{width:100%;height:100%;object-fit:cover;transform:scale(1.04);transition:transform 1.2s var(--ease-out);}
+  .head-media:hover img{transform:scale(1.12);}
+  .head-media::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(11,51,45,.14),transparent 55%);}
+  @media (max-width:700px){ .head-media{display:none;} }
+
+  .track-viewport{width:100%;display:flex;flex-direction:column;gap:1.5rem;}
+  .card-track{display:flex;gap:1.5rem;padding:0 clamp(20px,5vw,64px);align-items:stretch;}
+  .treatments-grid{display:grid;gap:1.2rem;padding:0 clamp(20px,5vw,64px);grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+  @media(min-width:900px){.treatments-grid{grid-template-columns:repeat(2,1fr);gap:1.4rem;}}
+  @media(min-width:1180px){.treatments-grid{grid-template-columns:repeat(3,1fr);}}
+  .treatments-cta{margin:1.5rem clamp(20px,5vw,64px) 0;display:flex;justify-content:center;}
+  .treatments-cta .btn{padding:1.05rem 2rem;font-size:.95rem;gap:9px;}
+  .treatments-cta svg{width:18px;height:18px;}
+  .card{
+    background:var(--porcelain-2);border:1px solid var(--line);border-radius:24px;
+    padding:2.4rem 1.9rem;flex:0 0 clamp(250px,27vw,330px);
+    transition:box-shadow .45s,border-color .45s,background .45s;
+    display:flex;flex-direction:column;position:relative;overflow:hidden;
+  }
+  .card::before{
+    content:'';position:absolute;top:-30px;right:-30px;width:80px;height:80px;
+    border-radius:50%;opacity:0;transition:opacity .4s;
+  }
+  .card::after{
+    content:'';position:absolute;inset:0;border-radius:24px;opacity:0;transition:opacity .4s;
+    background:linear-gradient(135deg,rgba(227,133,152,.06),transparent 60%);
+    pointer-events:none;
+  }
+  .card:hover::before{opacity:1;}
+  .card:hover::after{opacity:1;}
+  .card:nth-child(3n+1)::before{background:radial-gradient(circle,rgba(227,133,152,.15),transparent 70%);}
+  .card:nth-child(3n+2)::before{background:radial-gradient(circle,rgba(198,154,82,.15),transparent 70%);}
+  .card:nth-child(3n)::before{background:radial-gradient(circle,rgba(59,90,74,.15),transparent 70%);}
+  .card:hover{box-shadow:var(--shadow-lg);background:var(--porcelain);border-color:rgba(16,48,43,.06);}
+  .card .num{font-family:var(--disp);font-style:italic;color:var(--rose-deep);font-size:1.05rem;}
+  .card h3{margin-top:1rem;font-size:1.22rem;font-weight:600;}
+  .card p{margin-top:.7rem;font-size:.92rem;flex:1;}
+  .card .card-detail{
+    margin-top:1rem;padding-top:1rem;border-top:1px solid var(--line);
+    font-size:.82rem;color:var(--ink-soft);font-style:italic;
+  }
+  .card .card-link{
+    margin-top:1.4rem;font-size:.8rem;font-weight:700;color:var(--rose-deep);
+    display:inline-flex;align-items:center;gap:.4em;letter-spacing:.04em;
+  }
+  .card .card-link svg{width:14px;height:14px;transition:transform .35s var(--ease-out);}
+  .card:hover .card-link svg{transform:translateX(5px);}
+  @media (min-width:901px){
+    .card-track{padding-bottom:0;width:max-content;}
+    .card-track--b{padding-left:clamp(20px,5vw,64px);padding-right:0;}
+  }
+  @media (max-width:900px){
+    .track-viewport{gap:1.2rem;}
+    .card-track{flex-direction:column;padding:0 clamp(20px,5vw,64px);}
+    .card-track--b{flex-direction:column;}
+    .card{flex:1 1 auto;}
+  }
+
+  /* ---------- Marquee ---------- */
+  .marquee-band{background:var(--ink);padding:2.6rem 0;margin-top:clamp(3rem,5vw,5rem);overflow:hidden;transform:rotate(-.6deg);width:calc(100% + 2vw);margin-left:-1vw;}
+  .marquee-track{display:flex;white-space:nowrap;width:max-content;}
+  .marquee-track span{
+    font-family:var(--disp);font-style:italic;font-size:clamp(1.3rem,2.4vw,1.7rem);color:var(--porcelain);
+    padding:0 1.5rem;opacity:.85;
+  }
+  .marquee-track span::after{content:'✦';margin-left:1.5rem;color:var(--rose);opacity:.65;font-style:normal;font-size:.9em;}
+
+  /* ---------- Sobre (pinned scrollytelling) ---------- */
+  .about{background:var(--mint);contain:layout style;}
+  .about-pin{padding:clamp(100px,13vw,140px) 0;}
+  .about-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:4rem;align-items:center;}
+  .about-visual{
+    border-radius:30px;
+    background:radial-gradient(circle at 30% 20%, rgba(255,255,255,.55), transparent 55%),linear-gradient(155deg, var(--teal-deep), #164941 70%);
+    position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;min-height:420px;
+  }
+  .about-visual .corner-mark{
+    position:absolute;top:1.6rem;right:1.6rem;width:54px;height:54px;z-index:2;
+  }
+  .about-visual .corner-mark svg{width:100%;height:100%;}
+  .about-bg-decor{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    border-radius:30px;opacity:.12;pointer-events:none;
+  }
+  .about-bg-decor--2{
+    object-position:center bottom;opacity:.08;mix-blend-mode:soft-light;
+  }
+  .about-quotes{display:flex;flex-direction:column;gap:1rem;margin-top:auto;}
+  .about-quote-card{
+    background:rgba(243,247,243,0.08);border:1px solid rgba(243,247,243,0.12);
+    border-radius:14px;padding:1.2rem 1.4rem;position:relative;overflow:hidden;
+  }
+  .about-quote-card::before{
+    content:'';position:absolute;top:-20px;right:-20px;width:50px;height:50px;
+    border-radius:50%;background:radial-gradient(circle,rgba(227,133,152,.2),transparent 70%);
+  }
+  .about-quote-icon{
+    font-family:var(--disp);font-size:2.5rem;line-height:1;color:var(--rose);opacity:.5;
+    position:absolute;top:.2rem;left:.8rem;
+  }
+  .about-quote-card p:not(.about-quote-icon){
+    font-family:var(--disp);font-style:italic;font-size:.92rem;line-height:1.5;
+    color:var(--porcelain);position:relative;z-index:1;padding-left:1.4rem;
+  }
+  .about-copy .eyebrow{color:var(--teal-deep);}
+  .about-copy .eyebrow::before{background:var(--teal-deep);}
+  .about-copy h2{margin-top:1rem;font-size:clamp(2rem,3.4vw,2.6rem);}
+  .about-copy p{margin-top:1.2rem;max-width:54ch;color:var(--ink-soft);}
+  .values{margin-top:2.4rem;display:grid;grid-template-columns:1fr 1fr;gap:1.1rem 1.8rem;}
+  .values li{padding-left:1.5rem;position:relative;font-size:.94rem;font-weight:600;color:var(--ink);}
+  .values li::before{content:'';position:absolute;left:0;top:.55em;width:9px;height:9px;border-radius:50%;background:var(--rose-deep);}
+
+  /* ---------- Stats band ---------- */
+  .stats-band{background:var(--teal-deeper);padding:clamp(3.5rem,6vw,5.5rem) 0;color:var(--porcelain);contain:layout style;}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;max-width:1220px;margin:0 auto;padding:0 clamp(20px,5vw,64px);}
+  .stat{text-align:center;position:relative;}
+  .stat:not(:last-child)::after{content:'';position:absolute;right:0;top:12%;height:76%;width:1px;background:var(--line-light);}
+  .stat .num{font-family:var(--disp);font-style:italic;font-weight:500;font-size:clamp(2.2rem,4vw,3.3rem);color:var(--porcelain);line-height:1.1;}
+  .stat .num i{font-style:italic;color:var(--rose);}
+  .stat .num .suf{font-style:italic;color:var(--rose);}
+  .stat .lbl{margin-top:.6rem;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(243,247,243,.6);font-weight:600;}
+  @media (max-width:700px){
+    .stats-grid{grid-template-columns:1fr 1fr;gap:2.2rem 1.4rem;}
+    .stat:nth-child(2)::after{display:none;}
+  }
+
+  /* ---------- Clinic photo marquee ---------- */
+  .clinic-strip{padding:clamp(80px,10vw,120px) 0;background:var(--porcelain);overflow:hidden;position:relative;}
+  .clinic-strip .eyebrow{color:var(--rose-deep);}
+  .clinic-strip .eyebrow::before{background:var(--rose-deep);}
+  .clinic-strip h2{margin-top:1rem;font-size:clamp(1.9rem,3.4vw,2.6rem);max-width:20ch;}
+  .clinic-strip .strip-meta{margin-top:1rem;font-size:.95rem;}
+  .clinic-track{display:flex;gap:1.3rem;width:max-content;margin-top:3rem;will-change:transform;}
+  .clinic-track figure{
+    flex:0 0 clamp(280px,30vw,390px);margin:0;position:relative;overflow:hidden;border-radius:20px;
+    aspect-ratio:16/11;box-shadow:var(--shadow);border:1px solid var(--line);
+  }
+  .clinic-track img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease-out);}
+  .clinic-track figure:hover img{transform:scale(1.09);}
+  .clinic-track figcaption{
+    position:absolute;left:0;bottom:0;right:0;padding:2.4rem 1.2rem .9rem;
+    background:linear-gradient(0deg, rgba(8,39,34,.72), transparent);
+    color:var(--porcelain);font-size:.78rem;font-weight:600;letter-spacing:.04em;
+  }
+  @media (max-width:700px){
+    .clinic-track figure{flex-basis:72vw;}
+  }
+
+  /* ---------- Contato ---------- */
+  .contact{padding:clamp(100px,13vw,140px) 0;}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--ink);border-radius:34px;overflow:hidden;}
+  .contact-info{padding:clamp(2.6rem,4.5vw,4rem);color:var(--porcelain);}
+  .contact-info .eyebrow{color:var(--rose);}
+  .contact-info .eyebrow::before{background:var(--rose);}
+  .contact-info h2{color:var(--porcelain);margin-top:1rem;font-size:clamp(1.9rem,3.2vw,2.4rem);}
+  .contact-info p{color:rgba(243,247,243,0.64);margin-top:1.1rem;max-width:40ch;}
+  .contact-list{margin-top:2.4rem;display:flex;flex-direction:column;gap:1.3rem;}
+  .contact-list li{display:flex;gap:1rem;align-items:flex-start;}
+  .contact-list .ico{width:40px;height:40px;border-radius:50%;background:rgba(243,247,243,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .contact-list .ico svg{width:17px;height:17px;stroke:var(--rose);}
+  .contact-list strong{display:block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(243,247,243,0.48);}
+  .contact-list a, .contact-list span{font-family:var(--disp);font-size:1.08rem;color:var(--porcelain);}
+  .contact-actions{margin-top:2.6rem;display:flex;gap:1rem;flex-wrap:wrap;}
+  .contact-actions .btn-ghost{border-color:rgba(243,247,243,0.3);color:var(--porcelain);}
+  .contact-actions .btn-ghost:hover{border-color:var(--porcelain);}
+  .map-frame{min-height:360px;position:relative;clip-path:inset(0 0 100% 0);}
+  .map-frame iframe{width:100%;height:100%;min-height:360px;border:0;filter:grayscale(.15) contrast(1.05);}
+  @media (max-width:900px){.map-frame{min-height:280px;}}
+
+  /* ---------- Footer ---------- */
+  footer{padding:3.2rem 0 2.4rem;contain:layout style;}
+  .foot-grid{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.2rem;border-top:1px solid var(--line);padding-top:2rem;}
+  footer .logo{font-size:1rem;}
+  footer small{color:var(--ink-soft);font-size:.8rem;}
+  .foot-social{display:flex;gap:.7rem;}
+  .foot-social a{
+    width:40px;height:40px;border-radius:50%;border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;transition:background .3s,border-color .3s;
+  }
+  .foot-social a:hover{background:var(--rose);border-color:var(--rose);}
+  .foot-social svg{width:16px;height:16px;stroke:var(--ink-soft);}
+  .foot-social a:hover svg{stroke:var(--teal-deep);}
+
+  /* Sticky CTA mobile */
+  #sticky-cta{
+    position:fixed;left:0;right:0;bottom:0;z-index:95;
+    display:none;align-items:center;justify-content:center;gap:.6rem;
+    padding:.9rem 1rem calc(.9rem + env(safe-area-inset-bottom));
+    background:linear-gradient(135deg,var(--rose-deep),var(--rose));
+    color:var(--porcelain);
+    font-family:var(--body);font-weight:700;font-size:.85rem;
+    letter-spacing:.03em;text-transform:uppercase;
+    box-shadow:0 -8px 30px -12px rgba(0,0,0,.25);
+  }
+  #sticky-cta svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;}
+  @media(max-width:900px){
+    #sticky-cta{display:flex;}
+    footer{padding-bottom:calc(28px + 56px);}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
+    html{scroll-behavior:auto !important;}
+    .hero-title .line>span{transform:none!important;opacity:1!important;}
+    .hero-eyebrow,.hero-sub,.hero-actions,.hero-aside,.scroll-cue,.trust-chips{opacity:1!important;transform:none!important;visibility:visible!important;}
+    .decor-emoji{animation:none!important;opacity:.4!important;}
+    .marquee-track{animation:none!important;transform:none!important;}
+    .section-head,[data-reveal],.service-card,.value-card,.stat-card{opacity:1!important;transform:none!important;visibility:visible!important;}
+  }
+  @media not all and (hover:hover) and (pointer:fine){
+    .cursor-dot,.cursor-ring{display:none;}
+  }
+
+  @media (max-width:900px){
+    nav.primary-nav, .header-cta{display:none;}
+    .menu-toggle{display:block;}
+    .hero-grid{grid-template-columns:1fr;gap:2.6rem;}
+    .hero-aside{border-left:none;border-top:1px solid var(--line);padding-left:0;padding-top:1.8rem;}
+    .about-grid, .contact-grid{grid-template-columns:1fr;}
+    .values{grid-template-columns:1fr;}
+    .treatments-decor .decor-emoji{opacity:.18;font-size:1.8rem;}
+  }
+  @media (max-width:600px){
+    .hero-grid{gap:1.8rem;}
+    .treatments-decor .decor-emoji{display:none;}
+    .values{grid-template-columns:1fr;}
+    footer{padding-bottom:calc(28px + 56px);}
+  }
+</style>
+<style id="enterprise-ux-polish">
+  :root{--enterprise-accent:var(--rose);--enterprise-ink:var(--teal-deep);}html{scrollbar-color:var(--enterprise-accent) transparent;}body{min-height:100%;text-rendering:optimizeLegibility;}img{max-width:100%;height:auto;}
+  .enterprise-progress{position:fixed;inset:0 auto auto 0;z-index:9999;width:100%;height:3px;background:var(--enterprise-accent);transform:scaleX(0);transform-origin:left;pointer-events:none;}.enterprise-skip{position:fixed;z-index:10000;left:1rem;top:-4rem;padding:.75rem 1rem;border-radius:999px;background:var(--teal-deep);color:var(--porcelain);font:700 .78rem/1 var(--body);letter-spacing:.06em;transition:top .2s var(--ease-out);}.enterprise-skip:focus{top:1rem;outline:3px solid var(--enterprise-accent);outline-offset:3px;}
+  :where(a,button,input,select,textarea,[tabindex]):focus-visible{outline:3px solid var(--enterprise-accent)!important;outline-offset:4px;border-radius:4px;}@media(hover:hover) and (pointer:fine){.service-card,.team-card,.testimonial-card{transition:transform .25s var(--ease-out),box-shadow .25s var(--ease-out);}.service-card:hover,.team-card:hover,.testimonial-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}}@media(max-width:700px){.enterprise-progress{height:2px}.enterprise-skip{left:.75rem}body{padding-bottom:env(safe-area-inset-bottom)}}@media(prefers-reduced-motion:reduce){.enterprise-progress{display:none}.enterprise-skip{transition:none}}
+</style>
+</head>
+<body class="no-js">
+
+<!-- Yang Tech Marquee -->
+<style>
+body{padding-top:30px !important;padding-bottom:30px !important}
+.yang-mq{position:fixed;left:0;right:0;z-index:99980;height:30px;overflow:hidden;font-family:'Playfair Display',serif;pointer-events:auto;transition:filter .4s cubic-bezier(.4,0,.2,1),background .4s;cursor:auto !important}
+.yang-mq *,.yang-mq *::before,.yang-mq *::after{cursor:auto !important}
+.yang-mq__btn{display:inline-flex;align-items:center;background:rgba(255,255,255,.18);color:inherit;padding:2px 10px;border-radius:3px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;transition:background .3s,transform .2s;text-decoration:none}
+.yang-mq__btn:hover{background:rgba(255,255,255,.32);transform:scale(1.05)}
+.yang-mq--top{top:0}
+.yang-mq--btm{bottom:0;top:auto}
+.yang-mq__inner{display:flex;white-space:nowrap;height:100%;align-items:center;width:max-content}
+.yang-mq__item{display:inline-flex;align-items:center;gap:10px;padding:0 clamp(16px,3vw,28px);font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;flex-shrink:0;transition:color .4s}
+.yang-mq__item svg{width:11px;height:11px;flex-shrink:0;fill:currentColor;transition:fill .4s,transform .3s}
+.yang-mq__item a{color:inherit;text-decoration:none;transition:color .3s,opacity .3s;display:inline-flex;align-items:center;gap:7px}
+.yang-mq__item a:hover{opacity:.7}
+.yang-mq__item a:hover svg{transform:scale(1.15)}
+.yang-mq__sep{width:4px;height:4px;border-radius:50%;background:currentColor;opacity:.45;flex-shrink:0;transition:opacity .4s,transform .4s}
+.yang-mq--top .yang-mq__inner{animation:yangTopScroll 30s linear infinite}
+.yang-mq--btm .yang-mq__inner{animation:yangBtmScroll 24s linear infinite}
+@keyframes yangTopScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes yangBtmScroll{0%{transform:translateX(-50%)}100%{transform:translateX(0)}}
+.yang-mq--top{background:linear-gradient(90deg,#000 0%,#1a1a1a 50%,#000 100%);background-size:200% 100%;animation:bgShift 6s ease-in-out infinite alternate;color:#fff;border-bottom:1px solid rgba(255,255,255,.12)}
+.yang-mq--btm{background:linear-gradient(90deg,#111 0%,#222 50%,#111 100%);background-size:200% 100%;animation:bgShift 6s ease-in-out infinite alternate-reverse;color:#fff;border-top:1px solid rgba(255,255,255,.12)}
+@keyframes bgShift{0%{background-position:0% 50%}100%{background-position:100% 50%}}
+.yang-mq:hover{filter:brightness(1.6);z-index:99981}
+.yang-mq:hover .yang-mq__sep{transform:rotate(90deg)}
+.yang-mq:hover .yang-mq__inner{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){.yang-mq__inner,.yang-mq--top,.yang-mq--btm{animation:none!important}}
+</style>
+<div class="yang-mq yang-mq--top" aria-label="Aviso de site demonstrativo">
+<div class="yang-mq__inner">
+<span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span><span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span><span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span><span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span><span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span><span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span><span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span><span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span>
+</div>
+</div>
+<div class="yang-mq yang-mq--btm" aria-label="Contatos da Yang Tech">
+<div class="yang-mq__inner">
+<span class="yang-mq__item"><a href="https://instagram.com/yang.techno" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>instagram.com/yang.techno</a> <span class="yang-mq__sep"></span> <a href="mailto:public.yangtech@gmail.com"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>public.yangtech@gmail.com</a></span><span class="yang-mq__item"><a href="https://instagram.com/yang.techno" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>instagram.com/yang.techno</a> <span class="yang-mq__sep"></span> <a href="mailto:public.yangtech@gmail.com"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>public.yangtech@gmail.com</a></span><span class="yang-mq__item"><a href="https://instagram.com/yang.techno" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>instagram.com/yang.techno</a> <span class="yang-mq__sep"></span> <a href="mailto:public.yangtech@gmail.com"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>public.yangtech@gmail.com</a></span><span class="yang-mq__item"><a href="https://instagram.com/yang.techno" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>instagram.com/yang.techno</a> <span class="yang-mq__sep"></span> <a href="mailto:public.yangtech@gmail.com"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>public.yangtech@gmail.com</a></span><span class="yang-mq__item"><a href="https://instagram.com/yang.techno" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>instagram.com/yang.techno</a> <span class="yang-mq__sep"></span> <a href="mailto:public.yangtech@gmail.com"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>public.yangtech@gmail.com</a></span><span class="yang-mq__item"><a href="https://instagram.com/yang.techno" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>instagram.com/yang.techno</a> <span class="yang-mq__sep"></span> <a href="mailto:public.yangtech@gmail.com"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>public.yangtech@gmail.com</a></span><span class="yang-mq__item"><a href="https://instagram.com/yang.techno" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>instagram.com/yang.techno</a> <span class="yang-mq__sep"></span> <a href="mailto:public.yangtech@gmail.com"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>public.yangtech@gmail.com</a></span><span class="yang-mq__item"><a href="https://instagram.com/yang.techno" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>instagram.com/yang.techno</a> <span class="yang-mq__sep"></span> <a href="mailto:public.yangtech@gmail.com"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>public.yangtech@gmail.com</a></span>
+</div>
+</div>
+<!-- /Yang Tech Marquee -->
+
+<div id="progress"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+<div id="loader" role="status" aria-live="polite" aria-label="Carregando página">
+  <div class="mark"><span class="word"><i>Mais </i></span><span class="word"><em>Sorriso</em></span></div>
+  <div class="bar" aria-hidden="true"><i></i></div>
+</div>
+<div class="loader-curtain" id="curtain" aria-hidden="true"></div>
+
+<!-- Sticky CTA mobile -->
+<a id="sticky-cta" href="https://wa.me/5519991621512" target="_blank" rel="noopener" aria-label="Agende pelo WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.9 21 3 13.1 3 3c0-.6.4-1 1-1h3.2c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.3 1.1L6.6 10.8z"/></svg>
+  Agendar pelo WhatsApp
+</a>
+
+<header>
+  <div class="wrap bar">
+    <a href="#top" class="logo" data-anchor>Mais<em>Sorriso</em></a>
+    <nav class="primary-nav" aria-label="Menu principal">
+      <ul>
+        <li><a href="#tratamentos" data-anchor data-section="tratamentos">Tratamentos</a></li>
+        <li><a href="#sobre" data-anchor data-section="sobre">Sobre</a></li>
+        <li><a href="#contato" data-anchor data-section="contato">Contato</a></li>
+      </ul>
+    </nav>
+    <a class="header-cta magnetic" href="tel:+5519991621512">(19) 99162-1512</a>
+    <button type="button" class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-backdrop" id="mobileBackdrop" aria-hidden="true"></div>
+<nav class="mobile-nav" id="mobileNav" aria-label="Menu mobile" aria-hidden="true">
+  <a href="#tratamentos" data-anchor-mobile>Tratamentos</a>
+  <a href="#sobre" data-anchor-mobile>Sobre</a>
+  <a href="#contato" data-anchor-mobile>Contato</a>
+  <a href="tel:+5519991621512" style="border:none;color:var(--rose)">(19) 99162-1512</a>
+</nav>
+
+<div id="smooth-wrapper">
+<div id="smooth-content">
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-media" aria-hidden="true">
+      <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&q=80" alt="Sorriso dental" fetchpriority="high" decoding="async">
+      <div class="hero-scrim"></div>
+    </div>
+    <div class="hero-decor" aria-hidden="true">
+      <svg class="ring-a parallax-el" data-depth="0.4" viewBox="0 0 200 200"><circle cx="100" cy="100" r="98" fill="none" stroke="#EAF2ED" stroke-opacity="0.3" stroke-width="1.5"/></svg>
+      <svg class="ring-b parallax-el" data-depth="0.7" viewBox="0 0 200 200"><circle cx="100" cy="100" r="98" fill="none" stroke="#C9647A" stroke-opacity="0.45" stroke-width="1.5"/></svg>
+      <svg class="tooth-outline parallax-el" data-depth="0.55" viewBox="0 0 100 120"><path d="M50 5C25 5 15 25 15 50c0 25 8 45 15 60 5 10 12 5 13-5 1-8 4-8 5 0 1 10 8 15 13 5 7-15 15-35 15-60C76 25 66 5 50 5Z" fill="none" stroke="#EAF2ED" stroke-opacity="0.35" stroke-width="1.5"/></svg>
+    </div>
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow hero-eyebrow">Odontologia em São João da Boa Vista</p>
+        <h1 class="hero-title">
+          <span class="line"><span class="line-inner">Cuidado que se vê</span></span>
+          <span class="line"><span class="line-inner">a cada <i>sorriso</i>.</span></span>
+        </h1>
+        <p class="hero-sub">Tratamentos odontológicos completos, com escuta atenta e técnica cuidadosa — para você sorrir sem pensar duas vezes.</p>
+        <div class="hero-actions">
+          <a class="btn btn-solid magnetic" href="https://wa.me/5519991621512" target="_blank" rel="noopener">Agendar consulta
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn-ghost magnetic" href="tel:+5519991621512">Ligar agora</a>
+        </div>
+        <div class="trust-chips">
+          <span class="chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            Atendimento humanizado
+          </span>
+          <span class="chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            Planejamento sem pressa
+          </span>
+          <span class="chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            No Centro de SJBV
+          </span>
+        </div>
+      </div>
+      <div class="hero-aside">
+        <p>A Mais Sorriso Odontologia reúne clareamento, ortodontia, implantes e estética dental num único endereço, no coração do Centro.</p>
+        <p class="loc">R. Ademar de Barros, 73 — Centro<br>São João da Boa Vista, SP</p>
+      </div>
+    </div>
+    <div class="scroll-cue"><span>Role</span><div class="line"><i id="cueLine"></i></div></div>
+  </section>
+
+  <!-- SIGNATURE ARC -->
+  <section class="arc-section" id="tratamentos">
+    <svg class="arc-bg" viewBox="0 0 1100 500" preserveAspectRatio="none" aria-hidden="true">
+      <path class="arc-path" id="smileArc" d="M40,40 C 300,460 800,460 1060,40" />
+    </svg>
+    <div class="wrap">
+      <div class="arc-head">
+        <p class="eyebrow" data-reveal>Nossa arcada de cuidados</p>
+        <h2 data-reveal>Quatro frentes, um único objetivo: o seu sorriso.</h2>
+        <p data-reveal>Role para acompanhar cada especialidade, ou toque numa linha para abrir os detalhes.</p>
+        <div class="arc-intro" data-reveal>
+          <p>Cada especialidade é conduzida com técnica atualizada e escuta atenta — porque transformar sorrisos exige cuidado em cada detalhe.</p>
+        </div>
+      </div>
+      <ul class="arc-list">
+        <li class="arc-item is-active" data-idx="0">
+          <button type="button" class="arc-item-head" id="arc-q-1" aria-expanded="true" aria-controls="arc-a-1">
+            <span class="arc-num">01</span>
+            <span class="arc-title">Clareamento</span>
+            <span class="arc-plus" aria-hidden="true"></span>
+          </button>
+          <div class="arc-item-body" id="arc-a-1" role="region" aria-labelledby="arc-q-1">
+            <p>Técnicas de consultório e caseiras para um branco natural, respeitando a sensibilidade de cada dente.</p>
+          </div>
+        </li>
+        <li class="arc-item" data-idx="1">
+          <button type="button" class="arc-item-head" id="arc-q-2" aria-expanded="false" aria-controls="arc-a-2">
+            <span class="arc-num">02</span>
+            <span class="arc-title">Ortodontia</span>
+            <span class="arc-plus" aria-hidden="true"></span>
+          </button>
+          <div class="arc-item-body" id="arc-a-2" role="region" aria-labelledby="arc-q-2">
+            <p>Aparelhos fixos e alinhadores, com acompanhamento próximo em cada etapa do movimento dos dentes.</p>
+          </div>
+        </li>
+        <li class="arc-item" data-idx="2">
+          <button type="button" class="arc-item-head" id="arc-q-3" aria-expanded="false" aria-controls="arc-a-3">
+            <span class="arc-num">03</span>
+            <span class="arc-title">Implantes</span>
+            <span class="arc-plus" aria-hidden="true"></span>
+          </button>
+          <div class="arc-item-body" id="arc-a-3" role="region" aria-labelledby="arc-q-3">
+            <p>Reposição de dentes perdidos com planejamento cuidadoso, do diagnóstico à reabilitação final.</p>
+          </div>
+        </li>
+        <li class="arc-item" data-idx="3">
+          <button type="button" class="arc-item-head" id="arc-q-4" aria-expanded="false" aria-controls="arc-a-4">
+            <span class="arc-num">04</span>
+            <span class="arc-title">Estética dental</span>
+            <span class="arc-plus" aria-hidden="true"></span>
+          </button>
+          <div class="arc-item-body" id="arc-a-4" role="region" aria-labelledby="arc-q-4">
+            <p>Facetas, lentes e restaurações que respeitam a harmonia natural do seu sorriso.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- TREATMENTS CARDS (horizontal pinned) -->
+  <section class="treatments" id="treatments-cards">
+    <div class="treatments-decor" aria-hidden="true">
+      <div class="decor-dot"></div><div class="decor-dot"></div><div class="decor-dot"></div>
+      <div class="decor-line"></div><div class="decor-line"></div>
+      <span class="decor-text">seu sorriso, nosso cuidado</span>
+      <span class="decor-text">tecnologia + carinho</span>
+      <span class="decor-emoji" data-draggable>🦷</span>
+      <span class="decor-emoji" data-draggable>✨</span>
+      <span class="decor-emoji" data-draggable>💎</span>
+      <span class="decor-emoji" data-draggable>🪥</span>
+      <span class="decor-emoji" data-draggable>😁</span>
+      <span class="decor-emoji" data-draggable>🩺</span>
+      <span class="decor-emoji" data-draggable>💊</span>
+      <span class="decor-emoji" data-draggable>🔬</span>
+      <span class="decor-emoji" data-draggable>🛡️</span>
+      <span class="decor-emoji" data-draggable>🩹</span>
+      <span class="decor-emoji" data-draggable>👶</span>
+      <span class="decor-emoji" data-draggable>🌿</span>
+      <span class="decor-emoji" data-draggable>🎯</span>
+      <span class="decor-emoji" data-draggable>❤️</span>
+      <span class="decor-emoji" data-draggable>🏥</span>
+    </div>
+    <div class="section-head">
+      <div>
+        <h2 data-reveal>Tratamentos pensados para cada fase do seu sorriso</h2>
+        <p data-reveal>Da manutenção do dia a dia a procedimentos mais completos, com planejamento individual para cada paciente.</p>
+      </div>
+      <div class="head-media" data-reveal>
+        <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&q=80" alt="Cuidado dental profissional" loading="lazy" decoding="async">
+      </div>
+    </div>
+    <div class="track-viewport">
+      <div class="treatments-grid" id="treatmentsGrid">
+        <article class="card" data-reveal><span class="num">01</span><h3>Clareamento dental</h3><p>Técnicas de consultório e caseiras para um branco natural, respeitando a sensibilidade de cada dente.</p><span class="card-detail">Fórmulas personalizadas · Resultados em poucas sessões</span></article>
+        <article class="card" data-reveal data-lag=".04"><span class="num">02</span><h3>Ortodontia</h3><p>Aparelhos fixos e alinhadores, com acompanhamento próximo em cada etapa do movimento dos dentes.</p><span class="card-detail">Alinhadores transparentes · Aparelhos estéticos</span></article>
+        <article class="card" data-reveal data-lag=".08"><span class="num">03</span><h3>Implantes</h3><p>Reposição de dentes perdidos com planejamento cuidadoso, do diagnóstico à reabilitação final.</p><span class="card-detail">Planejamento digital · Próteses sobre implantes</span></article>
+        <article class="card" data-reveal data-lag=".12"><span class="num">04</span><h3>Estética dental</h3><p>Facetas, lentes e restaurações que respeitam a harmonia natural do seu sorriso.</p><span class="card-detail">Lentes de contato dental · Facetas de porcelana</span></article>
+        <article class="card" data-reveal data-lag=".16"><span class="num">05</span><h3>Limpeza e prevenção</h3><p>Profilaxia periódica para manter a saúde bucal em dia e evitar problemas maiores.</p><span class="card-detail">Limpeza profunda · Aplicação de flúor</span></article>
+        <article class="card" data-reveal data-lag=".20"><span class="num">06</span><h3>Próteses dentárias</h3><p>Próteses fixas e removíveis para devolver a função mastigatória e a estética do sorriso.</p><span class="card-detail">Próteses sobre implantes · Metalocerâmica</span></article>
+        <article class="card" data-reveal data-lag=".24"><span class="num">07</span><h3>Odontopediatria</h3><p>Cuidado dental para crianças em ambiente lúdico e acolhedor, prevenindo desde cedo.</p><span class="card-detail">Atendimento humanizado · Foco na prevenção</span></article>
+        <article class="card" data-reveal data-lag=".28"><span class="num">08</span><h3>Emergência dental</h3><p>Atendimento rápido para dores intensas, fraturas e situações que não podem esperar.</p><span class="card-detail">Agenda prioritária · Atendimento no mesmo dia</span></article>
+        <article class="card" data-reveal data-lag=".32"><span class="num">09</span><h3>Periodontia</h3><p>Tratamento de gengivite e periodontite com raspagem, alisamento e acompanhamento.</p><span class="card-detail">Tratamento minimamente invasivo · Controle rigoroso</span></article>
+        <article class="card" data-reveal data-lag=".36"><span class="num">10</span><h3>Harmonização orofacial</h3><p>Procedimentos que equilibram estética e função para um sorriso harmonioso e natural.</p><span class="card-detail">Bichectomia · Alongamento de coroa</span></article>
+      </div>
+      <!-- single CTA at end of grid -->
+      <div class="treatments-cta" data-reveal>
+        <a class="btn btn-solid magnetic" href="https://wa.me/5519991621512" target="_blank" rel="noopener">
+          Agendar avaliação
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-band" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Acolhimento</span><span>Precisão</span><span>Confiança</span><span>Cuidado</span><span>Escuta</span><span>Detalhe</span><span>Carinho</span><span>Qualidade</span>
+      <span>Acolhimento</span><span>Precisão</span><span>Confiança</span><span>Cuidado</span><span>Escuta</span><span>Detalhe</span><span>Carinho</span><span>Qualidade</span>
+    </div>
+  </div>
+
+  <!-- SOBRE -->
+  <section class="about" id="sobre">
+    <div class="about-pin">
+      <div class="wrap about-grid">
+        <div class="about-visual">
+          <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80" alt="" class="about-bg-decor" aria-hidden="true" loading="lazy" decoding="async">
+          <img src="maissorriso-assets/0 (3).jpeg" alt="" class="about-bg-decor about-bg-decor--2" aria-hidden="true" loading="lazy" decoding="async">
+          <div class="corner-mark" aria-hidden="true">
+            <svg viewBox="0 0 100 120"><path d="M50 5C25 5 15 25 15 50c0 25 8 45 15 60 5 10 12 5 13-5 1-8 4-8 5 0 1 10 8 15 13 5 7-15 15-35 15-60C76 25 66 5 50 5Z" fill="none" stroke="#E38598" stroke-width="2" stroke-opacity="0.9"/></svg>
+          </div>
+          <div class="about-quotes">
+            <div class="about-quote-card" data-reveal>
+              <p class="about-quote-icon" aria-hidden="true">"</p>
+              <p>"Cada sorriso tem sua própria história — nosso trabalho é cuidar dela com atenção."</p>
+            </div>
+            <div class="about-quote-card" data-reveal>
+              <p class="about-quote-icon" aria-hidden="true">"</p>
+              <p>"Explicamos cada etapa do tratamento, sem pressa, para que você decida com clareza."</p>
+            </div>
+            <div class="about-quote-card" data-reveal>
+              <p class="about-quote-icon" aria-hidden="true">"</p>
+              <p>"Um espaço no Centro de São João da Boa Vista pensado para o seu conforto."</p>
+            </div>
+          </div>
+        </div>
+        <div class="about-copy">
+          <p class="eyebrow" data-reveal>Sobre a clínica</p>
+          <h2 data-reveal>Tecnologia, leveza e um atendimento próximo no Centro de São João da Boa Vista</h2>
+          <p data-reveal>A Mais Sorriso Odontologia nasceu para ser um endereço de confiança para toda a família: um espaço onde cada tratamento é explicado com calma, sem pressa e sem surpresas.</p>
+          <p data-reveal>Nossa equipe acredita que um sorriso bonito começa com cuidado genuíno. Por isso, investimos em tecnologia moderna e em um atendimento que coloca você no centro de cada decisão.</p>
+          <ul class="values" data-reveal>
+            <li>Atendimento humanizado</li>
+            <li>Planejamento individual</li>
+            <li>Ambiente acolhedor</li>
+            <li>Acompanhamento contínuo</li>
+            <li>Tecnologia atualizada</li>
+            <li>Equipe experiente</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats-band" id="stats">
+    <div class="stats-grid">
+      <div class="stat"><div class="num" data-count="4"><i>0</i><span class="suf"></span></div><div class="lbl">Especialidades</div></div>
+      <div class="stat"><div class="num" data-count="15"><i>0</i><span class="suf"></span></div><div class="lbl">Anos de experiência</div></div>
+      <div class="stat"><div class="num" data-count="1000"><i>0</i><span class="suf"></span></div><div class="lbl">Pacientes atendidos</div></div>
+      <div class="stat"><div class="num" data-count="100"><i>0</i><span class="suf">%</span></div><div class="lbl">Feito com cuidado</div></div>
+    </div>
+  </section>
+
+  <!-- CLINIC PHOTO MARQUEE -->
+  <section class="clinic-strip" id="clinica" aria-label="Estrutura da clínica">
+    <div class="wrap">
+      <p class="eyebrow" data-reveal>Conheça o espaço</p>
+      <h2 data-reveal>Um ambiente pensado para o seu conforto</h2>
+      <p class="strip-meta" data-reveal>Estrutura completa no Centro de São João da Boa Vista — da recepção ao equipamento de última geração.</p>
+    </div>
+    <div class="clinic-track" id="clinicTrack">
+      <figure><img src="maissorriso-assets/0 (7).jpeg" alt="Recepção da Mais Sorriso" loading="lazy" decoding="async"><figcaption>Recepção acolhedora</figcaption></figure>
+      <figure><img src="maissorriso-assets/0 (8).jpeg" alt="Consultório da Mais Sorriso" loading="lazy" decoding="async"><figcaption>Consultório equipado</figcaption></figure>
+      <figure><img src="maissorriso-assets/0 (6).jpeg" alt="Sala de atendimento" loading="lazy" decoding="async"><figcaption>Atendimento cuidadoso</figcaption></figure>
+      <figure><img src="maissorriso-assets/0 (1).jpeg" alt="Estrutura da clínica" loading="lazy" decoding="async"><figcaption>Tecnologia em cada detalhe</figcaption></figure>
+      <figure><img src="maissorriso-assets/0 (2).jpeg" alt="Ambiente da clínica" loading="lazy" decoding="async"><figcaption>Ambiente calmo</figcaption></figure>
+      <figure><img src="maissorriso-assets/0 (5).jpeg" alt="Estrutura completa" loading="lazy" decoding="async"><figcaption>Estrutura completa</figcaption></figure>
+      <figure><img src="maissorriso-assets/0 (7).jpeg" alt="Recepção da Mais Sorriso" loading="lazy" decoding="async"><figcaption>Recepção acolhedora</figcaption></figure>
+      <figure><img src="maissorriso-assets/0 (8).jpeg" alt="Consultório da Mais Sorriso" loading="lazy" decoding="async"><figcaption>Consultório equipado</figcaption></figure>
+      <figure><img src="maissorriso-assets/0 (6).jpeg" alt="Sala de atendimento" loading="lazy" decoding="async"><figcaption>Atendimento cuidadoso</figcaption></figure>
+      <figure><img src="maissorriso-assets/0 (1).jpeg" alt="Estrutura da clínica" loading="lazy" decoding="async"><figcaption>Tecnologia em cada detalhe</figcaption></figure>
+      <figure><img src="maissorriso-assets/0 (2).jpeg" alt="Ambiente da clínica" loading="lazy" decoding="async"><figcaption>Ambiente calmo</figcaption></figure>
+      <figure><img src="maissorriso-assets/0 (5).jpeg" alt="Estrutura completa" loading="lazy" decoding="async"><figcaption>Estrutura completa</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section class="contact" id="contato">
+    <div class="wrap">
+      <div class="contact-grid">
+        <div class="contact-info" data-reveal>
+          <p class="eyebrow">Fale com a gente</p>
+          <h2>Vamos cuidar do seu sorriso</h2>
+          <p>Agende sua avaliação por telefone ou WhatsApp — respondemos com carinho todos os detalhes antes da sua consulta.</p>
+          <ul class="contact-list">
+            <li>
+              <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5a2 2 0 0 1 2-2h3l2 5-2.5 1.5a11 11 0 0 0 5 5L14 12l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 5Z"/></svg></span>
+              <div><strong>Telefone / WhatsApp</strong><a href="tel:+5519991621512">(19) 99162-1512</a></div>
+            </li>
+            <li>
+              <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+              <div><strong>Endereço</strong><span>R. Ademar de Barros, 73 — Centro<br>São João da Boa Vista, SP — 13870-080</span></div>
+            </li>
+            <li>
+              <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+              <div><strong>Horário</strong><span>Segunda a sexta, 8h às 18h<br>Sábado, 8h às 12h</span></div>
+            </li>
+          </ul>
+          <div class="contact-actions">
+            <a class="btn btn-solid magnetic" href="https://wa.me/5519991621512" target="_blank" rel="noopener">Agendar pelo WhatsApp
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="btn btn-ghost magnetic" href="tel:+5519991621512">Ligar agora</a>
+          </div>
+        </div>
+        <div class="map-frame" id="mapFrame" data-reveal>
+          <iframe title="Mapa - Mais Sorriso Odontologia" src="https://www.google.com/maps?q=R.+Ademar+de+Barros,+73+-+Centro,+S%C3%A3o+Jo%C3%A3o+da+Boa+Vista+-+SP,+13870-080&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-grid">
+    <a href="#top" class="logo" data-anchor>Mais<em>Sorriso</em></a>
+    <div class="foot-social">
+      <a href="https://wa.me/5519991621512" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.5-5A9 9 0 1 1 8 19.5L3 21Z"/><path d="M8.5 10.5c.2 1 1 2.5 2.2 3.5s2.6 1.6 3.5 1.5c1-.1 1.5-1.2 1.7-1.7.1-.5-.1-.8-.5-.9l-1.8-.6c-.4-.1-.7 0-.9.3l-.6.8c-.3.4-1 .2-1.8-.6s-1-1.5-.6-1.8l.8-.6c.3-.2.4-.5.3-.9l-.6-1.8c-.1-.4-.4-.6-.9-.5-.5.2-1.6.7-1.7 1.7 0 .4 0 1 .2 1.7Z"/></svg>
+      </a>
+      <a href="tel:+5519991621512" aria-label="Telefone">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5a2 2 0 0 1 2-2h3l2 5-2.5 1.5a11 11 0 0 0 5 5L14 12l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 5Z"/></svg>
+      </a>
+    </div>
+    <small>R. Ademar de Barros, 73 — Centro, São João da Boa Vista - SP · (19) 99162-1512</small>
+  </div>
+</footer>
+
+</div>
+</div>
+
+<!-- GSAP 3.15 — all free plugins -->
+<script src="vendor/gsap/gsap.min.js"></script>
+<script src="vendor/gsap/ScrollTrigger.min.js"></script>
+<script src="vendor/gsap/ScrollSmoother.min.js"></script>
+<script src="vendor/gsap/Observer.min.js"></script>
+<script src="vendor/gsap/Draggable.min.js"></script>
+<script src="vendor/gsap/InertiaPlugin.min.js"></script>
+
+<script>
+(function(){
+  'use strict';
+  document.body.classList.remove('no-js');
+
+  var HAS_GSAP  = typeof window.gsap !== 'undefined';
+  var HAS_ST    = HAS_GSAP && typeof window.ScrollTrigger !== 'undefined';
+  var REDUCED   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var FINE_POINTER = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  /* ============ helpers ============ */
+  function hideLoader(){
+    var l = document.getElementById('loader');
+    if(l){ l.classList.add('hidden'); l.setAttribute('aria-hidden', 'true'); window.setTimeout(function(){ l.remove(); }, 500); }
+  }
+  function revealAllStatic(){
+    document.querySelectorAll('[data-reveal]').forEach(function(el){ el.style.opacity = '1'; el.style.transform = 'none'; });
+    var mf = document.getElementById('mapFrame');
+    if(mf) mf.style.clipPath = 'inset(0 0 0 0)';
+    document.body.classList.add('no-gsap');
+  }
+
+  /* ============ mobile menu ============ */
+  (function(){
+    var btn = document.querySelector('.menu-toggle');
+    var nav = document.getElementById('mobileNav');
+    var backdrop = document.getElementById('mobileBackdrop');
+    if(!btn || !nav) return;
+    var isOpen = false;
+    var removeTrap = null;
+    function trapFocus(menuEl) {
+      var focusable = menuEl.querySelectorAll('a, button, [tabindex]');
+      var first = focusable[0], last = focusable[focusable.length - 1];
+      if(first) first.focus();
+      function handler(e) {
+        if (e.key === 'Escape') { close(); return; }
+        if (e.key !== 'Tab') return;
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); if(last) last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); if(first) first.focus(); }
+      }
+      document.addEventListener('keydown', handler);
+      return function() { document.removeEventListener('keydown', handler); };
+    }
+    function close(){
+      isOpen = false;
+      if(removeTrap) removeTrap(); removeTrap = null;
+      btn.classList.remove('is-open');
+      btn.setAttribute('aria-expanded','false');
+      btn.setAttribute('aria-label','Abrir menu');
+      nav.setAttribute('aria-hidden','true');
+      backdrop.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+      gsap.to(nav, { x: '101%', duration: .45, ease: 'power3.inOut',
+        onComplete: function(){ backdrop.style.visibility='hidden'; } });
+      gsap.to(backdrop, { opacity: 0, duration: .3 });
+    }
+    function open(){
+      isOpen = true;
+      btn.classList.add('is-open');
+      btn.setAttribute('aria-expanded','true');
+      btn.setAttribute('aria-label','Fechar menu');
+      nav.setAttribute('aria-hidden','false');
+      backdrop.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+      backdrop.style.visibility='visible';
+      gsap.to(nav, { x: 0, duration: .5, ease: 'power3.inOut' });
+      gsap.to(backdrop, { opacity: 1, duration: .4 });
+      removeTrap = trapFocus(nav);
+    }
+    btn.addEventListener('click', function(){ isOpen ? close() : open(); });
+    backdrop.addEventListener('click', close);
+    nav.querySelectorAll('[data-anchor-mobile]').forEach(function(a){
+      a.addEventListener('click', close);
+    });
+    window.__closeMobileMenu = close;
+  })();
+
+  /* ============ generic anchor scrolling (fallback) ============ */
+  var smoother = null;
+  function anchorScrollTo(target){
+    var el = typeof target === 'string' ? document.querySelector(target) : target;
+    if(!el) return;
+    if(smoother) { smoother.scrollTo(el, { duration: 1.1, offset: -86 }); return; }
+    el.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'start' });
+  }
+  document.querySelectorAll('[data-anchor]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var href = a.getAttribute('href');
+      if(!href || href.charAt(0) !== '#') return;
+      e.preventDefault();
+      anchorScrollTo(href);
+      if(window.innerWidth <= 900) window.__closeMobileMenu && window.__closeMobileMenu();
+    });
+  });
+
+  /* ============ No GSAP path ============ */
+  if(!HAS_GSAP){
+    revealAllStatic();
+    hideLoader();
+    var curtainEl = document.getElementById('curtain');
+    if(curtainEl) curtainEl.style.display = 'none';
+    document.getElementById('progress').style.display='none';
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+  if(typeof ScrollSmoother !== 'undefined'){ gsap.registerPlugin(ScrollSmoother); }
+  if(typeof Observer !== 'undefined'){ gsap.registerPlugin(Observer); }
+  if(typeof Draggable !== 'undefined'){ gsap.registerPlugin(Draggable); }
+  if(typeof InertiaPlugin !== 'undefined'){ gsap.registerPlugin(InertiaPlugin); }
+
+  /* ============ ScrollSmoother (replaces Lenis) ============ */
+  if(!REDUCED && FINE_POINTER && window.innerWidth > 900 && typeof ScrollSmoother !== 'undefined'){
+    smoother = ScrollSmoother.create({
+      wrapper: '#smooth-wrapper',
+      content: '#smooth-content',
+      smooth: 1.2,
+      effects: true,
+      smoothTouch: 0
+    });
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  /* ============ REDUCED MOTION ============ */
+  if(REDUCED){
+    revealAllStatic();
+    hideLoader();
+    var curtainR = document.getElementById('curtain');
+    if(curtainR) curtainR.style.display = 'none';
+    document.getElementById('progress').style.display='none';
+    return;
+  }
+
+  var ctx;
+  function boot(){
+    ctx = gsap.context(function(){
+
+    /* ─── SET INITIAL STATES (prevents FOUC) ─── */
+    gsap.set(".hero-title .line-inner", { y: "110%" });
+    gsap.set(".hero-eyebrow", { opacity: 0, y: 14 });
+    gsap.set(".hero-sub", { opacity: 0, y: 14 });
+    gsap.set(".hero-actions", { opacity: 0, y: 14 });
+    gsap.set(".hero-aside", { opacity: 0, x: 16 });
+    gsap.set(".scroll-cue", { opacity: 0 });
+    gsap.set(".trust-chips", { opacity: 0, y: 12 });
+    gsap.set("[data-reveal]", { opacity: 0, y: 24 });
+    gsap.set(".card", { opacity: 0, y: 26 });
+    gsap.set(".arc-item", { opacity: 0, y: 28 });
+    gsap.set(".section-head h2, .section-head p, .section-head .kicker", { y: 20, opacity: 0 });
+    gsap.set(".about-quote-card", { opacity: 0, y: 20 });
+    gsap.set("footer .foot-grid", { opacity: 0, y: 20 });
+    gsap.set(".clinic-track figure", { opacity: 0, x: 40 });
+
+    /* ================= INTRO TIMELINE (loader -> curtain -> hero) ================= */
+    /* loader bar fill */
+    gsap.to('#loader .bar i', { width: '100%', duration: .9, ease: 'power2.inOut' });
+
+    /* hero title: line-by-line mask reveal via CSS (no SplitText dependency) */
+    gsap.set('.hero-title', { opacity: 1, y: 0, overwrite: true });
+    gsap.set('.hero-title .line-inner', { y: '110%' });
+    gsap.to('.hero-title .line-inner', {
+      y: '0%', duration: 1.05, stagger: 0.09,
+      ease: 'expo.out', delay: 1.05
+    });
+
+    /* curtain sweep */
+    gsap.to('#loader', { opacity: 0, duration: .4, delay: .85, onComplete: hideLoader });
+    gsap.to('#curtain', {
+      yPercent: -100, duration: 1.05, ease: 'power4.inOut', delay: 0.95,
+      onComplete: function(){ document.getElementById('curtain').style.display = 'none'; }
+    });
+
+    /* hero reveals — all hero elements start with opacity:0 in CSS, animate them in */
+    gsap.fromTo('.hero-eyebrow', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .8, delay: 1.45, ease: 'power3.out' });
+    gsap.fromTo('.hero-sub', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .8, delay: 1.55, ease: 'power3.out' });
+    gsap.fromTo('.hero-actions', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .8, delay: 1.65, ease: 'power3.out' });
+    gsap.fromTo('.hero-aside', { opacity: 0, x: 16 }, { opacity: 1, x: 0, duration: .7, delay: 1.75, ease: 'power3.out' });
+    gsap.fromTo('.scroll-cue', { opacity: 0 }, { opacity: 1, duration: .5, delay: 1.9 });
+    gsap.fromTo('.trust-chips', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .7, delay: 1.85, ease: 'power3.out' });
+
+    /* set non-hero [data-reveal] to initial state for scroll-triggered reveals */
+    gsap.set('[data-reveal]', { opacity: 0, y: 24 });
+
+    /* scroll cue line loop — pause when hero out of view */
+    var cueTween = gsap.to('#cueLine', { top: '0%', duration: 1.4, repeat: -1, ease: 'power2.inOut', yoyo: true, paused: true });
+    ScrollTrigger.create({
+      trigger: '#hero', start: 'top bottom', end: 'bottom top',
+      onEnter: function(){ cueTween.play(); },
+      onLeave: function(){ cueTween.pause(); },
+      onEnterBack: function(){ cueTween.play(); },
+      onLeaveBack: function(){ cueTween.pause(); }
+    });
+
+    /* ================= SCROLL PROGRESS BAR ================= */
+    gsap.set('#progress', { scaleX: 0 });
+    ScrollTrigger.create({
+      trigger: document.body,
+      start: 'top top',
+      end: 'bottom bottom',
+      onUpdate: function(self){ gsap.set('#progress', { scaleX: self.progress }); }
+    });
+
+    /* ================= CUSTOM CURSOR (desktop fine pointer) ================= */
+    if(FINE_POINTER){
+      document.body.classList.add('has-custom-cursor');
+      var dot = document.getElementById('cursorDot');
+      var ring = document.getElementById('cursorRing');
+      var dotX = gsap.quickTo(dot, 'x', { duration: .14, ease: 'power3.out' });
+      var dotY = gsap.quickTo(dot, 'y', { duration: .14, ease: 'power3.out' });
+      var ringX = gsap.quickTo(ring, 'x', { duration: .4, ease: 'power3.out' });
+      var ringY = gsap.quickTo(ring, 'y', { duration: .4, ease: 'power3.out' });
+
+      /* throttle: update coords via rAF only on change */
+      var lastX = -9999, lastY = -9999;
+      window.addEventListener('mousemove', function(e){
+        if(Math.abs(e.clientX - lastX) + Math.abs(e.clientY - lastY) > 1){
+          lastX = e.clientX; lastY = e.clientY;
+          dotX(e.clientX); dotY(e.clientY);
+          ringX(e.clientX); ringY(e.clientY);
+        }
+      }, { passive: true });
+
+      var hoverTargets = 'a, button, .card, .magnetic, [aria-expanded]';
+      document.querySelectorAll(hoverTargets).forEach(function(el){
+        el.addEventListener('mouseenter', function(){ document.body.classList.add('cursor-hover'); });
+        el.addEventListener('mouseleave', function(){ document.body.classList.remove('cursor-hover'); });
+      });
+
+      /* magnetic buttons */
+      document.querySelectorAll('.magnetic').forEach(function(el){
+        var mx = gsap.quickTo(el, 'x', { duration: .45, ease: 'power3.out' });
+        var my = gsap.quickTo(el, 'y', { duration: .45, ease: 'power3.out' });
+        el.addEventListener('mousemove', function(e){
+          var r = el.getBoundingClientRect();
+          var relX = e.clientX - (r.left + r.width / 2);
+          var relY = e.clientY - (r.top + r.height / 2);
+          mx(relX * 0.32); my(relY * 0.32);
+        });
+        el.addEventListener('mouseleave', function(){ mx(0); my(0); });
+      });
+
+      /* hero parallax shapes (throttled rAF, single window listener) */
+      var pxElements = gsap.utils.toArray('.parallax-el').map(function(el){
+        return { el: el, depth: parseFloat(el.getAttribute('data-depth')) || 0.4, x: gsap.quickTo(el, 'x', { duration: .7, ease: 'power3.out' }), y: gsap.quickTo(el, 'y', { duration: .7, ease: 'power3.out' }) };
+      });
+      var pxA, pxB;
+      window.addEventListener('mousemove', function(e){
+        cancelAnimationFrame(pxA); pxA = requestAnimationFrame(function(){
+          pxElements.forEach(function(o){
+            o.x((e.clientX / window.innerWidth - 0.5) * 40 * o.depth);
+            o.y((e.clientY / window.innerHeight - 0.5) * 40 * o.depth);
+          });
+        });
+      }, { passive: true });
+    }
+
+    /* ================= HERO PARALLAX-OUT ON SCROLL ================= */
+    gsap.to('.hero-grid', {
+      y: -70, opacity: 0.35, ease: 'none',
+      scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 0.5 }
+    });
+    gsap.to('.hero-media img', {
+      yPercent: 14, ease: 'none',
+      scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 0.6 }
+    });
+
+    /* ================= SIGNATURE ARC (draw-in) ================= */
+    var arcPath = document.getElementById('smileArc');
+    var arcLen = arcPath.getTotalLength ? arcPath.getTotalLength() : 1;
+    /* open-source draw-in: animate stroke-dashoffset */
+    gsap.set(arcPath, { strokeDasharray: arcLen, strokeDashoffset: arcLen });
+    ScrollTrigger.create({
+      trigger: '.arc-section', start: 'top 75%', once: true,
+      onEnter: function(){
+        gsap.to(arcPath, { strokeDashoffset: 0, duration: 2.2, ease: 'power2.inOut' });
+      }
+    });
+
+    /* arc list: staggered reveal + accordion open/close (one open at a time) */
+    var arcItems = gsap.utils.toArray('.arc-item');
+    gsap.set(arcItems, { opacity: 0, y: 28 });
+    ScrollTrigger.batch(arcItems, {
+      start: 'top 92%',
+      onEnter: function(batch){ gsap.to(batch, { opacity: 1, y: 0, duration: .8, stagger: 0.1, ease: 'power3.out', overwrite: 'auto' }); },
+      once: true
+    });
+
+    arcItems.forEach(function(item){
+      var body = item.querySelector('.arc-item-body');
+      var btn = item.querySelector('.arc-item-head');
+      function setOpen(open){
+        item.classList.toggle('is-active', open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        gsap.to(body, {
+          maxHeight: open ? body.scrollHeight + 24 : 0,
+          duration: .55, ease: 'power3.inOut', overwrite: 'auto'
+        });
+      }
+      btn.addEventListener('click', function(){
+        var willOpen = !item.classList.contains('is-active');
+        arcItems.forEach(function(other){
+          if(other !== item){
+            other.classList.remove('is-active');
+            other.querySelector('.arc-item-head').setAttribute('aria-expanded', 'false');
+            gsap.to(other.querySelector('.arc-item-body'), { maxHeight: 0, duration: .4, ease: 'power3.inOut', overwrite: 'auto' });
+          }
+        });
+        setOpen(willOpen);
+      });
+      if(item.classList.contains('is-active')){
+        gsap.set(body, { maxHeight: body.scrollHeight + 24 });
+      }
+    });
+
+    /* ================= TREATMENTS: full visible grid =================
+       Replaces the old horizontal pinned track. All 10 cards are
+       visible up front; staggered reveal as they scroll into view,
+       and a single shared CTA at the end of the grid. */
+    var allCards = gsap.utils.toArray('.card');
+
+    var mm = gsap.matchMedia();
+
+    mm.add('(min-width: 901px)', function(){
+      gsap.set(allCards, { opacity: 0, y: 26 });
+      ScrollTrigger.batch(allCards, {
+        start: 'top 88%',
+        once: true,
+        onEnter: function(batch){ gsap.to(batch, { opacity: 1, y: 0, duration: .7, stagger: { each: 0.08, from: 'index' }, overwrite: 'auto' }); }
+      });
+      return function(){ ScrollTrigger.getAll().filter(function(t){ return allCards.indexOf(t.trigger) >= 0; }).forEach(function(t){ t.kill(); }); };
+    });
+
+    mm.add('(max-width: 900px)', function(){
+      gsap.set(allCards, { opacity: 0, y: 26 });
+      ScrollTrigger.batch(allCards, {
+        start: 'top 90%',
+        onEnter: function(batch){ gsap.to(batch, { opacity: 1, y: 0, duration: .65, stagger: 0.08, overwrite: 'auto' }); },
+        once: true
+      });
+      return function(){ ScrollTrigger.getAll().filter(function(t){ return allCards.indexOf(t.trigger) >= 0; }).forEach(function(t){ t.kill(); }); };
+    });
+
+    /* ================= MARQUEE ================= */
+    /* marquee uses pure CSS @keyframes — no JS needed */
+
+    /* ================= STATS COUNTERS ================= */
+    var stats = gsap.utils.toArray('.stat .num');
+    stats.forEach(function(el){
+      var target = parseFloat(el.getAttribute('data-count')) || 0;
+      var suf = (el.querySelector('.suf') || {}).textContent || '';
+      var obj = { v: 0 };
+      gsap.fromTo(obj, { v: 0 }, {
+        v: target, duration: 2, ease: 'power2.out',
+        snap: { v: target >= 100 ? 1 : 0.01 },
+        onUpdate: function(){
+          var v = obj.v;
+          el.querySelector('i').textContent = target >= 100 ? Math.round(v) : (v % 1 ? v.toFixed(1) : Math.round(v));
+          var s = el.querySelector('.suf');
+          if(s){ s.textContent = suf; }
+        },
+        scrollTrigger: { trigger: el, start: 'top 85%', once: true }
+      });
+    });
+
+    /* ================= ABOUT: scroll reveals ================= */
+    mm.add('(min-width: 701px)', function(){
+      gsap.set('.about-copy [data-reveal]', { opacity: 0, y: 24 });
+      gsap.set('.about-quote-card', { opacity: 0, y: 20 });
+      ScrollTrigger.create({
+        trigger: '.about', start: 'top 70%', once: true,
+        onEnter: function(){
+          gsap.to('.about-copy [data-reveal]', { opacity: 1, y: 0, duration: .75, stagger: .1, ease: 'power3.out' });
+          gsap.to('.about-quote-card', { opacity: 1, y: 0, duration: .7, stagger: .15, ease: 'power3.out', delay: .2 });
+        }
+      });
+    });
+
+    mm.add('(max-width: 700px)', function(){
+      gsap.set('.about-copy [data-reveal]', { opacity: 0, y: 24 });
+      gsap.set('.about-quote-card', { opacity: 0, y: 20 });
+      ScrollTrigger.create({
+        trigger: '.about', start: 'top 75%', once: true,
+        onEnter: function(){
+          gsap.to('.about-copy [data-reveal]', { opacity: 1, y: 0, duration: .75, stagger: .1 });
+          gsap.to('.about-quote-card', { opacity: 1, y: 0, duration: .7, stagger: .15, delay: .2 });
+        }
+      });
+    });
+
+    /* ================= GENERIC BATCH REVEALS ================= */
+    ScrollTrigger.batch('[data-reveal]', {
+      start: 'top 88%',
+      onEnter: function(batch){ gsap.to(batch, { opacity: 1, y: 0, duration: .8, stagger: 0.1, ease: 'power3.out', overwrite: 'auto' }); },
+      once: true
+    });
+
+    /* map clip-path reveal */
+    gsap.to('#mapFrame', {
+      clipPath: 'inset(0 0 0% 0)', duration: 1.1, ease: 'power3.out',
+      scrollTrigger: { trigger: '#mapFrame', start: 'top 85%', once: true }
+    });
+
+    /* header shadow + active nav link on scroll */
+    var sections = ['tratamentos', 'sobre', 'contato'];
+    sections.forEach(function(id){
+      ScrollTrigger.create({
+        trigger: '#' + id, start: 'top 50%', end: 'bottom 50%',
+        onToggle: function(self){
+          var link = document.querySelector('[data-section="' + id + '"]');
+          if(link) link.classList.toggle('active', self.isActive);
+        }
+      });
+    });
+    ScrollTrigger.create({
+      trigger: document.body, start: '80px top',
+      onToggle: function(self){
+        var bar = document.querySelector('header .bar');
+        if(bar) bar.style.boxShadow = self.isActive ? '0 20px 40px -30px rgba(11,51,45,.4)' : 'none';
+      }
+    });
+
+    /* button ripple on click */
+    document.querySelectorAll('.btn').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        var rect = btn.getBoundingClientRect();
+        var circle = document.createElement('span');
+        circle.className = 'ripple';
+        circle.style.left = (e.clientX - rect.left) + 'px';
+        circle.style.top = (e.clientY - rect.top) + 'px';
+        circle.style.width = circle.style.height = '8px';
+        btn.appendChild(circle);
+        gsap.to(circle, {
+          scale: function(){ return Math.max(rect.width, rect.height) / 4; },
+          opacity: 0, duration: .6, ease: 'power2.out',
+          onComplete: function(){ circle.remove(); }
+        });
+      });
+    });
+
+    /* ================= OBSERVER: scroll-direction parallax on hero ================= */
+    if(typeof Observer !== 'undefined' && FINE_POINTER){
+      Observer.create({
+        target: window, type: 'wheel,touch',
+        tolerance: 30, preventDefault: false,
+        onDown: function(){
+          gsap.to('.hero-decor .ring-a', { rotation: '+=3', duration: .4, overwrite: 'auto' });
+          gsap.to('.hero-decor .ring-b', { rotation: '-=5', duration: .4, overwrite: 'auto' });
+        },
+        onUp: function(){
+          gsap.to('.hero-decor .ring-a', { rotation: '-=3', duration: .4, overwrite: 'auto' });
+          gsap.to('.hero-decor .ring-b', { rotation: '+=5', duration: .4, overwrite: 'auto' });
+        }
+      });
+    }
+
+    /* ================= SCROLL-LINKED PARALLAX on decorative elements ================= */
+    gsap.to('.hero-decor .ring-a', {
+      y: -50, rotation: 15, ease: 'none',
+      scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1 }
+    });
+    gsap.to('.hero-decor .ring-b', {
+      y: -30, rotation: -20, ease: 'none',
+      scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1 }
+    });
+    gsap.to('.hero-decor .tooth-outline', {
+      y: -40, rotation: 10, ease: 'none',
+      scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1 }
+    });
+
+    /* ================= TREATMENT CARDS: hover tilt micro-interaction ================= */
+    if(FINE_POINTER){
+      allCards.forEach(function(card){
+        card.addEventListener('mousemove', function(e){
+          var r = card.getBoundingClientRect();
+          var x = (e.clientX - r.left) / r.width - 0.5;
+          var y = (e.clientY - r.top) / r.height - 0.5;
+          gsap.to(card, { rotationY: x * 8, rotationX: -y * 8, duration: .4, ease: 'power2.out', transformPerspective: 800 });
+        });
+        card.addEventListener('mouseleave', function(){
+          gsap.to(card, { rotationY: 0, rotationX: 0, duration: .6, ease: 'power3.out' });
+        });
+      });
+    }
+
+    /* ================= FOOTER REVEAL ================= */
+    gsap.set('footer .foot-grid', { opacity: 0, y: 20 });
+    ScrollTrigger.create({
+      trigger: 'footer', start: 'top 90%', once: true,
+      onEnter: function(){ gsap.to('footer .foot-grid', { opacity: 1, y: 0, duration: .8, ease: 'power3.out' }); }
+    });
+
+    /* ================= FLOATING EMOJIS: Draggable + Inertia ================= */
+    var emojiTweens = [];
+    if(typeof Draggable !== 'undefined' && !REDUCED){
+      var emojis = document.querySelectorAll('.decor-emoji');
+      emojis.forEach(function(el){
+        Draggable.create(el, {
+          type: 'x,y',
+          inertia: typeof InertiaPlugin !== 'undefined',
+          edgeResistance: 0.65,
+          bounds: '.treatments',
+          onDrag: function(){
+            gsap.to(el, { scale: 1.15, rotation: '+=8', duration: 0.25, overwrite: 'auto' });
+          },
+          onRelease: function(){
+            gsap.to(el, { scale: 1, rotation: '+=5', duration: 0.6, ease: 'elastic.out(1, 0.4)', overwrite: 'auto' });
+          }
+        });
+      });
+      /* gentle idle float animation — stored for pause */
+      emojis.forEach(function(el, i){
+        var tw = gsap.to(el, {
+          y: '+=' + (8 + i * 3),
+          rotation: '+=' + (4 + i * 2),
+          duration: 2.5 + i * 0.3,
+          ease: 'sine.inOut',
+          repeat: -1,
+          yoyo: true,
+          delay: i * 0.2,
+          paused: true
+        });
+        emojiTweens.push(tw);
+      });
+      /* pause/resume based on treatments visibility */
+      ScrollTrigger.create({
+        trigger: '.treatments', start: 'top bottom', end: 'bottom top',
+        onEnter: function(){ emojiTweens.forEach(function(t){ t.play(); }); },
+        onLeave: function(){ emojiTweens.forEach(function(t){ t.pause(); }); },
+        onEnterBack: function(){ emojiTweens.forEach(function(t){ t.play(); }); },
+        onLeaveBack: function(){ emojiTweens.forEach(function(t){ t.pause(); }); }
+      });
+    }
+
+    /* ================= MARQUEE: GSAP-driven with viewport pause ================= */
+    (function(){
+      var track = document.querySelector('.marquee-track');
+      if(!track) return;
+      var marqueeTl = gsap.to(track, {
+        x: '-50%',
+        duration: 28,
+        ease: 'none',
+        repeat: -1,
+        paused: true
+      });
+      ScrollTrigger.create({
+        trigger: '.marquee-band', start: 'top bottom', end: 'bottom top',
+        onEnter: function(){ marqueeTl.play(); },
+        onLeave: function(){ marqueeTl.pause(); },
+        onEnterBack: function(){ marqueeTl.play(); },
+        onLeaveBack: function(){ marqueeTl.pause(); }
+      });
+    })();
+
+    /* ================= CLINIC PHOTO MARQUEE: GSAP-driven with viewport pause ================= */
+    (function(){
+      var track = document.querySelector('.clinic-track');
+      if(!track) return;
+      var clinicTl = gsap.to(track, {
+        x: '-50%',
+        duration: 36,
+        ease: 'none',
+        repeat: -1,
+        paused: true
+      });
+      ScrollTrigger.create({
+        trigger: '.clinic-strip', start: 'top bottom', end: 'bottom top',
+        onEnter: function(){ clinicTl.play(); },
+        onLeave: function(){ clinicTl.pause(); },
+        onEnterBack: function(){ clinicTl.play(); },
+        onLeaveBack: function(){ clinicTl.pause(); }
+      });
+      /* reveal figures on enter */
+      gsap.set('.clinic-track figure', { opacity: 0, x: 40 });
+      ScrollTrigger.create({
+        trigger: '.clinic-strip', start: 'top 75%', once: true,
+        onEnter: function(){
+          gsap.to('.clinic-track figure', { opacity: 1, x: 0, duration: .8, stagger: .08, ease: 'power3.out' });
+        }
+      });
+    })();
+
+    /* ================= SMOOTH SCROLL PROGRESS on arc section ================= */
+    gsap.to('.arc-bg', {
+      opacity: 1, ease: 'none',
+      scrollTrigger: { trigger: '.arc-section', start: 'top bottom', end: 'top 20%', scrub: 1 }
+    });
+
+    }, document.body);
+  }
+
+  window.addEventListener('beforeunload', function() { if(ctx) ctx.revert(); });
+
+  // Absolute fallback: content must never remain blocked by the intro.
+  setTimeout(hideLoader, 4000);
+  setTimeout(function(){ var c=document.getElementById('curtain'); if(c) c.style.display='none'; }, 4200);
+
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      gsap.globalTimeline.pause();
+    } else {
+      gsap.globalTimeline.resume();
+    }
+  });
+
+  /* wait for fonts AND for GSAP CDN scripts to load (with safety timeouts), then boot */
+  /* rejection-safe wrapper: document.fonts.ready can reject in some environments */
+  var fontsReady = new Promise(function(resolve){
+    if(document.fonts && document.fonts.ready){ document.fonts.ready.then(resolve, resolve); }
+    else { resolve(); }
+  });
+  var gsapReady = new Promise(function(resolve){
+    if(typeof window.gsap !== 'undefined'){ resolve(); return; }
+    var start = Date.now();
+    var t = setInterval(function(){
+      if(typeof window.gsap !== 'undefined'){ clearInterval(t); resolve(); }
+      else if(Date.now() - start > 2500){ clearInterval(t); resolve(); }
+    }, 20);
+  });
+  Promise.all([fontsReady, gsapReady]).then(function(){
+    boot(); // boot() itself checks HAS_GSAP and takes the static path when GSAP never arrived
+  });
+})();
+</script>
+<script id="enterprise-ux-runtime">(()=>{const d=document,reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,root=d.documentElement,target=d.querySelector('main')||d.querySelector('[id]');if(target&&!d.querySelector('.enterprise-skip')){if(!target.id)target.id='main-content';const skip=d.createElement('a');skip.className='enterprise-skip';skip.href='#'+target.id;skip.textContent='Pular para o conteúdo';d.body.prepend(skip);}d.querySelectorAll('img').forEach((img,i)=>{img.decoding='async';if(i>0&&!img.hasAttribute('loading'))img.loading='lazy';});const bar=d.createElement('i');bar.className='enterprise-progress';bar.setAttribute('aria-hidden','true');d.body.prepend(bar);const set=()=>{const max=d.documentElement.scrollHeight-innerHeight;bar.style.transform='scaleX('+Math.min(1,Math.max(0,scrollY/(max||1)))+')';};if(!reduce){if(window.gsap&&window.ScrollTrigger){gsap.set(bar,{scaleX:0,transformOrigin:'left center'});gsap.to(bar,{scaleX:1,ease:'none',scrollTrigger:{start:0,end:'max',scrub:.12}});}else{addEventListener('scroll',set,{passive:true});set();}}root.classList.add('enterprise-ux-ready');})();</script>
+</body>
+</html>

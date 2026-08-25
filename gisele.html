@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Dra. Gisela Ramalho Safady — Ginecologia e Obstetrícia</title>
+<meta name="description" content="Dra. Gisela Ramalho Safady, ginecologista e obstetra em São João da Boa Vista/SP. Atendimento humanizado, acompanhamento de pré-natal, saúde da mulher em todas as fases.">
+
+<!-- Fonts loaded locally or via system fonts -->
+
+<script src="vendor/gsap/gsap.min.js"></script>
+<script src="vendor/gsap/ScrollTrigger.min.js"></script>
+<script src="vendor/gsap/SplitText.min.js"></script>
+<script src="vendor/gsap/ScrollSmoother.min.js"></script>
+<script src="vendor/gsap/Observer.min.js"></script>
+<script src="vendor/gsap/ScrollToPlugin.min.js"></script>
+
+<style>
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:300 600;font-display:swap;src:local('Fraunces')}
+@font-face{font-family:'Public Sans';font-style:normal;font-weight:300 700;font-display:swap;src:local('Public Sans')}
+  :root{
+    --cream: #FBF3EF;
+    --cream-2: #F5E9E2;
+    --wine: #7A3B34;
+    --wine-deep: #5C2B26;
+    --rose: #E8A798;
+    --sage: #3D5A4A;
+    --sage-deep: #2C4136;
+    --ink: #2A2320;
+    --ink-soft: #55483F;
+    --paper: #FFFDFB;
+
+    --font-display: 'Fraunces', serif;
+    --font-body: 'Public Sans', sans-serif;
+
+    --radius-organic: 60% 40% 55% 45% / 45% 55% 40% 60%;
+    --ease-out: cubic-bezier(.16,1,.3,1);
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:auto; scroll-padding-top:80px; }
+
+  body{
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-weight:400;
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img{ max-width:100%; display:block; }
+
+  a{ color:inherit; text-decoration:none; touch-action:manipulation; }
+
+  ::selection{ background: var(--rose); color: var(--wine-deep); }
+
+  :focus-visible{
+    outline: 2px solid var(--wine);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .container{
+    width:100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 5vw, 48px);
+  }
+
+  .eyebrow{
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--wine);
+  }
+
+  h1,h2,h3{
+    font-family: var(--font-display);
+    color: var(--ink);
+    font-weight: 500;
+    line-height: 1.08;
+  }
+
+  h2{
+    font-size: clamp(2rem, 4vw, 3.1rem);
+    font-weight: 450;
+  }
+
+  p{ color: var(--ink-soft); }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding: 15px 30px;
+    border-radius: 100px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 1.5px solid transparent;
+    cursor:pointer;
+    transition: transform .35s var(--ease-out), background .35s, color .35s, border-color .35s;
+  }
+  .btn-primary{
+    background: var(--wine);
+    color: var(--cream);
+  }
+  .btn-primary:hover{ background: var(--wine-deep); transform: translateY(-2px); }
+  .btn-ghost{
+    background: transparent;
+    color: var(--wine);
+    border-color: var(--wine);
+  }
+  .btn-ghost:hover{ background: var(--wine); color: var(--cream); transform: translateY(-2px); }
+
+  /* ===== Loader ===== */
+  #loader{
+    position:fixed; inset:0; z-index:999;
+    background: var(--cream);
+    display:flex; align-items:center; justify-content:center;
+    transition: opacity .7s var(--ease-out), visibility .7s;
+  }
+  #loader.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
+  .loader-mark{
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--wine);
+    letter-spacing: 0.02em;
+    opacity:0;
+  }
+  .loader-petal{
+    position:absolute;
+    width: 64px; height:64px;
+    border-radius: 60% 40% 55% 45% / 45% 55% 40% 60%;
+    background: var(--rose);
+    opacity: 0.5;
+  }
+
+  /* ===== Scroll progress signature (petal) ===== */
+  #scroll-petal{
+    position: fixed;
+    right: 22px;
+    top: 50%;
+    width: 34px;
+    height: 34px;
+    border-radius: 60% 40% 55% 45% / 45% 55% 40% 60%;
+    background: linear-gradient(135deg, var(--rose), var(--wine));
+    z-index: 90;
+    pointer-events:none;
+    opacity: 0;
+    transform: translateY(-50%) scale(0.7);
+    box-shadow: 0 6px 18px rgba(122,59,52,0.28);
+  }
+  @media (max-width: 760px){
+    #scroll-petal{ display:none; }
+  }
+
+  /* ===== Nav ===== */
+  header{
+    position: fixed;
+    top:0; left:0; right:0;
+    z-index: 100;
+    padding: 22px 0;
+    background: rgba(251,243,239,0.0);
+    transition: background .4s ease, padding .4s ease, box-shadow .4s ease;
+  }
+  header.scrolled{
+    background: rgba(251,243,239,0.88);
+    backdrop-filter: blur(10px);
+    padding: 14px 0;
+    box-shadow: 0 1px 0 rgba(122,59,52,0.08);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .logo{
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--wine-deep);
+  }
+  .logo em{ font-style: italic; color: var(--sage); }
+  .nav-links{
+    display:flex; gap: 36px;
+    list-style:none;
+  }
+  .nav-links a{
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--ink);
+    position:relative;
+    padding-bottom: 4px;
+  }
+  .nav-links a::after{
+    content:'';
+    position:absolute; left:0; bottom:0;
+    width:0; height:1.5px;
+    background: var(--wine);
+    transition: width .35s var(--ease-out);
+  }
+  @media (hover:hover) and (pointer:fine){
+    .nav-links a:hover::after{ width:100%; }
+  }
+  .nav-links a.active{ color: var(--wine-deep); }
+  .nav-links a.active::after{ width:100%; }
+  .nav-cta{ display:flex; align-items:center; gap:20px; }
+  .nav-phone{
+    font-size: 0.88rem; font-weight:600; color: var(--wine-deep);
+    display:flex; align-items:center; gap:8px;
+  }
+  .menu-toggle{
+    display:none;
+    background:none; border:none; cursor:pointer;
+    width: 44px; height:44px;
+    align-items:center; justify-content:center;
+  }
+  .menu-toggle span, .menu-toggle span::before, .menu-toggle span::after{
+    content:''; display:block;
+    width: 22px; height:2px; background: var(--ink);
+    position:relative; transition: transform .3s;
+  }
+  .menu-toggle span::before{ position:absolute; top:-7px; }
+  .menu-toggle span::after{ position:absolute; top:7px; }
+
+  @media (max-width: 860px){
+    .nav-links{
+      position:fixed; top:0; right:0; height:100vh; height:100dvh; width: min(88vw, 320px);
+      background: var(--paper);
+      flex-direction:column;
+      justify-content:center;
+      align-items:flex-start;
+      padding: 40px;
+      gap: 26px;
+      transform: translateX(100%);
+      transition: transform .5s var(--ease-out);
+      box-shadow: -10px 0 40px rgba(42,35,32,0.12);
+    }
+    .nav-links.open{ transform: translateX(0); }
+    .nav-phone{ display:none; }
+    .menu-toggle{ display:flex; }
+  }
+
+  /* ===== Hero ===== */
+  .hero{
+    position:relative;
+    min-height: 100svh;
+    display:flex;
+    align-items:center;
+    padding-top: 100px;
+    overflow:hidden;
+  }
+  .hero-blob{
+    position:absolute;
+    top: -10%;
+    right: -12%;
+    width: min(58vw, 720px);
+    aspect-ratio: 1/1;
+    background: linear-gradient(135deg, var(--rose) 0%, var(--wine) 100%);
+    border-radius: var(--radius-organic);
+    opacity: 0.9;
+    z-index:0;
+    animation: blobmorph 16s ease-in-out infinite alternate;
+  }
+  .hero-blob-2{
+    position:absolute;
+    bottom: -18%;
+    left: -8%;
+    width: min(30vw, 340px);
+    aspect-ratio: 1/1;
+    background: var(--sage);
+    border-radius: 45% 55% 60% 40% / 55% 45% 55% 45%;
+    opacity: 0.14;
+    z-index:0;
+    animation: blobmorph2 20s ease-in-out infinite alternate;
+  }
+  @keyframes blobmorph{
+    0%{ border-radius: 60% 40% 55% 45% / 45% 55% 40% 60%; }
+    50%{ border-radius: 45% 55% 40% 60% / 60% 40% 60% 40%; }
+    100%{ border-radius: 55% 45% 65% 35% / 40% 60% 45% 55%; }
+  }
+  @keyframes blobmorph2{
+    0%{ border-radius: 45% 55% 60% 40% / 55% 45% 55% 45%; }
+    100%{ border-radius: 60% 40% 45% 55% / 45% 60% 40% 55%; }
+  }
+
+  .hero-grid{
+    position:relative; z-index:2;
+    display:grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 40px;
+    align-items:center;
+    width:100%;
+  }
+  .hero-copy .eyebrow{ margin-bottom: 22px; display:block; }
+  .hero-title{
+    font-size: clamp(2.6rem, 5.4vw, 4.6rem);
+    color: var(--wine-deep);
+  }
+  .hero-title .line{ overflow:hidden; }
+  .hero-title em{
+    font-style: italic;
+    color: var(--sage-deep);
+  }
+  .hero-desc{
+    margin-top: 26px;
+    font-size: 1.08rem;
+    max-width: 46ch;
+    color: var(--ink-soft);
+  }
+  .hero-actions{
+    margin-top: 38px;
+    display:flex;
+    gap: 16px;
+    flex-wrap:wrap;
+  }
+  .hero-portrait{
+    position:relative;
+    z-index:2;
+  }
+  .hero-portrait-shape{
+    width:100%;
+    aspect-ratio: 4/5;
+    border-radius: 58% 42% 48% 52% / 55% 48% 52% 45%;
+    background: linear-gradient(160deg, var(--cream-2), var(--rose) 120%);
+    display:flex; align-items:center; justify-content:center;
+    border: 1px solid rgba(122,59,52,0.14);
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-portrait-shape .initials{
+    font-family: var(--font-display);
+    font-size: 6rem;
+    font-style: italic;
+    color: rgba(92,43,38,0.28);
+  }
+  .hero-stats{
+    position:absolute;
+    bottom: -22px; left: -22px;
+    background: var(--paper);
+    border-radius: 20px;
+    padding: 18px 22px;
+    box-shadow: 0 18px 40px rgba(42,35,32,0.14);
+    display:flex; gap:24px;
+  }
+  .hero-stat b{
+    display:block; font-family: var(--font-display); font-size:1.5rem; color: var(--wine);
+  }
+  .hero-stat span{
+    font-size: 0.72rem; color: var(--ink-soft); text-transform:uppercase; letter-spacing:0.05em;
+  }
+
+  @media (max-width: 900px){
+    .hero-grid{ grid-template-columns: 1fr; }
+    .hero-portrait{ order:-1; max-width: 320px; margin: 0 auto 20px; }
+    .hero-stats{ position:static; margin-top:16px; width:fit-content; }
+    .hero-blob{ width: 90vw; right:-30%; top:-14%; }
+  }
+
+  /* ===== Sections generic ===== */
+  section{ position:relative; padding: clamp(80px, 11vw, 140px) 0; }
+  .section-head{
+    max-width: 640px;
+    margin-bottom: 56px;
+  }
+  .section-head .eyebrow{ margin-bottom: 16px; display:block; }
+  .section-head p{ margin-top: 18px; font-size: 1.05rem; }
+
+  [data-reveal], [data-reveal-batch], [data-reveal-clip]{ }
+
+  /* ===== Sobre ===== */
+  .about{ background: var(--paper); }
+  .about-grid{
+    display:grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 64px;
+    align-items:center;
+  }
+  .about-visual{
+    border-radius: 40% 60% 55% 45% / 50% 45% 55% 50%;
+    background: linear-gradient(150deg, var(--sage) 0%, var(--sage-deep) 100%);
+    aspect-ratio: 1/1.05;
+    position:relative;
+    display:flex; align-items:end;
+    padding: 32px;
+    overflow:hidden;
+  }
+  .about-visual::after{
+    content:'';
+    position:absolute; inset:0;
+    background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.18), transparent 55%);
+  }
+  .about-visual-tag{
+    position:relative; z-index:1;
+    background: rgba(251,243,239,0.94);
+    border-radius: 16px;
+    padding: 16px 20px;
+    font-family: var(--font-display);
+    font-style: italic;
+    color: var(--sage-deep);
+    font-size: 1rem;
+  }
+  .about-text p{ margin-bottom: 18px; font-size: 1.02rem; }
+  .about-creds{
+    display:flex; flex-wrap:wrap; gap: 14px;
+    margin-top: 28px;
+  }
+  .cred-pill{
+    background: var(--cream-2);
+    border: 1px solid rgba(122,59,52,0.14);
+    color: var(--wine-deep);
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 9px 16px;
+    border-radius: 100px;
+  }
+
+  @media (max-width: 900px){
+    .about-grid{ grid-template-columns: 1fr; }
+    .about-visual{ max-width: 340px; margin: 0 auto; }
+  }
+
+  /* ===== Serviços ===== */
+  .services{ background: var(--cream); }
+  .services-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .service-card{
+    background: var(--paper);
+    border-radius: 24px;
+    padding: 36px 30px;
+    border: 1px solid rgba(122,59,52,0.10);
+    transition: transform .4s var(--ease-out), box-shadow .4s var(--ease-out), border-color .4s;
+  }
+  @media (hover:hover) and (pointer:fine){
+    .service-card:hover{
+      transform: translateY(-6px);
+      box-shadow: 0 24px 48px rgba(42,35,32,0.10);
+      border-color: rgba(122,59,52,0.22);
+    }
+  }
+  .service-icon{
+    width: 52px; height:52px;
+    border-radius: 50% 50% 50% 8px;
+    background: var(--rose);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom: 22px;
+    color: var(--wine-deep);
+  }
+  .service-icon svg{ overflow:visible; }
+  .service-card h3{
+    font-size: 1.28rem;
+    margin-bottom: 12px;
+    font-weight:500;
+  }
+  .service-card p{ font-size: 0.96rem; }
+
+  @media (max-width: 900px){
+    .services-grid{ grid-template-columns: 1fr; }
+  }
+  @media (min-width: 901px) and (max-width: 1140px){
+    .services-grid{ grid-template-columns: repeat(2,1fr); }
+  }
+
+  /* ===== Convênios ===== */
+  .insurance{
+    background: var(--wine-deep);
+    color: var(--cream);
+  }
+  .insurance .section-head p{ color: rgba(251,243,239,0.78); }
+  .insurance .eyebrow{ color: var(--rose); }
+  .insurance h2{ color: var(--cream); }
+  .insurance-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 18px;
+  }
+  .insurance-item{
+    background: rgba(251,243,239,0.06);
+    border: 1px solid rgba(251,243,239,0.16);
+    border-radius: 16px;
+    padding: 22px 20px;
+    font-weight: 600;
+    font-size: 0.98rem;
+    display:flex; align-items:center; gap:12px;
+  }
+  .insurance-item svg{ flex-shrink:0; color: var(--rose); }
+  .insurance-note{
+    margin-top: 28px;
+    font-size: 0.9rem;
+    color: rgba(251,243,239,0.65);
+  }
+
+  /* ===== Horários / info strip ===== */
+  .info-strip{
+    background: var(--sage-deep);
+    padding: 48px 0;
+  }
+  .info-strip .container{
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 28px;
+  }
+  .info-item{ color: var(--cream); }
+  .info-item .eyebrow{ color: var(--rose); margin-bottom:10px; display:block; }
+  .info-item p{ color: rgba(251,243,239,0.85); font-size:0.98rem; }
+  @media (max-width: 760px){
+    .info-strip .container{ grid-template-columns: 1fr; }
+  }
+
+  /* ===== FAQ ===== */
+  .faq{ background: var(--cream); }
+  .faq-list{ max-width: 760px; }
+  .faq-item{
+    border-bottom: 1px solid rgba(122,59,52,0.16);
+  }
+  .faq-q{
+    width:100%;
+    display:flex; align-items:center; justify-content:space-between;
+    gap: 20px;
+    background:none; border:none;
+    text-align:left;
+    padding: 26px 0;
+    min-height: 44px;
+    cursor:pointer;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    color: var(--ink);
+  }
+  .faq-q-icon{
+    flex-shrink:0;
+    width: 30px; height:30px;
+    border-radius:50%;
+    border: 1.5px solid var(--wine);
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    transition: transform .4s var(--ease-out), background .4s;
+  }
+  .faq-q-icon::before, .faq-q-icon::after{
+    content:''; position:absolute;
+    background: var(--wine);
+    transition: transform .4s var(--ease-out), background .4s;
+  }
+  .faq-q-icon::before{ width:12px; height:1.5px; }
+  .faq-q-icon::after{ width:1.5px; height:12px; }
+  .faq-item.open .faq-q-icon{ background: var(--wine); transform: rotate(45deg); }
+  .faq-item.open .faq-q-icon::before, .faq-item.open .faq-q-icon::after{ background: var(--cream); }
+  .faq-a{
+    height:0;
+    overflow:hidden;
+  }
+  .faq-a-inner{ padding-bottom: 26px; max-width: 62ch; }
+  .faq-a-inner p{ font-size: 0.98rem; }
+  .faq-item{ transition: background .35s ease; border-radius: 12px; }
+  @media (hover:hover) and (pointer:fine){
+    .faq-item:hover{ background: rgba(122,59,52,0.03); }
+  }
+  .faq-q{ padding-left:6px; padding-right:6px; }
+
+  /* ===== Contato ===== */
+  .contact{ background: var(--paper); }
+  .contact-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items:start;
+  }
+  .contact-card{
+    background: var(--cream);
+    border-radius: 28px;
+    padding: 40px;
+    border: 1px solid rgba(122,59,52,0.10);
+  }
+  .contact-row{
+    display:flex; gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(122,59,52,0.12);
+  }
+  .contact-row:last-child{ border-bottom:none; }
+  .contact-row-icon{
+    width:44px; height:44px; flex-shrink:0;
+    border-radius: 50% 50% 50% 6px;
+    background: var(--rose);
+    display:flex; align-items:center; justify-content:center;
+    color: var(--wine-deep);
+  }
+  .contact-row-label{
+    font-size: 0.72rem; text-transform:uppercase; letter-spacing:0.08em;
+    color: var(--wine); font-weight:700; margin-bottom:4px;
+  }
+  .contact-row-value{ font-size: 1rem; color: var(--ink); font-weight:500; }
+  .contact-row-value a:hover{ color: var(--wine); }
+
+  .map-embed{
+    border-radius: 28px;
+    overflow:hidden;
+    aspect-ratio: 4/3.4;
+    border: 1px solid rgba(122,59,52,0.14);
+    position:relative;
+  }
+  .map-embed iframe{ width:100%; height:100%; border:0; filter: saturate(0.85); }
+  .map-embed-frame-wrap{ width:100%; height:100%; }
+
+  @media (max-width: 900px){
+    .contact-grid{ grid-template-columns:1fr; }
+  }
+
+  /* ===== Footer ===== */
+  footer{
+    background: var(--ink);
+    color: rgba(251,243,239,0.7);
+    padding: 48px 0 28px;
+  }
+  .footer-top{
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:20px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba(251,243,239,0.12);
+    margin-bottom: 24px;
+  }
+  .footer-logo{
+    font-family: var(--font-display);
+    font-style:italic;
+    font-size: 1.2rem;
+    color: var(--cream);
+  }
+  .footer-links{ display:flex; gap:28px; list-style:none; flex-wrap:wrap; }
+  .footer-links a{ font-size:0.88rem; }
+  .footer-bottom{
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    font-size: 0.78rem;
+  }
+
+  /* ScrollSmoother wrapper */
+  #smooth-wrapper{overflow:hidden;position:relative;width:100%;}
+  #smooth-content{overflow:visible;width:100%;}
+
+  /* ===== reduced motion ===== */
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+    .hero-blob, .hero-blob-2{ animation:none !important; }
+    .faq-q-icon{ transition:none !important; }
+    .faq-item{ transition:none !important; }
+    .btn{ transition:none !important; }
+    .service-card{ transition:none !important; }
+    .nav-links a::after{ transition:none !important; }
+    header{ transition:none !important; }
+    .loader-petal{ animation:none !important; opacity:0.6 !important; }
+    [data-reveal], [data-reveal-batch], [data-reveal-clip]{ opacity:1 !important; visibility:visible !important; transform:none !important; }
+    .service-icon{ opacity:1 !important; visibility:visible !important; transform:none !important; }
+    .check-draw{ opacity:1 !important; }
+    .hero-title{ opacity:1 !important; }
+  }
+
+  .visually-hidden{
+    position:absolute; width:1px; height:1px;
+    padding:0; margin:-1px; overflow:hidden;
+    clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
+
+  /* Sticky CTA mobile */
+  #sticky-cta{
+    position:fixed; left:0; right:0; bottom:0; z-index:95;
+    display:none; align-items:center; justify-content:center; gap:.6rem;
+    padding:.9rem 1rem calc(.9rem + env(safe-area-inset-bottom));
+    background:linear-gradient(135deg, var(--wine), var(--wine-deep));
+    color:var(--cream);
+    font-family:var(--font-body); font-weight:700; font-size:.88rem;
+    letter-spacing:.03em; text-transform:uppercase;
+    box-shadow:0 -8px 30px -12px rgba(0,0,0,.35);
+  }
+  #sticky-cta svg{ width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2; }
+  @media (max-width: 860px){
+    #sticky-cta{ display:flex; }
+    footer{ padding-bottom: calc(28px + 56px); }
+  }
+  @media (hover:none) and (pointer:coarse){
+    .btn, .service-card, .faq-item, .faq-q{ touch-action:manipulation; }
+  }
+</style>
+<style id="enterprise-ux-polish">
+  :root{--enterprise-accent:var(--rose);--enterprise-ink:var(--wine-deep);}
+  html{scrollbar-color:var(--enterprise-accent) transparent;}
+  body{min-height:100%;text-rendering:optimizeLegibility;}
+  img{max-width:100%;height:auto;}
+  .enterprise-progress{position:fixed;inset:0 auto auto 0;z-index:9999;width:100%;height:3px;background:var(--enterprise-accent);transform:scaleX(0);transform-origin:left;pointer-events:none;}
+  .enterprise-skip{position:fixed;z-index:10000;left:1rem;top:-4rem;padding:.75rem 1rem;border-radius:999px;background:var(--enterprise-ink);color:var(--paper);font:700 .78rem/1 var(--font-body);letter-spacing:.06em;transition:top .2s var(--ease-out);}
+  .enterprise-skip:focus{top:1rem;outline:3px solid var(--enterprise-accent);outline-offset:3px;}
+  :where(a,button,input,select,textarea,[tabindex]):focus-visible{outline:3px solid var(--enterprise-accent)!important;outline-offset:4px;border-radius:4px;}
+  @media (hover:hover) and (pointer:fine){:where(a,button,.card,.service-card){transition:transform .25s var(--ease-out),box-shadow .25s var(--ease-out),color .2s ease;}.card:hover,.service-card:hover{transform:translateY(-3px);}}
+  @media (max-width:700px){.enterprise-progress{height:2px;}.enterprise-skip{left:.75rem;}body{padding-bottom:env(safe-area-inset-bottom);}}
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;}.enterprise-progress{display:none;}.enterprise-skip{transition:none;}}
+  /* V2 polish: better touch targets, user motion toggle, mobile drawer focus trap */
+  :where(.menu-toggle,.nav-phone,.nav-links a,.menu-toggle span,.faq-q,.btn,button,a[role="button"]){touch-action:manipulation;}
+  .menu-toggle,.faq-q{min-height:44px;}
+  .nav-links a{padding-block:.4rem;}
+  @media(max-width:860px){.nav-links{gap:1.4rem!important;}}
+  .enterprise-motion-toggle{position:fixed;left:1rem;bottom:calc(1rem + env(safe-area-inset-bottom));z-index:10000;display:inline-flex;align-items:center;gap:.55rem;padding:.55rem .9rem;border:1.5px solid currentColor;border-radius:999px;background:var(--paper);color:var(--ink);font:700 .72rem/1 system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 6px 20px -8px rgba(0,0,0,.18);transition:background .25s ease,color .25s ease;}
+  .enterprise-motion-toggle[aria-pressed="true"]{background:var(--ink);color:var(--cream);}
+  .enterprise-motion-toggle .sw{width:1.6rem;height:.85rem;border-radius:999px;background:rgba(0,0,0,.16);position:relative;flex:none;}
+  .enterprise-motion-toggle .sw::after{content:"";position:absolute;top:.08rem;left:.08rem;width:.69rem;height:.69rem;border-radius:50%;background:#fff;transition:transform .25s;}
+  .enterprise-motion-toggle[aria-pressed="true"] .sw{background:rgba(255,255,255,.32);}
+  .enterprise-motion-toggle[aria-pressed="true"] .sw::after{transform:translateX(.72rem);}
+  @media(prefers-reduced-motion:reduce){.enterprise-motion-toggle{display:none;}}
+</style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Yang Tech Marquee -->
+<style>
+body{padding-top:30px !important;padding-bottom:30px !important}
+.yang-mq{position:fixed;left:0;right:0;z-index:99980;height:30px;overflow:hidden;font-family:'Libre Baskerville',serif;pointer-events:auto;transition:filter .4s cubic-bezier(.4,0,.2,1),background .4s;cursor:auto !important}
+.yang-mq *,.yang-mq *::before,.yang-mq *::after{cursor:auto !important}
+.yang-mq__btn{display:inline-flex;align-items:center;background:rgba(255,255,255,.18);color:inherit;padding:2px 10px;border-radius:3px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;transition:background .3s,transform .2s;text-decoration:none}
+.yang-mq__btn:hover{background:rgba(255,255,255,.32);transform:scale(1.05)}
+.yang-mq--top{top:0}
+.yang-mq--btm{bottom:0;top:auto}
+.yang-mq__inner{display:flex;white-space:nowrap;height:100%;align-items:center;width:max-content}
+.yang-mq__item{display:inline-flex;align-items:center;gap:10px;padding:0 clamp(16px,3vw,28px);font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;flex-shrink:0;transition:color .4s}
+.yang-mq__item svg{width:11px;height:11px;flex-shrink:0;fill:currentColor;transition:fill .4s,transform .3s}
+.yang-mq__item a{color:inherit;text-decoration:none;transition:color .3s,opacity .3s;display:inline-flex;align-items:center;gap:7px}
+.yang-mq__item a:hover{opacity:.7}
+.yang-mq__item a:hover svg{transform:scale(1.15)}
+.yang-mq__sep{width:4px;height:4px;border-radius:50%;background:currentColor;opacity:.45;flex-shrink:0;transition:opacity .4s,transform .4s}
+.yang-mq--top .yang-mq__inner{animation:yangTopScroll 30s linear infinite}
+.yang-mq--btm .yang-mq__inner{animation:yangBtmScroll 24s linear infinite}
+@keyframes yangTopScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes yangBtmScroll{0%{transform:translateX(-50%)}100%{transform:translateX(0)}}
+.yang-mq--top{background:linear-gradient(90deg,#000 0%,#1a1a1a 50%,#000 100%);background-size:200% 100%;animation:bgShift 6s ease-in-out infinite alternate;color:#fff;border-bottom:1px solid rgba(255,255,255,.12)}
+.yang-mq--btm{background:linear-gradient(90deg,#111 0%,#222 50%,#111 100%);background-size:200% 100%;animation:bgShift 6s ease-in-out infinite alternate-reverse;color:#fff;border-top:1px solid rgba(255,255,255,.12)}
+@keyframes bgShift{0%{background-position:0% 50%}100%{background-position:100% 50%}}
+.yang-mq:hover{filter:invert(1);z-index:99981}
+.yang-mq:hover .yang-mq__sep{transform:rotate(90deg)}
+.yang-mq:hover .yang-mq__inner{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){.yang-mq__inner,.yang-mq--top,.yang-mq--btm{animation:none!important}}
+</style>
+<div class="yang-mq yang-mq--top" aria-label="Aviso de site demonstrativo">
+<div class="yang-mq__inner">
+<span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span>
+<span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span>
+<span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span>
+<span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span>
+<span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span>
+<span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span>
+<span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span>
+<span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span>
+<span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span>
+<span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span>
+</div>
+</div>
+<div class="yang-mq yang-mq--btm" aria-label="Contatos da Yang Tech">
+<div class="yang-mq__inner">
+<span class="yang-mq__item"><a href="https://instagram.com/yang.techno" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>instagram.com/yang.techno</a> <span class="yang-mq__sep"></span> <a href="mailto:public.yangtech@gmail.com"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>public.yangtech@gmail.com</a></span>
+<span class="yang-mq__item"><a href="https://instagram.com/yang.techno" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>instagram.com/yang.techno</a> <span class="yang-mq__sep"></span> <a href="mailto:public.yangtech@gmail.com"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>public.yangtech@gmail.com</a></span>
+<span class="yang-mq__item"><a href="https://instagram.com/yang.techno" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>instagram.com/yang.techno</a> <span class="yang-mq__sep"></span> <a href="mailto:public.yangtech@gmail.com"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>public.yangtech@gmail.com</a></span>
+<span class="yang-mq__item"><a href="https://instagram.com/yang.techno" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>instagram.com/yang.techno</a> <span class="yang-mq__sep"></span> <a href="mailto:public.yangtech@gmail.com"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>public.yangtech@gmail.com</a></span>
+<span class="yang-mq__item"><a href="https://instagram.com/yang.techno" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>instagram.com/yang.techno</a> <span class="yang-mq__sep"></span> <a href="mailto:public.yangtech@gmail.com"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>public.yangtech@gmail.com</a></span>
+<span class="yang-mq__item"><a href="https://instagram.com/yang.techno" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>instagram.com/yang.techno</a> <span class="yang-mq__sep"></span> <a href="mailto:public.yangtech@gmail.com"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>public.yangtech@gmail.com</a></span>
+<span class="yang-mq__item"><a href="https://instagram.com/yang.techno" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>instagram.com/yang.techno</a> <span class="yang-mq__sep"></span> <a href="mailto:public.yangtech@gmail.com"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>public.yangtech@gmail.com</a></span>
+</div>
+</div>
+<!-- /Yang Tech Marquee -->
+
+<div id="loader" role="status" aria-live="polite" aria-label="Carregando página">
+  <div class="loader-petal" aria-hidden="true"></div>
+  <span class="loader-mark">Dra. Gisela Ramalho Safady</span>
+</div>
+<div id="scroll-petal" aria-hidden="true"></div>
+
+<!-- Sticky CTA mobile -->
+<a id="sticky-cta" href="https://wa.me/5511975483138" target="_blank" rel="noopener" aria-label="Fale com a Dra. Gisela no WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.9 21 3 13.1 3 3c0-.6.4-1 1-1h3.2c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.3 1.1L6.6 10.8z"/></svg>
+  Agendar pelo WhatsApp
+</a>
+
+<div id="smooth-wrapper">
+<header id="site-header">
+  <nav class="container">
+    <a href="#top" class="logo">Dra. Gisela <em>Safady</em></a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#convenios">Convênios</a></li>
+      <li><a href="#faq">Dúvidas</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="tel:+551936331881" class="nav-phone">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        (19) 3633-1881
+      </a>
+      <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+<div id="smooth-content">
+
+<main id="top">
+
+  <section class="hero">
+    <div class="hero-blob" aria-hidden="true"></div>
+    <div class="hero-blob-2" aria-hidden="true"></div>
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Ginecologia &amp; Obstetrícia · São João da Boa Vista</span>
+        <h1 class="hero-title" id="hero-title">Cuidado com a saúde da mulher, em cada fase da vida</h1>
+        <p class="hero-desc">Atendimento próximo e atencioso, do primeiro exame ao acompanhamento de pré-natal — sempre com tempo para ouvir e explicar cada passo.</p>
+        <div class="hero-actions">
+          <a href="#contato" class="btn btn-primary">Agendar consulta</a>
+          <a href="#servicos" class="btn btn-ghost">Ver especialidades</a>
+        </div>
+      </div>
+      <div class="hero-portrait">
+        <div class="hero-portrait-shape">
+          <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&q=80" alt="Dra. Gisela Ramalho Safady — ginecologista e obstetra" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <b>25+</b>
+            <span>Anos de atuação</span>
+          </div>
+          <div class="hero-stat">
+            <b>Unimed</b>
+            <span>Cooperada</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="sobre">
+    <div class="container about-grid">
+      <div class="about-visual" data-reveal style="background-image:url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80');background-size:cover;background-position:center;">
+        <span class="about-visual-tag">"Cada consulta é uma conversa, não um procedimento."</span>
+      </div>
+      <div class="about-text" data-reveal>
+        <span class="eyebrow">Sobre a médica</span>
+        <h2 style="margin-top:16px; margin-bottom:22px;">Uma trajetória dedicada à ginecologia e obstetrícia em São João da Boa Vista</h2>
+        <p>A Dra. Gisela Ramalho Safady atua há mais de duas décadas na cidade, acompanhando gerações de pacientes com um cuidado que une atualização técnica constante e escuta atenta.</p>
+        <p>Cooperada da Unimed Leste Paulista, mantém consultório próprio no Centro, onde recebe pacientes para consultas de rotina, pré-natal e acompanhamento ginecológico completo.</p>
+        <div class="about-creds">
+          <span class="cred-pill">Ginecologia</span>
+          <span class="cred-pill">Obstetrícia</span>
+          <span class="cred-pill">Pré-natal</span>
+          <span class="cred-pill">Unimed Leste Paulista</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="services" id="servicos">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Especialidades</span>
+        <h2>Atendimento completo em saúde da mulher</h2>
+        <p>Da adolescência à maturidade, um acompanhamento pensado para cada etapa.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card" data-reveal-batch>
+          <div class="service-icon">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v7"/><circle cx="12" cy="15" r="7"/></svg>
+          </div>
+          <h3>Consultas ginecológicas</h3>
+          <p>Exames de rotina, prevenção e orientação em todas as fases da vida reprodutiva.</p>
+        </div>
+        <div class="service-card" data-reveal-batch>
+          <div class="service-icon">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 2.5 5 6 5c2 0 3.5 1 4 2 .5-1 2-2 4-2 3.5 0 5.5 3.5 3.5 7.5C19 16.65 12 21 12 21z"/></svg>
+          </div>
+          <h3>Acompanhamento de pré-natal</h3>
+          <p>Suporte contínuo do início da gestação ao parto, com atenção individualizada.</p>
+        </div>
+        <div class="service-card" data-reveal-batch>
+          <div class="service-icon">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          </div>
+          <h3>Planejamento familiar</h3>
+          <p>Orientação sobre métodos contraceptivos e planejamento reprodutivo.</p>
+        </div>
+        <div class="service-card" data-reveal-batch>
+          <div class="service-icon">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>
+          </div>
+          <h3>Prevenção do câncer ginecológico</h3>
+          <p>Exames preventivos como Papanicolau e acompanhamento de saúde mamária.</p>
+        </div>
+        <div class="service-card" data-reveal-batch>
+          <div class="service-icon">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 2v10l7 4"/></svg>
+          </div>
+          <h3>Climatério e menopausa</h3>
+          <p>Acompanhamento das mudanças hormonais com foco em qualidade de vida.</p>
+        </div>
+        <div class="service-card" data-reveal-batch>
+          <div class="service-icon">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h16M12 4v16"/></svg>
+          </div>
+          <h3>Saúde da adolescente</h3>
+          <p>Primeira consulta ginecológica com acolhimento e orientação adequada à idade.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="insurance" id="convenios">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Convênios</span>
+        <h2>Atendimento via convênio e particular</h2>
+        <p>Consulte a lista abaixo ou entre em contato para confirmar a cobertura do seu plano.</p>
+      </div>
+      <div class="insurance-grid">
+        <div class="insurance-item" data-reveal-batch>
+          <svg class="check-draw" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          Unimed Leste Paulista
+        </div>
+        <div class="insurance-item" data-reveal-batch>
+          <svg class="check-draw" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          Atendimento particular
+        </div>
+      </div>
+      <p class="insurance-note">Não encontrou seu convênio na lista? Ligue para confirmar outras parcerias vigentes.</p>
+    </div>
+  </section>
+
+  <section class="info-strip">
+    <div class="container">
+      <div class="info-item" data-reveal-batch>
+        <span class="eyebrow">Horário de atendimento</span>
+        <p>Segunda a sexta, mediante agendamento prévio por telefone.</p>
+      </div>
+      <div class="info-item" data-reveal-batch>
+        <span class="eyebrow">Como agendar</span>
+        <p>Ligue para (19) 3633-1881 ou compareça ao consultório no Centro de São João da Boa Vista.</p>
+      </div>
+      <div class="info-item" data-reveal-batch>
+        <span class="eyebrow">Primeira consulta</span>
+        <p>Leve um documento com foto, carteirinha do convênio (se houver) e exames anteriores.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Dúvidas frequentes</span>
+        <h2>Perguntas comuns antes da consulta</h2>
+      </div>
+      <div class="faq-list" data-reveal>
+        <div class="faq-item open">
+          <button type="button" class="faq-q" id="faq-q-1" aria-expanded="true" aria-controls="faq-a-1">
+            Preciso de encaminhamento para consultar?
+            <span class="faq-q-icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-a" id="faq-a-1" role="region" aria-labelledby="faq-q-1">
+            <div class="faq-a-inner">
+              <p>Não. Você pode agendar diretamente pelo telefone do consultório, seja para consulta particular ou pelo convênio Unimed.</p>
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-q" id="faq-q-2" aria-expanded="false" aria-controls="faq-a-2">
+            Como funciona o acompanhamento de pré-natal?
+            <span class="faq-q-icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-a" id="faq-a-2" role="region" aria-labelledby="faq-q-2">
+            <div class="faq-a-inner">
+              <p>O acompanhamento começa assim que a gravidez é confirmada, com consultas periódicas que se tornam mais frequentes ao longo da gestação, incluindo solicitação de exames e orientações para cada trimestre.</p>
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-q" id="faq-q-3" aria-expanded="false" aria-controls="faq-a-3">
+            Quais documentos levar na primeira consulta?
+            <span class="faq-q-icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-a" id="faq-a-3" role="region" aria-labelledby="faq-q-3">
+            <div class="faq-a-inner">
+              <p>Documento com foto, carteirinha do convênio (quando aplicável) e, se possível, exames e histórico médico anteriores relacionados à saúde ginecológica.</p>
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-q" id="faq-q-4" aria-expanded="false" aria-controls="faq-a-4">
+            O consultório atende urgências?
+            <span class="faq-q-icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-a" id="faq-a-4" role="region" aria-labelledby="faq-q-4">
+            <div class="faq-a-inner">
+              <p>O atendimento é feito por agendamento prévio. Em caso de urgência, procure o pronto-atendimento ou hospital de referência mais próximo.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contato">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Contato</span>
+        <h2>Agende sua consulta</h2>
+        <p>Estamos no Centro de São João da Boa Vista. Ligue ou visite o consultório.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card" data-reveal>
+          <div class="contact-row">
+            <div class="contact-row-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <div class="contact-row-label">Endereço</div>
+              <div class="contact-row-value">
+                <a href="https://maps.app.goo.gl/JSByHWN2wgbmCxDc8" target="_blank" rel="noopener">R. Benedito Araújo, 476 — Centro, São João da Boa Vista - SP, 13870-090</a>
+              </div>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-row-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div>
+              <div class="contact-row-label">Telefone</div>
+              <div class="contact-row-value"><a href="tel:+551936331881">(19) 3633-1881</a></div>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-row-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            </div>
+            <div>
+              <div class="contact-row-label">Atendimento</div>
+              <div class="contact-row-value">Segunda a sexta, com hora marcada</div>
+            </div>
+          </div>
+          <div style="margin-top:28px;">
+            <a href="tel:+551936331881" class="btn btn-primary" style="width:100%; justify-content:center;">Ligar agora</a>
+          </div>
+        </div>
+        <div class="map-embed" id="map-embed" data-reveal-clip>
+          <iframe
+            src="https://www.google.com/maps?q=R.+Benedito+Ara%C3%BAjo,+476+-+Centro,+S%C3%A3o+Jo%C3%A3o+da+Boa+Vista+-+SP,+13870-090&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Mapa de localização do consultório"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <span class="footer-logo">Dra. Gisela Safady</span>
+      <ul class="footer-links">
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#convenios">Convênios</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Dra. Gisela Ramalho Safady — Ginecologia e Obstetrícia.</span>
+      <span>R. Benedito Araújo, 476, Centro, São João da Boa Vista - SP</span>
+    </div>
+  </div>
+</footer>
+
+</div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var HAS_GSAP  = typeof window.gsap !== 'undefined';
+  var HAS_ST    = HAS_GSAP && typeof window.ScrollTrigger !== 'undefined';
+  var HAS_SPLIT = HAS_GSAP && typeof window.SplitText !== 'undefined';
+  var HAS_SMOOTHER = typeof window.ScrollSmoother !== 'undefined';
+  var REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if(HAS_GSAP){
+    if(typeof ScrollTrigger !== 'undefined') gsap.registerPlugin(ScrollTrigger);
+    if(typeof ScrollSmoother !== 'undefined') gsap.registerPlugin(ScrollSmoother);
+    if(typeof Observer !== 'undefined') gsap.registerPlugin(Observer);
+    if(typeof SplitText !== 'undefined') gsap.registerPlugin(SplitText);
+    if(typeof ScrollToPlugin !== 'undefined') gsap.registerPlugin(ScrollToPlugin);
+  }
+
+  function revealStatic(){
+    document.querySelectorAll('[data-reveal]').forEach(function(el){
+      el.style.opacity = '1';
+    });
+  }
+
+  function hideLoader(){
+    var loader = document.getElementById('loader');
+    if(loader){ loader.classList.add('hidden'); loader.setAttribute('aria-hidden', 'true'); window.setTimeout(function(){ loader.remove(); }, 750); }
+    var mark = document.querySelector('.loader-mark');
+    if(mark){ mark.style.opacity = '1'; }
+  }
+
+  function initNav(){
+    var header = document.getElementById('site-header');
+    var toggle = document.getElementById('menu-toggle');
+    var links = document.getElementById('nav-links');
+
+    function onScroll(){
+      if(window.scrollY > 40){ header.classList.add('scrolled'); }
+      else{ header.classList.remove('scrolled'); }
+    }
+    window.addEventListener('scroll', onScroll, { passive:true });
+    onScroll();
+
+    if(toggle && links){
+      function trapFocus(menuEl) {
+        const focusable = menuEl.querySelectorAll('a, button, [tabindex]');
+        const first = focusable[0], last = focusable[focusable.length - 1];
+        first?.focus();
+        function handler(e) {
+          if (e.key === 'Escape') { closeMenu(); return; }
+          if (e.key !== 'Tab') return;
+          if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last?.focus(); }
+          else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first?.focus(); }
+        }
+        document.addEventListener('keydown', handler);
+        return () => document.removeEventListener('keydown', handler);
+      }
+      var removeTrap = null;
+      function closeMenu(){
+        links.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Abrir menu');
+        document.body.style.overflow = '';
+        if(removeTrap){ removeTrap(); removeTrap = null; }
+      }
+      toggle.addEventListener('click', function(){
+        var open = links.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        toggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+        document.body.style.overflow = open ? 'hidden' : '';
+        if(open){ removeTrap = trapFocus(links); }
+        else if(removeTrap){ removeTrap(); removeTrap = null; }
+      });
+      links.querySelectorAll('a').forEach(function(a){
+        a.addEventListener('click', function(){
+          closeMenu();
+        });
+      });
+    }
+  }
+
+  function initFaq(){
+    var items = document.querySelectorAll('.faq-item');
+
+    function setStatic(item, open){
+      var answer = item.querySelector('.faq-a');
+      item.classList.toggle('open', open);
+      item.querySelector('.faq-q').setAttribute('aria-expanded', open ? 'true' : 'false');
+      answer.style.height = open ? 'auto' : '0px';
+    }
+
+    function setAnimated(item, open){
+      var answer = item.querySelector('.faq-a');
+      var icon = item.querySelector('.faq-q-icon');
+      item.classList.toggle('open', open);
+      item.querySelector('.faq-q').setAttribute('aria-expanded', open ? 'true' : 'false');
+
+      if(open){
+        var h = answer.scrollHeight;
+        gsap.fromTo(answer, { height: 0 }, { height: h, duration: 0.55, ease: 'power3.inOut', overwrite: 'auto',
+          onComplete: function(){ answer.style.height = 'auto'; } });
+      } else {
+        gsap.to(answer, { height: 0, duration: 0.45, ease: 'power3.inOut', overwrite: 'auto' });
+      }
+      if(icon){
+        gsap.to(icon, { rotate: open ? 45 : 0, duration: 0.45, ease: 'power3.inOut', overwrite: 'auto' });
+      }
+    }
+
+    var setState = (HAS_GSAP && !REDUCED_MOTION) ? setAnimated : setStatic;
+
+    items.forEach(function(item){
+      var btn = item.querySelector('.faq-q');
+      setState(item, item.classList.contains('open'));
+
+      btn.addEventListener('click', function(){
+        var willOpen = !item.classList.contains('open');
+        items.forEach(function(other){
+          if(other !== item && other.classList.contains('open')){ setState(other, false); }
+        });
+        setState(item, willOpen);
+      });
+    });
+
+    if(!HAS_GSAP || REDUCED_MOTION){
+      window.addEventListener('resize', function(){
+        var openItem = document.querySelector('.faq-item.open .faq-a');
+        if(openItem){ openItem.style.height = 'auto'; }
+      });
+    }
+  }
+
+  function initSmootherAndAnchors(){
+    var smoother = null;
+    var isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+    var isNarrow = window.innerWidth <= 860;
+    var disableSmoothing = REDUCED_MOTION || isTouch || isNarrow;
+
+    if(HAS_SMOOTHER && !disableSmoothing){
+      smoother = ScrollSmoother.create({
+        wrapper: '#smooth-wrapper',
+        content: '#smooth-content',
+        smooth: 1.2,
+        effects: false,
+        smoothTouch: 0
+      });
+      gsap.ticker.lagSmoothing(0);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(function(a){
+      a.addEventListener('click', function(e){
+        var id = a.getAttribute('href');
+        if(id.length < 2) return;
+        var target = document.querySelector(id);
+        if(!target) return;
+        e.preventDefault();
+        if(smoother){
+          smoother.scrollTo(target, { duration: 1.2, offset: -70 });
+        } else {
+          target.scrollIntoView({ behavior: REDUCED_MOTION ? 'auto' : 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    return smoother;
+  }
+
+  function initHeroSplit(onDone){
+    if(!HAS_SPLIT || REDUCED_MOTION){
+      onDone();
+      return;
+    }
+    var titleEl = document.getElementById('hero-title');
+    titleEl.style.opacity = '1';
+
+    var fontsReady = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+    var safety = new Promise(function(res){ setTimeout(res, 800); });
+
+    Promise.race([fontsReady, safety]).then(function(){
+      try{
+        SplitText.create(titleEl, {
+          type: 'lines, words',
+          mask: 'lines',
+          autoSplit: true,
+          onSplit: function(self){
+            return gsap.fromTo(self.lines,
+              { yPercent: 110, autoAlpha: 0 },
+              {
+                yPercent: 0, autoAlpha: 1,
+                stagger: 0.09,
+                duration: 1,
+                ease: 'power4.out',
+                onComplete: onDone
+              }
+            );
+          }
+        });
+      } catch(err){
+        console.warn('SplitText fallback:', err);
+        titleEl.style.opacity = '1';
+        onDone();
+      }
+    });
+  }
+
+  function initHeroDescSplit(){
+    if(!HAS_SPLIT || REDUCED_MOTION) return;
+    var descEl = document.querySelector('.hero-desc');
+    if(!descEl) return;
+
+    var fontsReady = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+    var safety = new Promise(function(res){ setTimeout(res, 800); });
+
+    Promise.race([fontsReady, safety]).then(function(){
+      try{
+        SplitText.create(descEl, {
+          type: 'words',
+          autoSplit: true,
+          onSplit: function(self){
+            return gsap.fromTo(self.words,
+              { autoAlpha: 0, yPercent: 40 },
+              {
+                autoAlpha: 1, yPercent: 0,
+                stagger: 0.012,
+                duration: 0.7,
+                delay: 0.75,
+                ease: 'power2.out'
+              }
+            );
+          }
+        });
+      } catch(err){ console.warn('SplitText fallback:', err); }
+    });
+  }
+
+  function revealStaticBatch(){
+    document.querySelectorAll('[data-reveal-batch]').forEach(function(el){ el.style.opacity = '1'; });
+    document.querySelectorAll('[data-reveal-clip]').forEach(function(el){ el.style.opacity = '1'; });
+    document.querySelectorAll('.service-icon').forEach(function(el){ el.style.opacity = '1'; el.style.transform = 'none'; });
+    document.querySelectorAll('.check-draw').forEach(function(el){ el.style.opacity = '1'; });
+  }
+
+  function initScrollReveals(){
+    if(!HAS_ST || REDUCED_MOTION){
+      revealStatic();
+      revealStaticBatch();
+      return;
+    }
+
+    // Individual section-level reveals (headers, single blocks)
+    document.querySelectorAll('[data-reveal]').forEach(function(el){
+      gsap.fromTo(el,
+        { autoAlpha: 0, y: 34 },
+        {
+          autoAlpha: 1, y: 0,
+          duration: 0.9,
+          ease: 'power3.out',
+          overwrite: 'auto',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 88%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    });
+
+    // Grouped entrance for repeating items (cards, pills, info strip) —
+    // one ScrollTrigger per group instead of one per element.
+    gsap.set('[data-reveal-batch]', { y: 28 });
+    ScrollTrigger.batch('[data-reveal-batch]', {
+      start: 'top 88%',
+      onEnter: function(batch){
+        gsap.to(batch, {
+          autoAlpha: 1, y: 0,
+          duration: 0.75,
+          stagger: 0.1,
+          ease: 'power3.out',
+          overwrite: 'auto'
+        });
+      },
+      once: true
+    });
+
+    // Service icons pop in slightly after their card
+    ScrollTrigger.batch('.service-icon', {
+      start: 'top 88%',
+      onEnter: function(batch){
+          gsap.to(batch, {
+          autoAlpha: 1, scale: 1, rotate: 0,
+          duration: 0.6,
+          stagger: 0.1,
+          delay: 0.15,
+          ease: 'back.out(1.8)',
+          overwrite: 'auto'
+        });
+      },
+      once: true
+    });
+
+    // Insurance checkmarks draw themselves in via stroke-dashoffset
+    document.querySelectorAll('.check-draw path').forEach(function(path){
+      var len = 30;
+      try{ len = path.getTotalLength ? path.getTotalLength() : 30; } catch(e){}
+      gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
+    });
+    ScrollTrigger.batch('.check-draw', {
+      start: 'top 90%',
+      onEnter: function(batch){
+        batch.forEach(function(svg){
+          gsap.to(svg, { autoAlpha: 1, duration: 0.2, overwrite: 'auto' });
+          gsap.to(svg.querySelector('path'), { strokeDashoffset: 0, duration: 0.6, delay: 0.15, ease: 'power2.out', overwrite: 'auto' });
+        });
+      },
+      once: true
+    });
+
+    // Map: clip-path wipe reveal instead of a flat fade — echoes the hero petal shape
+    var mapEl = document.getElementById('map-embed');
+    if(mapEl){
+      gsap.fromTo(mapEl,
+        { clipPath: 'inset(0 100% 0 0 round 28px)', opacity: 1 },
+        {
+          clipPath: 'inset(0 0% 0 0 round 28px)',
+          duration: 1.1,
+          ease: 'power4.inOut',
+          overwrite: 'auto',
+          scrollTrigger: { trigger: mapEl, start: 'top 85%', toggleActions: 'play none none none' }
+        }
+      );
+    }
+
+    var mm = gsap.matchMedia();
+    mm.add('(hover: hover) and (pointer: fine)', function(){
+      var cards = document.querySelectorAll('.service-card');
+      var cleanups = [];
+      cards.forEach(function(card){
+        var tween = gsap.to(card, { y: -6, duration: 0.35, ease: 'power2.out', paused: true, overwrite: 'auto' });
+        var icon = card.querySelector('.service-icon');
+        var iconTween = icon ? gsap.to(icon, { rotate: 8, duration: 0.35, ease: 'power2.out', paused: true, overwrite: 'auto' }) : null;
+        function onEnter(){ tween.play(); if(iconTween) iconTween.play(); }
+        function onLeave(){ tween.reverse(); if(iconTween) iconTween.reverse(); }
+        card.addEventListener('mouseenter', onEnter);
+        card.addEventListener('mouseleave', onLeave);
+        cleanups.push(function(){ card.removeEventListener('mouseenter', onEnter); card.removeEventListener('mouseleave', onLeave); });
+      });
+
+      var btns = document.querySelectorAll('.btn');
+      btns.forEach(function(btn){
+        var tween = gsap.to(btn, { scale: 1.035, duration: 0.3, ease: 'power2.out', paused: true, overwrite: 'auto' });
+        function onEnter(){ tween.play(); }
+        function onLeave(){ tween.reverse(); }
+        btn.addEventListener('mouseenter', onEnter);
+        btn.addEventListener('mouseleave', onLeave);
+        cleanups.push(function(){ btn.removeEventListener('mouseenter', onEnter); btn.removeEventListener('mouseleave', onLeave); });
+      });
+
+      return function(){ cleanups.forEach(function(fn){ fn(); }); };
+    });
+  }
+
+  function initNavActiveTracking(){
+    if(!HAS_ST || REDUCED_MOTION) return;
+    var sections = ['sobre', 'servicos', 'convenios', 'faq', 'contato'];
+    sections.forEach(function(id){
+      var target = document.getElementById(id);
+      var link = document.querySelector('.nav-links a[href="#' + id + '"]');
+      if(!target || !link) return;
+      ScrollTrigger.create({
+        trigger: target,
+        start: 'top 50%',
+        end: 'bottom 50%',
+        onEnter: function(){ setActiveLink(link); },
+        onEnterBack: function(){ setActiveLink(link); }
+      });
+    });
+    function setActiveLink(activeLink){
+      document.querySelectorAll('.nav-links a').forEach(function(a){ a.classList.remove('active'); });
+      activeLink.classList.add('active');
+    }
+  }
+
+  function initScrollPetal(){
+    if(!HAS_GSAP || !HAS_ST || REDUCED_MOTION) return;
+    var petal = document.getElementById('scroll-petal');
+    if(!petal) return;
+    gsap.to(petal, { autoAlpha: 1, scale: 1, duration: 0.5, delay: 1.1, ease: 'power2.out' });
+    var setTop = gsap.quickTo(petal, 'top', { duration: 0.3, ease: 'none' });
+    var setRotate = gsap.quickTo(petal, 'rotate', { duration: 0.3, ease: 'none' });
+    ScrollTrigger.create({
+      trigger: document.body,
+      start: 'top top',
+      end: 'bottom bottom',
+      onUpdate: function(self){
+        setTop((10 + self.progress * 80) + '%');
+        setRotate(self.progress * 180);
+      }
+    });
+  }
+
+  function initHeroAmbient(){
+    if(!HAS_GSAP || REDUCED_MOTION) return;
+    var stats = document.querySelector('.hero-stats');
+    if(stats){
+      gsap.fromTo(stats, { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.9, delay: 0.9, ease: 'power3.out' });
+    }
+    var desc = document.querySelector('.hero-desc');
+    var actions = document.querySelector('.hero-actions');
+    var eyebrow = document.querySelector('.hero-copy .eyebrow');
+    var portrait = document.querySelector('.hero-portrait-shape');
+
+    // desc opacity is driven by initHeroDescSplit when SplitText is available;
+    // here we just guarantee it's visible either way.
+    gsap.set(desc, { autoAlpha: HAS_SPLIT ? 1 : 0, y: HAS_SPLIT ? 0 : 16 });
+    gsap.set([actions, eyebrow], { autoAlpha: 0, y: 16 });
+    gsap.set(portrait, { autoAlpha: 0, scale: 0.94 });
+
+    gsap.to(eyebrow, { autoAlpha: 1, y: 0, duration: 0.7, delay: 0.15, ease: 'power3.out' });
+    if(!HAS_SPLIT){
+      gsap.to(desc, { autoAlpha: 1, y: 0, duration: 0.8, delay: 0.55, ease: 'power3.out' });
+    }
+    gsap.to(actions, { autoAlpha: 1, y: 0, duration: 0.8, delay: 0.7, ease: 'power3.out' });
+    gsap.to(portrait, { autoAlpha: 1, scale: 1, duration: 1, delay: 0.4, ease: 'power3.out' });
+  }
+
+  function pauseWhenHidden(){
+    document.addEventListener('visibilitychange', function(){
+      if(!HAS_GSAP || !HAS_ST) return;
+      if(document.hidden){
+        ScrollTrigger.getAll().forEach(function(st){ st.disable(); });
+      } else {
+        ScrollTrigger.getAll().forEach(function(st){ st.enable(); });
+      }
+    });
+  }
+
+  function animateLoader(){
+    if(!HAS_GSAP || REDUCED_MOTION) return;
+    var petal = document.querySelector('.loader-petal');
+    var mark = document.querySelector('.loader-mark');
+    if(petal){
+      gsap.to(petal, { rotate: 180, scale: 1.15, duration: 1.1, ease: 'power2.inOut', repeat: -1, yoyo: true });
+    }
+    if(mark){
+      gsap.to(mark, { opacity: 1, duration: 0.5, ease: 'power2.out', delay: 0.1 });
+    }
+  }
+
+  let ctx;
+
+  function boot(){
+    initNav();
+    initFaq();
+    animateLoader();
+
+    if(!HAS_GSAP){
+      revealStatic();
+      revealStaticBatch();
+      hideLoader();
+      return;
+    }
+
+    ctx = gsap.context(() => {
+      // ─── SET INITIAL STATES (prevents FOUC) ───
+      if (!REDUCED_MOTION) {
+        gsap.set("[data-reveal]", { y: 30, autoAlpha: 0 });
+        gsap.set("[data-reveal-batch]", { y: 30, autoAlpha: 0 });
+        gsap.set("[data-reveal-clip]", { autoAlpha: 0 });
+        gsap.set(".service-icon", { scale: 0.6, rotate: -8, autoAlpha: 0 });
+      }
+
+      initSmootherAndAnchors();
+      initScrollReveals();
+      initHeroAmbient();
+      initNavActiveTracking();
+      initScrollPetal();
+      pauseWhenHidden();
+
+      initHeroSplit(function(){});
+      initHeroDescSplit();
+
+      // ─── FOOTER REVEAL ───
+      gsap.fromTo("footer", { y: 30, autoAlpha: 0 }, { scrollTrigger: { trigger: "footer", start: "top 95%" }, y: 0, autoAlpha: 1, duration: .8, ease: "power3.out" });
+    }, document.body);
+
+    hideLoader();
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+
+  window.addEventListener('beforeunload', () => { if(ctx) ctx.revert(); });
+
+  // Absolute fallback: never let the loader trap the user
+  setTimeout(hideLoader, 5000);
+})();
+</script>
+
+<script id="enterprise-ux-runtime">(()=>{const d=document,reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,root=d.documentElement;const target=d.querySelector('main')||d.querySelector('[id]');if(target&&!d.querySelector('.enterprise-skip')){if(!target.id)target.id='main-content';const skip=d.createElement('a');skip.className='enterprise-skip';skip.href='#'+target.id;skip.textContent='Pular para o conteúdo';d.body.prepend(skip);}d.querySelectorAll('img').forEach((img,i)=>{img.decoding='async';if(i>0&&!img.hasAttribute('loading'))img.loading='lazy';});const bar=d.createElement('i');bar.className='enterprise-progress';bar.setAttribute('aria-hidden','true');d.body.prepend(bar);const set=()=>{const max=d.documentElement.scrollHeight-innerHeight;bar.style.transform='scaleX('+Math.min(1,Math.max(0,scrollY/(max||1)))+')';};if(!reduce){if(window.gsap&&window.ScrollTrigger){gsap.set(bar,{scaleX:0,transformOrigin:'left center'});gsap.to(bar,{scaleX:1,ease:'none',scrollTrigger:{start:0,end:'max',scrub:.12}});}else{addEventListener('scroll',set,{passive:true});set();}}root.classList.add('enterprise-ux-ready');})();</script>
+<script id="enterprise-photo-runtime">(()=>{const d=document,main=d.querySelector('main'),t=d.title;if(!main||d.querySelector('.enterprise-photo-deck'))return;const m=t.includes('Gisela')?['Cuidado em cada detalhe','Uma experiência de saúde construída para acolher',['photo-1584982751601-97dcc096659c','photo-1576091160399-112ba8d25d1d','photo-1559757148-5c350d0d3c56']]:t.includes('Yang')?['Work, made tangible','Systems designed to move business forward',['photo-1497366754035-f200968a6e72','photo-1497215842964-222b430dc094','photo-1558655146-9f40138edfeb']]:t.includes('Lobo')?['Acolhimento que inspira confiança','Um espaço clínico pensado para estar perto',['photo-1576091160399-112ba8d25d1d','photo-1584982751601-97dcc096659c','photo-1559757148-5c350d0d3c56']]:t.includes('Sorriso')?['Sorrisos em boas mãos','Tecnologia, leveza e um atendimento próximo',['photo-1609840114035-3c981b782dfe','photo-1550831107-1553da8c8464','photo-1588776814546-1ffcf47267a5']]:t.includes('Sanare')?['Precisão que se vê','Clareza, tecnologia e atenção em cada consulta',['photo-1505751172876-fa1923c5c528','photo-1584982751601-97dcc096659c','photo-1576091160399-112ba8d25d1d']]:t.includes('TEA')?['Um espaço para cada descoberta','Cores, vínculo e rotina que acolhe',['photo-1596464716127-f2a82984de30','photo-1503454537195-1dcabb73ffb9','photo-1542810634-71277d95dcbb']]:['Visual systems in motion','A gallery for modern digital craft',['photo-1497366754035-f200968a6e72','photo-1558655146-9f40138edfeb','photo-1497215842964-222b430dc094']];const s=d.createElement('style');s.textContent='.enterprise-photo-deck{width:min(1180px,calc(100% - 2rem));margin:clamp(4rem,9vw,9rem) auto;display:grid;gap:clamp(1.5rem,4vw,4rem);align-items:end}.enterprise-photo-copy{max-width:38rem}.enterprise-photo-copy span{display:block;margin-bottom:.8rem;color:var(--enterprise-accent,var(--acid));font:700 .72rem/1.2 system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase}.enterprise-photo-copy h2{margin:0;font-size:clamp(2rem,5vw,4.8rem);line-height:.96;letter-spacing:-.055em}.enterprise-photo-copy p{margin:1.25rem 0 0;max-width:34rem;line-height:1.65;opacity:.76}.enterprise-photo-grid{display:grid;grid-template-columns:1.15fr .85fr;grid-template-rows:repeat(2,minmax(130px,1fr));gap:clamp(.65rem,1.4vw,1.15rem);min-height:clamp(340px,45vw,590px)}.enterprise-photo-frame{margin:0;overflow:hidden;border-radius:clamp(14px,2vw,26px);background:rgba(127,127,127,.14)}.enterprise-photo-frame:first-child{grid-row:span 2}.enterprise-photo-frame img{width:100%;height:100%;display:block;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}@media(hover:hover){.enterprise-photo-frame:hover img{transform:scale(1.055)}}@media(min-width:760px){.enterprise-photo-deck{grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr)}}@media(max-width:520px){.enterprise-photo-deck{width:calc(100% - 1.25rem);margin:3.5rem auto}.enterprise-photo-grid{min-height:300px;gap:.55rem}}@media(prefers-reduced-motion:reduce){.enterprise-photo-frame img{transition:none}}';d.head.append(s);const deck=d.createElement('section');deck.className='enterprise-photo-deck';deck.setAttribute('aria-label',m[0]);deck.innerHTML='<div class="enterprise-photo-copy"><span>'+m[0]+'</span><h2>'+m[1]+'</h2><p>Fotografias de apoio que tornam a experiência digital mais humana, concreta e memorável.</p></div><div class="enterprise-photo-grid">'+m[2].map((id,i)=>'<figure class="enterprise-photo-frame"><img src="https://images.unsplash.com/'+id+'?auto=format&fit=crop&w='+(i?'900':'1400')+'&q=82" alt="Fotografia de apoio" loading="lazy" decoding="async"></figure>').join('')+'</div>';main.append(deck);if(window.gsap&&window.ScrollTrigger&&!matchMedia('(prefers-reduced-motion: reduce)').matches){const ctx=gsap.context(()=>{const mm=gsap.matchMedia();mm.add('(min-width:760px)',()=>gsap.to(deck.querySelectorAll('.enterprise-photo-frame img'),{yPercent:i=>i===0?-7:7,ease:'none',scrollTrigger:{trigger:deck,start:'top bottom',end:'bottom top',scrub:.7}}));gsap.from(deck.querySelectorAll('.enterprise-photo-copy>*,.enterprise-photo-frame'),{autoAlpha:0,y:28,duration:.8,stagger:.1,ease:'power3.out',scrollTrigger:{trigger:deck,start:'top 78%',once:true}});});deck.querySelectorAll('img').forEach(i=>i.addEventListener('load',()=>ScrollTrigger.refresh(),{once:true}));addEventListener('pagehide',()=>ctx.revert(),{once:true});}})();</script>
+<script id="enterprise-photo-placement">(()=>{const d=document,deck=d.querySelector('.enterprise-photo-deck'),main=d.querySelector('main');if(!deck||!main)return;const copy=d.title.includes('Gisela')?'Um ambiente de consulta que transforma atenção clínica em segurança desde o primeiro encontro.':d.title.includes('Yang')?'Sinais visuais de equipes que convertem estratégia em experiências digitais de alto impacto.':d.title.includes('Lobo')?'Uma estrutura clínica que combina especialidades, proximidade e conforto em cada atendimento.':d.title.includes('Sorriso')?'Uma experiência odontológica mais leve, com tecnologia e acolhimento em cada detalhe.':d.title.includes('Sanare')?'Cuidado oftalmológico com precisão, tecnologia e a calma necessária para enxergar melhor.':'Referências visuais que ajudam famílias a imaginar um espaço de aprendizagem seguro e acolhedor.';const p=deck.querySelector('p');if(p)p.textContent=copy;const children=[...main.children].filter(el=>el!==deck),anchor=children[Math.ceil(children.length/2)];if(anchor)main.insertBefore(deck,anchor);if(window.ScrollTrigger)ScrollTrigger.refresh();})();</script>
+</body>
+</html>

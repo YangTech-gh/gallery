@@ -1,0 +1,1092 @@
+﻿<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clínica TEA · Estímulos Comportamental — São João da Boa Vista</title>
+<meta name="description" content="Clínica TEA Estímulos Comportamental em São João da Boa Vista/SP. Terapia ABA, avaliação comportamental e orientação familiar para o Transtorno do Espectro Autista, num espaço colorido e acolhedor.">
+<!-- Fonts: system fallback -->
+<style>
+  :root{
+    --cream:#FBF6E9;
+    --cream-2:#F3EAD1;
+    --ink:#2B1D16;
+    --ink-soft:#5C4A3D;
+    --pink:#E4368F;
+    --orange:#F5821F;
+    --blue:#2F86C9;
+    --red:#E1352F;
+    --yellow:#FFC93C;
+    --teal:#2FBFAE;
+    --white:#FFFFFF;
+    --ease:cubic-bezier(.5,0,.15,1);
+    --focus: 3px solid var(--ink);
+    --vh: 1dvh; /* set by JS to real viewport unit, fallback below */
+
+    /* unified card system: one padding/gap/border-width scale
+       used by every card type (pillar, method-step, card, contact-card,
+       hero-glass) so spacing grows and shrinks consistently instead of
+       each card hand-rolling its own clamp() formula. */
+    --card-pad: clamp(10px, 1.4vw + 1vh, 20px);
+    --card-gap: clamp(5px, .6vw + .5vh, 10px);
+    --card-radius: clamp(12px, 2vw, 20px);
+    --card-border: 2px;
+  }
+
+  .card-surface, .card, .method-step{
+    background:var(--white);
+    border:var(--card-border) solid var(--ink);
+    border-radius:var(--card-radius);
+    padding:var(--card-pad);
+    display:flex; flex-direction:column; gap:var(--card-gap);
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; }
+  html,body{ height:100%; }
+  html{ scroll-behavior:auto; scroll-padding-top:80px; }
+  body{
+    margin:0;
+    font-family:'Nunito',system-ui,sans-serif;
+    color:var(--ink);
+    background:var(--cream);
+    overflow:hidden;
+    -webkit-font-smoothing:antialiased;
+    height:calc(var(--vh, 1vh) * 100);
+    height:100dvh;
+    overscroll-behavior:none;
+  }
+  h1,h2,h3,.display{
+    font-family:'Baloo 2',system-ui,sans-serif;
+    font-weight:700;
+    line-height:1.04;
+    margin:0;
+    letter-spacing:-.01em;
+  }
+  p{ margin:0; }
+  a{ color:inherit; touch-action:manipulation; }
+  button{ font-family:inherit; touch-action:manipulation; }
+  img{ max-width:100%; display:block; }
+
+  /* ---------- skip link & focus ---------- */
+  .skip-link{
+    position:absolute; left:12px; top:-60px; z-index:999;
+    background:var(--ink); color:var(--cream); padding:.7em 1.1em;
+    border-radius:999px; transition:top .2s;
+  }
+  .skip-link:focus{ top:12px; }
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible{
+    outline:var(--focus); outline-offset:3px; border-radius:8px;
+  }
+
+  /* ---------- background blob + floating dots ---------- */
+  #blobsvg{ position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+  #blobpath{ fill:var(--blue); opacity:.14; }
+  .floating-dots{ position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+  .fdot{ position:absolute; width:var(--s,40px); height:var(--s,40px); border-radius:50%; background:var(--c,var(--pink)); opacity:.45; }
+
+  /* ---------- chrome ---------- */
+  #topbar{
+    position:fixed; top:0; left:0; right:0; z-index:60;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px clamp(18px,4vw,44px);
+    pointer-events:none;
+  }
+  #topbar > *{ pointer-events:auto; }
+  .logo{
+    display:flex; align-items:center; gap:9px;
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:clamp(.88rem,1.6vw,1.05rem);
+    text-decoration:none; color:var(--ink);
+  }
+  .logo-dot{ width:14px; height:14px; border-radius:50%; background:var(--red); flex:none; }
+  .logo span.b{ color:var(--blue); }
+  .logo span.c{ color:var(--orange); }
+
+  #motion-toggle{
+    display:flex; align-items:center; gap:7px;
+    background:var(--white); border:2px solid var(--ink);
+    padding:.42em .8em; border-radius:999px; cursor:pointer;
+    min-width:44px; min-height:44px;
+    font-weight:800; font-size:.72rem;
+  }
+  #motion-toggle .knob{ width:13px; height:13px; border-radius:50%; background:var(--teal); transition:background .2s; flex:none; }
+  #motion-toggle[aria-pressed="true"] .knob{ background:var(--red); }
+  #motion-toggle .txt{ white-space:nowrap; }
+  @media (max-width:480px){ #motion-toggle .txt{ display:none; } #motion-toggle{ padding:.5em; } }
+
+  #dotnav{
+    position:fixed; right:clamp(12px,2.6vw,30px); top:50%; transform:translateY(-50%);
+    z-index:60; display:flex; flex-direction:column; gap:12px;
+  }
+  .dot-btn{
+    width:44px; height:44px; border-radius:50%; border:0;
+    background:transparent; padding:0; cursor:pointer; position:relative;
+    opacity:.4; transition:opacity .3s, transform .3s; flex:none;
+    min-width:44px; min-height:44px;
+  }
+  .dot-btn::before{ content:''; position:absolute; inset:13px; border-radius:50%; background:var(--c); border:2px solid var(--ink); }
+  .dot-btn.is-active{ opacity:1; transform:scale(1.08); }
+  .dot-btn.is-active::before{ box-shadow:0 0 0 3px var(--cream),0 0 0 5px var(--ink); }
+  .dot-label{
+    position:absolute; right:24px; top:50%; transform:translateY(-50%);
+    white-space:nowrap; font-size:.68rem; font-weight:800;
+    background:var(--ink); color:var(--cream); padding:.28em .65em; border-radius:999px;
+    opacity:0; pointer-events:none; transition:opacity .2s;
+  }
+  .dot-btn:hover .dot-label, .dot-btn:focus-visible .dot-label{ opacity:1; }
+
+  #stepIndicator{
+    position:fixed; left:clamp(18px,4vw,44px); bottom:22px; z-index:60;
+    display:flex; align-items:baseline; gap:8px;
+    font-family:'Baloo 2',sans-serif; font-weight:700;
+    pointer-events:none;
+  }
+  #stepIndicator .num{ font-size:1.3rem; color:var(--step-color, var(--ink)); }
+  #stepIndicator .sep{ font-size:.75rem; color:var(--ink-soft); font-weight:800; }
+  #stepIndicator .name{ font-size:.75rem; color:var(--ink-soft); font-weight:800; text-transform:uppercase; letter-spacing:.04em; }
+
+  #nextbtn{
+    position:fixed; left:50%; bottom:22px; transform:translateX(-50%);
+    z-index:60; width:48px; height:48px; border-radius:50%;
+    border:2px solid var(--ink); background:var(--white); cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+  }
+  #nextbtn svg{ width:19px; height:19px; transition:transform .3s; }
+  #nextbtn.is-restart svg{ transform:rotate(180deg); }
+  @media (hover:hover) and (pointer:fine){ #nextbtn:hover{ background:var(--yellow); } }
+
+  /* ---------- panels / pager ---------- */
+  #track{ position:relative; height:100%; width:100%; z-index:1; }
+  .panel{
+    position:fixed; inset:0; z-index:1;
+    display:flex; align-items:center; justify-content:center;
+    padding: clamp(58px,11vh,96px) clamp(20px,6vw,110px) clamp(64px,12vh,104px);
+    opacity:0; pointer-events:none;
+    will-change:opacity; overflow:auto; overscroll-behavior:contain; scrollbar-width:thin;
+  }
+  .panel.is-active{ opacity:1; pointer-events:auto; }
+  .panel-inner{
+    width:100%; max-width:1180px; margin:0 auto;
+    transform-origin:center center;
+    will-change:transform;
+  }
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:7px;
+    font-weight:800; font-size:clamp(.66rem,1.1vw,.78rem); letter-spacing:.06em; text-transform:uppercase;
+    color:var(--ink-soft); margin-bottom:clamp(8px,1.6vh,16px);
+  }
+  .eyebrow::before{ content:''; width:9px; height:9px; border-radius:50%; background:var(--dot,var(--pink)); flex:none; }
+
+  h2.h-title{ font-size:clamp(1.6rem, 2.6vw + 1.6vh, 2.9rem); }
+
+  .lede{ font-size:clamp(.92rem, .5vw + .95vh, 1.12rem); color:var(--ink-soft); max-width:52ch; margin-top:clamp(8px,1.6vh,16px); font-weight:600; line-height:1.45; }
+
+  .btn-row{ display:flex; flex-wrap:wrap; gap:12px; margin-top:clamp(14px,2.6vh,26px); }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:.8em 1.4em; border-radius:999px; font-weight:800; font-size:clamp(.82rem,1vw,.95rem);
+    text-decoration:none; border:2px solid var(--ink); cursor:pointer; min-height:44px;
+  }
+  .btn-solid{ background:var(--ink); color:var(--cream); }
+  .btn-ghost{ background:transparent; color:var(--ink); }
+  @media (hover:hover) and (pointer:fine){
+    .btn-solid:hover{ background:var(--red); border-color:var(--red); color:var(--white); }
+    .btn-ghost:hover{ background:var(--ink); color:var(--cream); }
+  }
+
+  /* hero */
+  .hero-glass{
+    background:rgba(255,255,255,.6);
+    -webkit-backdrop-filter:blur(22px) saturate(1.5);
+    backdrop-filter:blur(22px) saturate(1.5);
+    border:var(--card-border) solid rgba(43,29,22,.1);
+    border-radius:calc(var(--card-radius) * 1.3);
+    padding:calc(var(--card-pad) * 1.5);
+    box-shadow:0 24px 70px -28px rgba(43,29,22,.35);
+    max-width:840px;
+  }
+  @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+    .hero-glass{ background:rgba(255,255,255,.8); }
+  }
+  #s-hero .hero-title{ font-size:clamp(1.9rem, 2.6vw + 2.6vh, 4.2rem); max-width:14ch; overflow-wrap:break-word; }
+  #s-hero .scroll-hint{
+    margin-top:clamp(16px,3vh,32px); display:flex; align-items:center; gap:9px;
+    font-weight:800; font-size:.76rem; color:var(--ink-soft);
+  }
+  .hero-badges{ display:flex; gap:8px; margin-top:clamp(12px,2.2vh,22px); flex-wrap:wrap; }
+  .hero-badges span{
+    background:var(--white); border:2px solid var(--ink); border-radius:999px;
+    padding:.36em .9em; font-weight:800; font-size:.7rem; white-space:nowrap;
+  }
+  .hero-meta{ font-size:.72rem; font-weight:700; color:var(--ink-soft); margin-top:6px; letter-spacing:.02em; }
+
+  /* two-col sections */
+  .cols{ display:grid; grid-template-columns:1fr; gap:clamp(24px,4vh,50px); align-items:center; }
+  @media (min-width:900px){ .cols{ grid-template-columns:1.1fr .9fr; gap:clamp(30px,5vw,64px); } }
+
+  .pillars{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:clamp(8px,1.4vw,14px);
+    margin-top:clamp(16px,3vh,30px);
+    max-width:min(480px,90vw);
+  }
+  .pillar{
+    display:flex; flex-direction:column; justify-content:flex-start; gap:calc(var(--card-gap) * .6);
+    background:var(--white);
+    border:var(--card-border) solid var(--ink);
+    border-radius:var(--card-radius);
+    padding:var(--card-pad);
+    position:relative;
+  }
+  .pillar::before{
+    content:'';
+    position:absolute; top:0; left:0; right:0; height:4px;
+    border-radius:var(--card-radius) var(--card-radius) 0 0;
+    background:var(--c);
+  }
+  .pillar .n{
+    font-family:'Baloo 2'; font-weight:800; color:var(--c);
+    font-size:clamp(.68rem,.5vw + .5vh,.8rem);
+    letter-spacing:.06em; text-transform:uppercase;
+  }
+  .pillar h3{
+    font-size:clamp(1rem, 1vw + .9vh, 1.4rem);
+    line-height:1.1;
+  }
+  .pillar p{
+    font-size:clamp(.72rem, .4vw + .55vh, .92rem);
+    color:var(--ink-soft); font-weight:600; line-height:1.32;
+  }
+  @media (max-width:420px), (max-height:560px){
+    .pillar p{ display:none; }
+    .pillar{ justify-content:center; align-items:flex-start; }
+  }
+
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:clamp(14px,2.6vh,26px); }
+  .chip{ display:inline-flex; align-items:center; gap:7px; background:var(--white); border:2px solid var(--ink); border-radius:999px; padding:.48em 1em; font-weight:800; font-size:.76rem; }
+  .chip i{ width:9px; height:9px; border-radius:50%; background:var(--c); flex:none; }
+
+  .method-visual{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:clamp(8px,1.4vw,14px);
+    max-width:560px;
+    margin:0 auto;
+  }
+  @media (min-width:900px){ .method-visual{ max-width:640px; } }
+  .method-step{ position:relative; }
+  .method-step::after{
+    content:'→';
+    position:absolute; top:50%; right:-14px; transform:translateY(-50%);
+    font-weight:800; color:var(--ink-soft); font-size:1.1rem;
+    display:none;
+  }
+  .method-step:nth-child(1)::after, .method-step:nth-child(3)::after{ display:block; }
+  @media (max-width:420px){ .method-step::after{ display:none !important; } }
+  .method-step .dot{
+    width:clamp(30px,6vh,40px); height:clamp(30px,6vh,40px); border-radius:50%;
+    border:2px solid var(--ink); color:var(--white); flex:none;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Baloo 2'; font-weight:800; font-size:.9rem;
+  }
+  .method-step h4{
+    font-size:clamp(1rem, .7vw + .8vh, 1.25rem);
+    line-height:1.1;
+  }
+  .method-step p{
+    font-size:clamp(.74rem, .35vw + .55vh, .92rem);
+    color:var(--ink-soft); font-weight:600; line-height:1.35;
+  }
+
+  /* cards grid — modern UI/UX app style */
+  .card-grid{ display:grid; gap:14px; margin-top:clamp(16px,3vh,28px); grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); }
+  .card{
+    position:relative;
+    display:flex; flex-direction:column; gap:var(--card-gap);
+    background:var(--white);
+    border:2px solid var(--ink);
+    border-radius:18px;
+    padding:18px 18px 20px;
+    box-shadow:5px 5px 0 var(--ink);
+    transition:transform .22s var(--ease),box-shadow .22s var(--ease),background .22s var(--ease);
+    overflow:hidden;
+    isolation:isolate;
+  }
+  .card::before{
+    content:'';position:absolute;inset:0;z-index:-1;
+    background:linear-gradient(135deg,color-mix(in srgb,var(--c,var(--pink)) 18%,transparent),transparent 55%);
+    opacity:.9;
+    transition:opacity .22s var(--ease);
+  }
+  .card::after{
+    content:'';position:absolute;left:0;top:0;height:3px;width:100%;background:var(--c,var(--pink));
+  }
+  .card:hover{ transform:translate(-3px,-3px); box-shadow:8px 8px 0 var(--ink); }
+  .card:hover::before{ opacity:1; }
+  .card .icon{
+    width:42px; height:42px;
+    border-radius:13px;
+    display:inline-flex; align-items:center; justify-content:center;
+    font-size:.95rem; line-height:1; font-weight:800;
+    background:var(--c,var(--pink)); color:var(--ink);
+    align-self:flex-start;
+    border:2px solid var(--ink);
+    box-shadow:2px 2px 0 var(--ink);
+  }
+  .card .num{
+    position:absolute; top:14px; right:16px;
+    font:800 .68rem/1 'Baloo 2',system-ui,sans-serif;
+    color:var(--ink-soft); letter-spacing:.06em;
+    opacity:.55;
+  }
+  .card h3{ font-size:clamp(1.02rem,.7vw + .8vh,1.22rem); margin-top:2px; }
+  .card p{ font-size:clamp(.78rem,.35vw + .5vh,.96rem); color:var(--ink-soft); font-weight:600; line-height:1.4; }
+  .card .card-meta{
+    margin-top:auto; padding-top:8px;
+    display:flex; align-items:center; gap:6px;
+    font:700 .66rem/1 ui-monospace,monospace; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--c,var(--pink));
+  }
+  .card .card-meta::before{ content:''; width:14px; height:1.5px; background:currentColor; }
+
+  /* espaco */
+  .frame{ border-radius:var(--card-radius); border:var(--card-border) solid var(--ink); overflow:hidden; box-shadow:10px 10px 0 var(--yellow); max-height:min(52vh,480px); }
+  .frame img{ width:100%; height:100%; object-fit:cover; display:block; aspect-ratio:4/5; }
+  #s-espaco .panel-inner{position:relative;}
+  .space-grid{
+    margin-top:14px;
+    display:grid; grid-template-columns:repeat(2,1fr); gap:8px;
+    padding:8px; border:2px solid var(--ink); border-radius:16px;
+    background:var(--cream);
+    box-shadow:5px 5px 0 var(--ink);
+  }
+  @media(min-width:720px){.space-grid{grid-template-columns:repeat(4,1fr);}}
+  .space-grid figure{margin:0;overflow:hidden;border:2px solid var(--ink);border-radius:10px;background:var(--white);aspect-ratio:1;}
+  .space-grid img{width:100%;height:100%;display:block;object-fit:cover;transition:transform .35s var(--ease);}
+  @media(hover:hover) and (pointer:fine){.space-grid figure:hover img{transform:scale(1.08);}}
+  .tea-photo-decor{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
+  .tea-photo-decor img{position:absolute;width:clamp(210px,29vw,440px);height:clamp(210px,29vw,440px);object-fit:cover;border:3px solid rgba(43,29,22,.72);border-radius:22px;opacity:.13;filter:saturate(.85) contrast(1.05);mix-blend-mode:multiply;box-shadow:10px 12px 0 rgba(43,29,22,.15);}
+  .tea-photo-decor img:nth-child(1){top:8%;right:-7%;transform:rotate(10deg);}.tea-photo-decor img:nth-child(2){bottom:-13%;left:-8%;transform:rotate(-13deg);}
+  .panel .panel-inner{position:relative;z-index:1;}
+  @media(max-width:640px){.tea-photo-decor img{width:190px;height:190px;opacity:.1;}.tea-photo-decor img:nth-child(1){right:-22%;top:5%;}.tea-photo-decor img:nth-child(2){left:-27%;bottom:-6%;}}
+  @media(prefers-reduced-motion:reduce){.tea-photo-decor img{transition:none;}}
+  figcaption{ margin-top:12px; font-weight:700; color:var(--ink-soft); font-size:.82rem; line-height:1.4; }
+
+  /* contato */
+  .contact-card{ background:var(--white); border:var(--card-border) solid var(--ink); border-radius:var(--card-radius); padding:var(--card-pad); display:grid; gap:var(--card-gap); }
+  .contact-row{ display:flex; gap:var(--card-gap); align-items:flex-start; }
+  .contact-row .ic{ width:clamp(26px,3.6vw + 2vh,34px); height:clamp(26px,3.6vw + 2vh,34px); border-radius:50%; flex:none; display:flex; align-items:center; justify-content:center; font-size:clamp(.7rem,.4vw + .5vh,.9rem); }
+  .contact-row h4{ font-size:clamp(.88rem,.5vw + .55vh,1.05rem); margin:0 0 3px; }
+  .contact-row p{ font-size:clamp(.8rem,.35vw + .5vh,.96rem); color:var(--ink-soft); font-weight:600; line-height:1.4; }
+  .contact-row a{ text-decoration:underline; text-decoration-color:currentColor; text-underline-offset:2px; }
+  .fill-note{ font-size:.66rem; color:var(--ink-soft); opacity:.7; font-weight:700; }
+
+  footer.mini{
+    position:fixed; left:0; right:0; bottom:0; z-index:2;
+    display:flex; justify-content:center; gap:6px;
+    padding:8px 0 max(8px, env(safe-area-inset-bottom));
+    pointer-events:none;
+  }
+  footer.mini span{ width:6px; height:6px; border-radius:50%; }
+
+  .sr-announce{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+
+  /* mobile dotnav repositioned */
+  @media (max-width:640px){
+    #dotnav{ right:auto; left:50%; top:auto; bottom:calc(44px + env(safe-area-inset-bottom)); transform:translateX(-50%); flex-direction:row; gap:2px; }
+    .dot-label{ display:none; }
+    #stepIndicator{ display:none; }
+    .panel{ align-items:flex-start; padding:calc(78px + env(safe-area-inset-top)) 18px calc(118px + env(safe-area-inset-bottom)); }
+    .method-visual{ grid-template-columns:1fr;max-width:100%; }
+    .method-visual .img-wrap{ height:auto;aspect-ratio:16/9; }
+    .contact-grid{ grid-template-columns:1fr; }
+    footer{ text-align:center;padding-bottom:calc(20px + 50px); }
+    #nextbtn{ bottom:calc(4px + env(safe-area-inset-bottom)); }
+    #topbar{ padding:calc(38px + env(safe-area-inset-top)) 14px 8px; }
+    .logo{ max-width:calc(100vw - 78px); }
+    .btn-row .btn{ flex:1 1 100%; justify-content:center; }
+  }
+
+  /* short-viewport safety net (in addition to JS fit-scale) */
+  @media (max-width:380px){
+    .dot-btn{ width:42px; height:42px; }
+    .panel{ padding-left:14px; padding-right:14px; }
+  }
+
+  @media (max-height:640px){
+    .hero-badges, #s-hero .scroll-hint{ display:none; }
+    .pillars, .chips{ margin-top:12px; }
+    :root{ --card-pad: clamp(7px, 1.2vw + .6vh, 14px); --card-gap: clamp(4px, .5vw + .3vh, 7px); }
+  }
+
+  /* ScrollSmoother wrapper */
+  #smooth-wrapper{overflow:hidden;position:relative;width:100%;}
+  #smooth-content{overflow:visible;width:100%;}
+
+  /* no-JS / no-GSAP graceful fallback: normal document flow */
+  html.static-flow, html.static-flow body{ overflow:auto; height:auto; }
+  html.static-flow .panel{ position:static; opacity:1; pointer-events:auto; min-height:100vh; padding-top:120px; transform:none !important; }
+  html.static-flow .panel-inner{ transform:none !important; }
+  html.static-flow #blobsvg, html.static-flow .floating-dots{ display:none; }
+  html.static-flow #dotnav, html.static-flow #nextbtn, html.static-flow #stepIndicator{ display:none; }
+  html.static-flow .method-visual{ grid-template-columns:1fr 1fr; }
+  @media (max-width:640px){ html.static-flow .method-visual{ grid-template-columns:1fr; } }
+  @media (prefers-reduced-motion: reduce){
+    .fdot{ animation:none !important; }
+    html{scroll-behavior:auto !important;}
+    .panel, .panel .lede, .panel .hero-badges, .panel .btn-row, .panel .scroll-hint,
+    .method-step, .space-photo-ribbon figure, .tea-photo-decor img{
+      visibility:visible!important;
+    }
+    *,*::before,*::after{ scroll-behavior:auto!important; animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; }
+  }
+</style>
+<style id="enterprise-ux-polish">
+  :root{--enterprise-accent:var(--pink);--enterprise-ink:var(--ink);}html{scrollbar-color:var(--enterprise-accent) transparent;}body{min-height:100%;text-rendering:optimizeLegibility;}img{max-width:100%;height:auto;}
+  .enterprise-progress{position:fixed;inset:0 auto auto 0;z-index:9999;width:100%;height:3px;background:var(--enterprise-accent);transform:scaleX(0);transform-origin:left;pointer-events:none;}.enterprise-skip{position:fixed;z-index:10000;left:1rem;top:-4rem;padding:.75rem 1rem;border:2px solid var(--ink);border-radius:999px;background:var(--yellow);color:var(--ink);font:700 .78rem/1 system-ui,sans-serif;letter-spacing:.04em;transition:top .2s var(--ease);}.enterprise-skip:focus{top:1rem;outline:3px solid var(--blue);outline-offset:3px;}
+  :where(a,button,input,select,textarea,[tabindex]):focus-visible{outline:3px solid var(--enterprise-accent)!important;outline-offset:4px;border-radius:4px;}@media(hover:hover) and (pointer:fine){.card,.method-step,.contact-card{transition:transform .25s var(--ease),box-shadow .25s var(--ease);}.card:hover,.method-step:hover,.contact-card:hover{transform:translateY(-3px);box-shadow:6px 7px 0 var(--ink);}}@media(max-width:700px){.enterprise-progress{height:2px}.enterprise-skip{left:.75rem}body{padding-bottom:env(safe-area-inset-bottom)}}@media(prefers-reduced-motion:reduce){.enterprise-progress{display:none}.enterprise-skip{transition:none}}
+</style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- Yang Tech Marquee -->
+<style>
+body{padding-top:30px !important;padding-bottom:30px !important}
+.yang-mq{position:fixed;left:0;right:0;z-index:99980;height:30px;overflow:hidden;font-family:'Cormorant',serif;pointer-events:auto;transition:filter .4s cubic-bezier(.4,0,.2,1),background .4s;cursor:auto !important}
+.yang-mq *,.yang-mq *::before,.yang-mq *::after{cursor:auto !important}
+.yang-mq__btn{display:inline-flex;align-items:center;background:rgba(255,255,255,.18);color:inherit;padding:2px 10px;border-radius:3px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;transition:background .3s,transform .2s;text-decoration:none}
+.yang-mq__btn:hover{background:rgba(255,255,255,.32);transform:scale(1.05)}
+.yang-mq--top{top:0}
+.yang-mq--btm{bottom:0;top:auto}
+.yang-mq__inner{display:flex;white-space:nowrap;height:100%;align-items:center;width:max-content}
+.yang-mq__item{display:inline-flex;align-items:center;gap:10px;padding:0 clamp(16px,3vw,28px);font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;flex-shrink:0;transition:color .4s}
+.yang-mq__item svg{width:11px;height:11px;flex-shrink:0;fill:currentColor;transition:fill .4s,transform .3s}
+.yang-mq__item a{color:inherit;text-decoration:none;transition:color .3s,opacity .3s;display:inline-flex;align-items:center;gap:7px}
+.yang-mq__item a:hover{opacity:.7}
+.yang-mq__item a:hover svg{transform:scale(1.15)}
+.yang-mq__sep{width:4px;height:4px;border-radius:50%;background:currentColor;opacity:.45;flex-shrink:0;transition:opacity .4s,transform .4s}
+.yang-mq--top .yang-mq__inner{animation:yangTopScroll 30s linear infinite}
+.yang-mq--btm .yang-mq__inner{animation:yangBtmScroll 24s linear infinite}
+@keyframes yangTopScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes yangBtmScroll{0%{transform:translateX(-50%)}100%{transform:translateX(0)}}
+.yang-mq--top{background:linear-gradient(90deg,#000 0%,#1a1a1a 50%,#000 100%);background-size:200% 100%;animation:bgShift 6s ease-in-out infinite alternate;color:#fff;border-bottom:1px solid rgba(255,255,255,.12)}
+.yang-mq--btm{background:linear-gradient(90deg,#111 0%,#222 50%,#111 100%);background-size:200% 100%;animation:bgShift 6s ease-in-out infinite alternate-reverse;color:#fff;border-top:1px solid rgba(255,255,255,.12)}
+@keyframes bgShift{0%{background-position:0% 50%}100%{background-position:100% 50%}}
+.yang-mq:hover{filter:invert(1);z-index:99981}
+.yang-mq:hover .yang-mq__sep{transform:rotate(90deg)}
+.yang-mq:hover .yang-mq__inner{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){.yang-mq__inner,.yang-mq--top,.yang-mq--btm{animation:none!important}}
+</style>
+<div class="yang-mq yang-mq--top" aria-hidden="true">
+<div class="yang-mq__inner">
+<span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span>
+<span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span>
+<span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span>
+<span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span>
+<span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span>
+<span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span>
+<span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span>
+<span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span>
+<span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span>
+<span class="yang-mq__item"><a href="https://yangtech-gh.github.io/gallery/" class="yang-mq__btn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z"/></svg> HOME</a> <span class="yang-mq__sep"></span> Este é um site preview para clientes</span>
+</div>
+</div>
+<div class="yang-mq yang-mq--btm" aria-hidden="true">
+<div class="yang-mq__inner">
+<span class="yang-mq__item"><a href="https://instagram.com/yang.techno" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>instagram.com/yang.techno</a> <span class="yang-mq__sep"></span> <a href="mailto:public.yangtech@gmail.com"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>public.yangtech@gmail.com</a></span>
+<span class="yang-mq__item"><a href="https://instagram.com/yang.techno" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>instagram.com/yang.techno</a> <span class="yang-mq__sep"></span> <a href="mailto:public.yangtech@gmail.com"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>public.yangtech@gmail.com</a></span>
+<span class="yang-mq__item"><a href="https://instagram.com/yang.techno" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>instagram.com/yang.techno</a> <span class="yang-mq__sep"></span> <a href="mailto:public.yangtech@gmail.com"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>public.yangtech@gmail.com</a></span>
+<span class="yang-mq__item"><a href="https://instagram.com/yang.techno" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>instagram.com/yang.techno</a> <span class="yang-mq__sep"></span> <a href="mailto:public.yangtech@gmail.com"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>public.yangtech@gmail.com</a></span>
+<span class="yang-mq__item"><a href="https://instagram.com/yang.techno" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>instagram.com/yang.techno</a> <span class="yang-mq__sep"></span> <a href="mailto:public.yangtech@gmail.com"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>public.yangtech@gmail.com</a></span>
+<span class="yang-mq__item"><a href="https://instagram.com/yang.techno" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>instagram.com/yang.techno</a> <span class="yang-mq__sep"></span> <a href="mailto:public.yangtech@gmail.com"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>public.yangtech@gmail.com</a></span>
+<span class="yang-mq__item"><a href="https://instagram.com/yang.techno" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>instagram.com/yang.techno</a> <span class="yang-mq__sep"></span> <a href="mailto:public.yangtech@gmail.com"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>public.yangtech@gmail.com</a></span>
+<span class="yang-mq__item"><a href="https://instagram.com/yang.techno" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>instagram.com/yang.techno</a> <span class="yang-mq__sep"></span> <a href="mailto:public.yangtech@gmail.com"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>public.yangtech@gmail.com</a></span>
+<span class="yang-mq__item"><a href="https://instagram.com/yang.techno" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>instagram.com/yang.techno</a> <span class="yang-mq__sep"></span> <a href="mailto:public.yangtech@gmail.com"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>public.yangtech@gmail.com</a></span>
+</div>
+</div>
+<!-- /Yang Tech Marquee -->
+
+<a class="skip-link" href="#s-contato">Pular para o contato</a>
+
+<svg id="blobsvg" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <path id="blobpath" d=""></path>
+</svg>
+<div class="floating-dots" id="floatingDots" aria-hidden="true"></div>
+
+<div id="smooth-wrapper">
+<div id="smooth-content">
+
+<header id="topbar">
+  <a href="#s-hero" class="logo" data-goto="0">
+    <span class="logo-dot" aria-hidden="true"></span>
+    Clínica TEA <span class="b">·</span> <span class="c">Estímulos</span>
+  </a>
+  <button id="motion-toggle" type="button" aria-pressed="false">
+    <span class="knob" aria-hidden="true"></span>
+    <span class="txt">Movimento: ativado</span>
+  </button>
+</header>
+
+<nav id="dotnav" aria-label="Ir para seção"></nav>
+<div id="stepIndicator" aria-live="polite"></div>
+
+<main id="track">
+
+  <section class="panel is-active" id="s-hero" data-index="0" data-color="blue" aria-label="Início" aria-hidden="false" tabindex="-1">
+    <div class="panel-inner">
+      <div class="hero-glass">
+        <p class="eyebrow" style="--dot:var(--blue)">Clínica TEA · São João da Boa Vista</p>
+        <h1 class="hero-title" id="hero-title">Estímulos que abrem caminhos</h1>
+        <p class="lede">Terapia comportamental para crianças, jovens e famílias no Transtorno do Espectro Autista. Ciência ABA, num espaço colorido pensado para acolher de verdade. 💙</p>
+        <div class="hero-badges">
+          <span>Análise do Comportamento Aplicada</span>
+          <span>Atendimento individualizado</span>
+          <span>Somente com hora marcada</span>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-solid" href="https://wa.me/5519996513747" target="_blank" rel="noopener noreferrer">Chamar no WhatsApp</a>
+          <button class="btn btn-ghost" type="button" data-goto="2">Conhecer o método</button>
+        </div>
+        <p class="hero-meta">Educação · Terapia · Medicina e saúde</p>
+        <div class="scroll-hint">
+          <span aria-hidden="true">↓</span>
+          <span>Role, deslize ou use as setas do teclado para navegar</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="s-sobre" data-index="1" data-color="orange" aria-label="Sobre a clínica" aria-hidden="true" tabindex="-1" inert>
+    <div class="panel-inner">
+      <div class="cols">
+        <div>
+          <p class="eyebrow" style="--dot:var(--orange)">Sobre a clínica</p>
+          <h2 class="h-title">Um espaço para cada criança se sentir em casa</h2>
+          <p class="lede">Ficamos na região central de São João da Boa Vista/SP. Por dentro, cada corredor tem cor, luz e detalhes pensados para reduzir o estranhamento e aumentar o acolhimento — porque terapia boa começa no jeito como o espaço recebe.</p>
+        </div>
+        <div class="pillars">
+          <div class="pillar" style="--c:var(--pink)"><span class="n">01</span><h3>Acolhimento</h3><p>Ambiente colorido, sensorialmente pensado, sem pressa.</p></div>
+          <div class="pillar" style="--c:var(--teal)"><span class="n">02</span><h3>Ciência</h3><p>Intervenções baseadas em evidência e em dados reais.</p></div>
+          <div class="pillar" style="--c:var(--yellow)"><span class="n">03</span><h3>Família</h3><p>Pais e cuidadores participam de cada etapa do processo.</p></div>
+          <div class="pillar" style="--c:var(--blue)"><span class="n">04</span><h3>Equipe</h3><p>Psicologia, fono, T.O. e psicopedagogia sob o mesmo teto.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="s-metodo" data-index="2" data-color="teal" aria-label="Método ABA" aria-hidden="true" tabindex="-1" inert>
+    <div class="panel-inner">
+      <div class="cols">
+        <div>
+          <p class="eyebrow" style="--dot:var(--teal)">Nosso método</p>
+          <h2 class="h-title">Análise do Comportamento Aplicada</h2>
+          <p class="lede">Cada plano é montado a partir de uma avaliação individual: o que a criança já faz bem, o que quer aprender e o que a família precisa no dia a dia. Reforço positivo, ensino estruturado e revisão constante guiam cada sessão.</p>
+          <div class="chips">
+            <span class="chip" style="--c:var(--pink)"><i aria-hidden="true"></i>Reforço positivo</span>
+            <span class="chip" style="--c:var(--blue)"><i aria-hidden="true"></i>Ensino individualizado</span>
+            <span class="chip" style="--c:var(--orange)"><i aria-hidden="true"></i>Dados e evolução</span>
+            <span class="chip" style="--c:var(--red)"><i aria-hidden="true"></i>Rotina do dia a dia</span>
+          </div>
+        </div>
+        <div class="method-visual">
+          <div class="method-step"><span class="dot" style="background:var(--pink)">1</span><h4>Avaliar</h4><p>Mapeamento do que a criança já faz e do que quer aprender.</p></div>
+          <div class="method-step"><span class="dot" style="background:var(--blue)">2</span><h4>Ensinar</h4><p>Sessões estruturadas com reforço positivo.</p></div>
+          <div class="method-step"><span class="dot" style="background:var(--orange)">3</span><h4>Medir</h4><p>Dados coletados a cada sessão para acompanhar a evolução.</p></div>
+          <div class="method-step"><span class="dot" style="background:var(--red)">4</span><h4>Ajustar</h4><p>Plano revisado continuamente com a família.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="s-estimulos" data-index="3" data-color="pink" aria-label="Estímulos e serviços" aria-hidden="true" tabindex="-1" inert>
+    <div class="panel-inner">
+      <p class="eyebrow" style="--dot:var(--pink)">Estímulos comportamentais</p>
+      <h2 class="h-title">Onde a gente entra em ação</h2>
+      <div class="card-grid">
+        <div class="card"><div class="icon" style="background:var(--pink);color:var(--white)">●</div><h3>Terapia ABA individual</h3><p>Sessões um a um, com plano de ensino próprio para cada criança.</p></div>
+        <div class="card"><div class="icon" style="background:var(--blue);color:var(--white)">◆</div><h3>Avaliação comportamental</h3><p>Mapeamento inicial de habilidades, preferências e prioridades.</p></div>
+        <div class="card"><div class="icon" style="background:var(--orange);color:var(--white)">▲</div><h3>Orientação parental</h3><p>Estratégias práticas para o dia a dia em casa, com a família.</p></div>
+        <div class="card"><div class="icon" style="background:var(--teal);color:var(--white)">◯</div><h3>Habilidades em grupo</h3><p>Convivência guiada com outras crianças, em pequenos grupos.</p></div>
+        <div class="card"><div class="icon" style="background:var(--yellow);color:var(--ink)">◈</div><h3>Suporte escolar</h3><p>Alinhamento com a escola para levar o progresso além da clínica.</p></div>
+        <div class="card"><div class="icon" style="background:var(--red);color:var(--white)">✦</div><h3>Devolutivas periódicas</h3><p>Encontros para mostrar dados, ajustar metas e ouvir a família.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="s-espaco" data-index="4" data-color="yellow" aria-label="Nosso espaço" aria-hidden="true" tabindex="-1" inert>
+    <div class="panel-inner">
+      <div class="cols">
+        <div>
+          <p class="eyebrow" style="--dot:var(--yellow)">O espaço</p>
+          <h2 class="h-title">Cores e luz em cada detalhe</h2>
+          <p class="lede">Bolinhas coloridas na parede, corrimão de mão em mão, plantas no caminho e tapete macio na entrada — tudo pensado para que chegar à clínica já seja parte acolhedora do dia.</p>
+        </div>
+        <figure class="frame">
+          <img src="https://images.unsplash.com/photo-1540479859555-17af45c78602?auto=format&fit=crop&w=900&q=82" alt="Criança em sessão de terapia com brinquedos coloridos" loading="lazy" decoding="async">
+        </figure>
+      </div>
+    </div>
+    <div class="space-grid" aria-label="Detalhes do espaço terapêutico">
+      <figure><img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=600&q=82" alt="Sala lúdica para crianças" loading="lazy" decoding="async"></figure>
+      <figure><img src="https://images.unsplash.com/photo-1607454411735-46b6876a4aaa?auto=format&fit=crop&w=600&q=82" alt="Materiais de aprendizagem e brincadeira" loading="lazy" decoding="async"></figure>
+      <figure><img src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&w=600&q=82" alt="Ambiente acolhedor para terapia infantil" loading="lazy" decoding="async"></figure>
+      <figure><img src="https://images.unsplash.com/photo-1597524678053-34d8a87a7c02?auto=format&fit=crop&w=600&q=82" alt="Detalhe em cores do espaço" loading="lazy" decoding="async"></figure>
+    </div>
+  </section>
+
+  <section class="panel" id="s-contato" data-index="5" data-color="red" aria-label="Contato" aria-hidden="true" tabindex="-1" inert>
+    <div class="panel-inner">
+      <div class="cols">
+        <div>
+          <p class="eyebrow" style="--dot:var(--red)">Vamos conversar</p>
+          <h2 class="h-title">Marque uma visita</h2>
+          <p class="lede">Venha conhecer o espaço e conversar sobre o melhor plano para a sua família.</p>
+          <div class="btn-row">
+            <a class="btn btn-solid" href="https://maps.app.goo.gl/8UkHPQR17x6UGJib9?g_st=ac" target="_blank" rel="noopener noreferrer">Ver no Google Maps</a>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-row"><div class="ic" style="background:var(--red);color:var(--white)" aria-hidden="true">📍</div><div><h4>Endereço</h4><p>R. Visc. de Rio Branco, 138 — Centro<br>São João da Boa Vista/SP, 13870-010</p></div></div>
+          <div class="contact-row"><div class="ic" style="background:var(--blue);color:var(--white)" aria-hidden="true">☎</div><div><h4>Telefone / WhatsApp</h4><p><a href="https://wa.me/5519996513747" target="_blank" rel="noopener noreferrer">(19) 99651-3747</a></p></div></div>
+          <div class="contact-row"><div class="ic" style="background:var(--teal);color:var(--white)" aria-hidden="true">🕐</div><div><h4>Horário</h4><p>Atendimento somente com hora marcada</p></div></div>
+          <div class="contact-row"><div class="ic" style="background:var(--orange);color:var(--white)" aria-hidden="true">✉</div><div><h4>E-mail</h4><p><a href="mailto:contato@clinicatea.com.br">contato@clinicatea.com.br</a></p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<button id="nextbtn" type="button" aria-label="Próxima seção">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+</button>
+
+<footer class="mini" id="miniFooter" aria-hidden="true"></footer>
+<div id="srAnnounce" class="sr-announce" aria-live="polite"></div>
+
+</div>
+</div>
+
+<script src="vendor/gsap/gsap.min.js"></script>
+<script src="vendor/gsap/ScrollTrigger.min.js"></script>
+<script src="vendor/gsap/SplitText.min.js"></script>
+<script src="vendor/gsap/MorphSVGPlugin.min.js"></script>
+<script src="vendor/gsap/Observer.min.js"></script>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- real viewport height (mobile browser chrome) ---------- */
+  function setVH(){ document.documentElement.style.setProperty('--vh', (window.innerHeight * 0.01) + 'px'); }
+  setVH();
+  window.addEventListener('resize', setVH);
+  window.addEventListener('orientationchange', setVH);
+
+  /* ---------- feature detection (CDN may fail silently) ---------- */
+  var HAS_GSAP  = typeof window.gsap !== 'undefined';
+  var HAS_ST    = HAS_GSAP && typeof window.ScrollTrigger !== 'undefined';
+  var HAS_SPLIT = HAS_GSAP && typeof window.SplitText !== 'undefined';
+  var HAS_MORPH = HAS_GSAP && typeof window.MorphSVGPlugin !== 'undefined';
+  var HAS_OBSERVER = HAS_GSAP && typeof window.Observer !== 'undefined';
+
+  var root = document.documentElement;
+
+  if (!HAS_GSAP) {
+    root.classList.add('static-flow');
+    return;
+  }
+
+  var plugins = [];
+  if (HAS_ST) plugins.push(ScrollTrigger);
+  if (HAS_SPLIT) plugins.push(SplitText);
+  if (HAS_MORPH) plugins.push(MorphSVGPlugin);
+  if (HAS_OBSERVER) plugins.push(Observer);
+  if (plugins.length) gsap.registerPlugin.apply(gsap, plugins);
+  gsap.ticker.lagSmoothing(500, 33);
+
+  var reduceMotionMQ = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* ─── SET INITIAL STATES (prevents FOUC) — only on hero ─── */
+  if (!reduceMotionMQ.matches) {
+    gsap.set("#s-hero .lede, #s-hero .hero-badges, #s-hero .btn-row, #s-hero .scroll-hint, #s-hero .hero-meta",
+      { y: 16, autoAlpha: 0 });
+  }
+
+  var ctx;
+
+  document.addEventListener('visibilitychange', function(){
+    if (document.hidden) gsap.globalTimeline.pause();
+    else { gsap.globalTimeline.resume(); busy = false; }
+  });
+
+  var PALETTE = { blue:'#2F86C9', orange:'#F5821F', teal:'#2FBFAE', pink:'#E4368F', yellow:'#FFC93C', red:'#E1352F' };
+
+  var panels = Array.prototype.slice.call(document.querySelectorAll('.panel'));
+  var sections = panels.map(function(p){
+    return { el: p, inner: p.querySelector('.panel-inner'), color: PALETTE[p.dataset.color] || PALETTE.blue, name: p.getAttribute('aria-label') };
+  });
+
+  /* =========================================================
+     ANTI-OVERFLOW: measure each panel's content vs the space
+     actually available (viewport minus the panel's own padding)
+     and scale the panel-inner down just enough to fit, so no
+     panel ever needs internal scrolling — that would fight the
+     page-switch transition. Runs on load, resize and font-load.
+  ========================================================= */
+  var MIN_SCALE = 0.72;
+  function fitPanel(s){
+    var el = s.inner;
+    el.style.transform = 'scale(1)';
+    var cs = getComputedStyle(s.el);
+    var padTop = parseFloat(cs.paddingTop) || 0;
+    var padBottom = parseFloat(cs.paddingBottom) || 0;
+    var available = s.el.clientHeight - padTop - padBottom;
+    var needed = el.scrollHeight;
+    if (needed > available && available > 0){
+      var scale = Math.max(MIN_SCALE, available / needed);
+      el.style.transform = 'scale(' + scale.toFixed(3) + ')';
+    }
+  }
+  function fitAll(){ sections.forEach(fitPanel); }
+
+  var fitDebounce;
+  function scheduleFit(){ clearTimeout(fitDebounce); fitDebounce = setTimeout(fitAll, 80); }
+
+  window.addEventListener('resize', scheduleFit);
+  window.addEventListener('orientationchange', scheduleFit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
+  fitAll();
+
+  /* ---------- generative blob paths (Catmull-Rom -> Bezier) ---------- */
+  function seededRand(seed){
+    var s = seed % 2147483647; if (s <= 0) s += 2147483646;
+    return function(){ s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; };
+  }
+  function blobPath(seed, points, base, variance){
+    points = points || 9; base = base || 250; variance = variance || 46;
+    var rand = seededRand(seed), pts = [];
+    for (var i = 0; i < points; i++){
+      var angle = (Math.PI * 2 / points) * i;
+      var r = base + (rand() - 0.5) * 2 * variance;
+      pts.push([300 + Math.cos(angle) * r, 300 + Math.sin(angle) * r]);
+    }
+    var n = pts.length, d = '';
+    for (var j = 0; j < n; j++){
+      var p0 = pts[(j - 1 + n) % n], p1 = pts[j], p2 = pts[(j + 1) % n], p3 = pts[(j + 2) % n];
+      var c1x = p1[0] + (p2[0] - p0[0]) / 6, c1y = p1[1] + (p2[1] - p0[1]) / 6;
+      var c2x = p2[0] - (p3[0] - p1[0]) / 6, c2y = p2[1] - (p3[1] - p1[1]) / 6;
+      if (j === 0) d += 'M ' + p1[0].toFixed(1) + ' ' + p1[1].toFixed(1) + ' ';
+      d += 'C ' + c1x.toFixed(1) + ' ' + c1y.toFixed(1) + ', ' + c2x.toFixed(1) + ' ' + c2y.toFixed(1) + ', ' + p2[0].toFixed(1) + ' ' + p2[1].toFixed(1) + ' ';
+    }
+    return d + 'Z';
+  }
+  var blobPaths = sections.map(function(s, i){ return blobPath(1000 + i * 77, 9, 250, 50); });
+
+  var blobEl = document.getElementById('blobpath');
+  blobEl.setAttribute('d', blobPaths[0]);
+  blobEl.style.fill = sections[0].color;
+
+  /* ---------- floating decorative dots (echo the wall art) ---------- */
+  var dotsWrap = document.getElementById('floatingDots');
+  var dotColors = Object.keys(PALETTE).map(function(k){ return PALETTE[k]; });
+  var floatDots = [];
+  for (var k = 0; k < 9; k++){
+    var d = document.createElement('span');
+    d.className = 'fdot';
+    var size = 12 + Math.random() * 40;
+    d.style.setProperty('--s', size + 'px');
+    d.style.setProperty('--c', dotColors[k % dotColors.length]);
+    d.style.left = (Math.random() * 90) + 'vw';
+    d.style.top = (Math.random() * 90) + 'vh';
+    dotsWrap.appendChild(d);
+    floatDots.push(d);
+  }
+  function startFloating(){
+    floatDots.forEach(function(d, i){
+      gsap.to(d, {
+        y: (i % 2 === 0 ? 1 : -1) * (16 + Math.random() * 20),
+        x: (i % 3 === 0 ? 1 : -1) * (9 + Math.random() * 14),
+        duration: 3 + Math.random() * 2.5, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: Math.random()
+      });
+    });
+  }
+  function stopFloating(){ floatDots.forEach(function(d){ gsap.killTweensOf(d); gsap.set(d, { x: 0, y: 0 }); }); }
+
+  ctx = gsap.context(function(){
+    if (!reduceMotionMQ.matches) startFloating();
+  }, document.body);
+
+  window.addEventListener('beforeunload', function(){ if(ctx) ctx.revert(); });
+
+  /* ---------- dot nav + step indicator ---------- */
+  var navEl = document.getElementById('dotnav');
+  sections.forEach(function(s, i){
+    var b = document.createElement('button');
+    b.className = 'dot-btn' + (i === 0 ? ' is-active' : '');
+    b.type = 'button';
+    b.style.setProperty('--c', s.color);
+    b.setAttribute('data-goto', i);
+    b.setAttribute('aria-label', 'Ir para: ' + s.name);
+    b.setAttribute('aria-controls', s.el.id);
+    b.setAttribute('aria-current', i === 0 ? 'page' : 'false');
+    var lab = document.createElement('span');
+    lab.className = 'dot-label';
+    lab.textContent = s.name;
+    b.appendChild(lab);
+    navEl.appendChild(b);
+  });
+  var navDots = Array.prototype.slice.call(navEl.querySelectorAll('.dot-btn'));
+
+  var stepEl = document.getElementById('stepIndicator');
+  function renderStep(i){
+    stepEl.style.setProperty('--step-color', sections[i].color);
+    stepEl.innerHTML = '<span class="num">0' + (i + 1) + '</span><span class="sep">/ 0' + sections.length + '</span><span class="name">' + sections[i].name + '</span>';
+  }
+  renderStep(0);
+
+  var footerEl = document.getElementById('miniFooter');
+  sections.forEach(function(s){ var sp = document.createElement('span'); sp.style.background = s.color; footerEl.appendChild(sp); });
+
+  var srAnnounce = document.getElementById('srAnnounce');
+
+  /* ---------- hero SplitText reveal ---------- */
+  function runHeroReveal(){
+    if (reduceMotionMQ.matches) {
+      // Reset any animation hidden state when motion is reduced so all hero text is fully visible
+      gsap.set('#s-hero .lede, #s-hero .hero-badges, #s-hero .btn-row, #s-hero .scroll-hint, #s-hero .hero-meta',
+        { clearProps: 'all', opacity: 1, y: 0 });
+      return;
+    }
+    var heroTitle = document.getElementById('hero-title');
+    if (HAS_SPLIT) {
+      document.fonts.ready.then(function(){
+        SplitText.create(heroTitle, {
+          type: 'words, chars', mask: 'words', autoSplit: true,
+          onSplit: function(self){
+            return gsap.fromTo(self.chars, { yPercent: 120, opacity: 0 }, { yPercent: 0, opacity: 1, stagger: 0.022, duration: 0.9, ease: 'power3.out' });
+          }
+        });
+        scheduleFit();
+      });
+    } else {
+      gsap.fromTo(heroTitle, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' });
+    }
+    gsap.fromTo('#s-hero .lede, #s-hero .hero-badges, #s-hero .btn-row, #s-hero .scroll-hint, #s-hero .hero-meta',
+      { opacity: 0, y: 16 },
+      { opacity: 1, y: 0, duration: 0.8, stagger: 0.08, delay: 0.25, ease: 'power2.out', clearProps: 'transform' }
+    );
+  }
+
+  /* ---------- paged "morph" navigation ---------- */
+  var current = 0;
+  var busy = false;
+  var settleUntil = 0;          // gates observer/swipe input for 280ms after each transition settles
+  var nextBtn = document.getElementById('nextbtn');
+
+  function setActiveNav(i){ navDots.forEach(function(d, idx){
+    d.classList.toggle('is-active', idx === i);
+    d.setAttribute('aria-current', idx === i ? 'page' : 'false');
+  }); }
+  function updateNextBtn(i){
+    var last = i === sections.length - 1;
+    nextBtn.classList.toggle('is-restart', last);
+    nextBtn.setAttribute('aria-label', last ? 'Voltar ao início' : 'Próxima seção');
+  }
+  updateNextBtn(0);
+
+  function goTo(i, options){
+    options = options || {};
+    if (i < 0) i = 0;
+    if (i > sections.length - 1) i = sections.length - 1;
+    if (i === current || busy) return;
+    busy = true;
+    settleUntil = performance.now() + 320;
+    var fromS = sections[current], toS = sections[i];
+    var dir = i > current ? 1 : -1;
+    var reduce = reduceMotionMQ.matches || userReduced;
+    var dur = reduce ? 0 : 0.8;
+
+    var tl = gsap.timeline({
+      defaults: { ease: 'power3.inOut' },
+      onComplete: function(){
+        current = i;
+        sections.forEach(function(s, idx){
+          var active = idx === i;
+          s.el.setAttribute('aria-hidden', String(!active));
+          if (active) s.el.removeAttribute('inert'); else s.el.setAttribute('inert', '');
+        });
+        setActiveNav(i);
+        renderStep(i);
+        updateNextBtn(i);
+        srAnnounce.textContent = 'Seção ' + (i + 1) + ' de ' + sections.length + ': ' + toS.name;
+        if (history.replaceState) history.replaceState(null, '', '#' + toS.el.id);
+        if (options.focus) toS.el.focus({ preventScroll: true });
+        busy = false;
+        settleUntil = performance.now() + 280;
+      }
+    });
+
+    tl.to(fromS.el, { opacity: 0, y: reduce ? 0 : (-dir * 22), duration: dur * 0.48 }, 0);
+
+    if (HAS_MORPH && !reduce){
+      tl.to(blobEl, { duration: dur, morphSVG: blobPaths[i], fill: toS.color, overwrite: 'auto' }, 0);
+    } else if (!reduce) {
+      tl.to(blobEl, { duration: dur, fill: toS.color, overwrite: 'auto' }, 0);
+    } else {
+      blobEl.style.fill = toS.color;
+    }
+
+    tl.call(function(){
+      fromS.el.classList.remove('is-active');
+      fromS.el.setAttribute('aria-hidden', 'true');
+      fromS.el.setAttribute('inert', '');
+      toS.el.classList.add('is-active');
+      toS.el.setAttribute('aria-hidden', 'false');
+      toS.el.removeAttribute('inert');
+      gsap.set(toS.el, { opacity: 0, y: reduce ? 0 : (dir * 22) });
+    }, null, dur * 0.48);
+
+    tl.to(toS.el, { opacity: 1, y: 0, duration: dur * 0.52 }, dur * 0.48);
+
+    if (toS.el.id === 's-metodo') {
+      var steps = toS.el.querySelectorAll('.method-step');
+      if (steps.length) tl.fromTo(steps, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: dur * 0.6, stagger: 0.08, ease: 'power2.out' }, dur * 0.5);
+    }
+    if (toS.el.id === 's-espaco' && !reduce) {
+      var spacePhotos = toS.el.querySelectorAll('.space-grid figure');
+      if (spacePhotos.length) tl.fromTo(spacePhotos, { opacity: 0, y: 18, rotate: -3 }, { opacity: 1, y: 0, rotate: 0, duration: dur * 0.55, stagger: 0.09, ease: 'back.out(1.5)' }, dur * 0.56);
+    }
+    if (!reduce) {
+      var decorPhotos = toS.el.querySelectorAll('.tea-photo-decor img');
+      if (decorPhotos.length) tl.fromTo(decorPhotos, { opacity: 0, scale: 0.9, rotate: -7 }, { opacity: 0.13, scale: 1, rotate: function(i){ return i ? -13 : 10; }, duration: dur * 0.72, stagger: 0.08, ease: 'power3.out' }, dur * 0.42);
+    }
+  }
+
+  window.addEventListener('load', function(){ setTimeout(runHeroReveal, reduceMotionMQ.matches ? 0 : 150); });
+
+  document.addEventListener('click', function(e){
+    var t = e.target.closest('[data-goto]');
+    if (t){ e.preventDefault(); goTo(parseInt(t.getAttribute('data-goto'), 10), { focus:true }); }
+  });
+  nextBtn.addEventListener('click', function(){
+    goTo(current === sections.length - 1 ? 0 : current + 1);
+  });
+
+  window.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowDown' || e.key === 'PageDown'){ e.preventDefault(); goTo(current + 1); }
+    else if (e.key === 'ArrowUp' || e.key === 'PageUp'){ e.preventDefault(); goTo(current - 1); }
+    else if (e.key === 'Home'){ e.preventDefault(); goTo(0); }
+    else if (e.key === 'End'){ e.preventDefault(); goTo(sections.length - 1); }
+  });
+
+  /* Observer normalizes wheel input while retaining native touch behavior. */
+  var mm = gsap.matchMedia();
+
+  mm.add('(min-width: 641px)', function(){
+    if (HAS_OBSERVER) {
+      var observer = Observer.create({
+        target: window,
+        type: 'wheel',
+        tolerance: 12,
+        wheelSpeed: 1,
+        onDown: function(){ if (!busy && performance.now() > settleUntil) goTo(current + 1); },
+        onUp: function(){ if (!busy && performance.now() > settleUntil) goTo(current - 1); },
+        preventDefault: false,
+        debounce: true
+      });
+      return function(){ observer.kill(); };
+    }
+  });
+
+  mm.add('(max-width: 640px)', function(){
+    var startY = null, startT = 0;
+    function ts(e){ startY = e.touches[0].clientY; startT = performance.now(); }
+    function te(e){
+      if (startY === null || busy) { startY = null; return; }
+      var dy = startY - e.changedTouches[0].clientY;
+      if (Math.abs(dy) > Math.max(40, window.innerHeight * 0.08) && performance.now() - startT < 800 && performance.now() > settleUntil)
+        goTo(current + (dy > 0 ? 1 : -1));
+      startY = null;
+    }
+    window.addEventListener('touchstart', ts, { passive: true });
+    window.addEventListener('touchend', te, { passive: true });
+    return function(){ window.removeEventListener('touchstart', ts); window.removeEventListener('touchend', te); };
+  });
+
+  /* ---------- motion toggle (extra sensory control) ---------- */
+  var motionBtn = document.getElementById('motion-toggle');
+  var userReduced = false;
+  function syncMotionPreference(){
+    var reduced = reduceMotionMQ.matches || userReduced;
+    motionBtn.setAttribute('aria-pressed', String(reduced));
+    motionBtn.querySelector('.txt').textContent = 'Movimento: ' + (reduced ? 'reduzido' : 'ativado');
+    root.classList.toggle('reduce-motion', reduced);
+    if (reduced) stopFloating(); else startFloating();
+  }
+  motionBtn.addEventListener('click', function(){
+    userReduced = !userReduced;
+    syncMotionPreference();
+  });
+  if (reduceMotionMQ.addEventListener) reduceMotionMQ.addEventListener('change', syncMotionPreference);
+  syncMotionPreference();
+
+  /* ─── CARD TILT on panels ─── */
+  if (!reduceMotionMQ.matches && window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
+    document.querySelectorAll(".space-photo-ribbon figure, .method-step, .pillar").forEach(function(card) {
+      card.addEventListener("pointermove", function(e) {
+        var r = card.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - .5;
+        var y = (e.clientY - r.top) / r.height - .5;
+        gsap.to(card, { rotationY: x * 5, rotationX: -y * 5, transformPerspective: 800, duration: .4, ease: "power2.out", overwrite: 'auto' });
+      });
+      card.addEventListener("pointerleave", function() {
+        gsap.to(card, { rotationY: 0, rotationX: 0, duration: .6, ease: "elastic.out(1, .5)", overwrite: 'auto' });
+      });
+    });
+  }
+  var initialHash = panels.findIndex(function(panel){ return '#' + panel.id === location.hash; });
+  if (initialHash > 0) goTo(initialHash);
+
+  window.addEventListener('pagehide', function(){
+    clearTimeout(fitDebounce);
+    mm.revert();
+    if (ctx) ctx.revert();
+  }, { once:true });
+
+})();
+</script>
+<script id="enterprise-ux-runtime">(()=>{const d=document,reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,root=d.documentElement,target=d.querySelector('main')||d.querySelector('[id]');if(target&&!d.querySelector('.enterprise-skip')){if(!target.id)target.id='main-content';const skip=d.createElement('a');skip.className='enterprise-skip';skip.href='#'+target.id;skip.textContent='Pular para o conteúdo';d.body.prepend(skip);}d.querySelectorAll('img').forEach((img,i)=>{img.decoding='async';if(i>0&&!img.hasAttribute('loading'))img.loading='lazy';});const bar=d.createElement('i');bar.className='enterprise-progress';bar.setAttribute('aria-hidden','true');d.body.prepend(bar);const set=()=>{const max=d.documentElement.scrollHeight-innerHeight;bar.style.transform='scaleX('+Math.min(1,Math.max(0,scrollY/(max||1)))+')';};if(!reduce){if(window.gsap&&window.ScrollTrigger){gsap.set(bar,{scaleX:0,transformOrigin:'left center'});gsap.to(bar,{scaleX:1,ease:'none',scrollTrigger:{start:0,end:'max',scrub:.12}});}else{addEventListener('scroll',set,{passive:true});set();}}root.classList.add('enterprise-ux-ready');})();</script>
+<script id="enterprise-photo-runtime">(()=>{const d=document,main=d.querySelector('main'),t=d.title;if(!main||d.querySelector('.enterprise-photo-deck'))return;const m=t.includes('Gisela')?['Cuidado em cada detalhe','Uma experiência de saúde construída para acolher',['photo-1584982751601-97dcc096659c','photo-1576091160399-112ba8d25d1d','photo-1559757148-5c350d0d3c56']]:t.includes('Yang')?['Work, made tangible','Systems designed to move business forward',['photo-1497366754035-f200968a6e72','photo-1497215842964-222b430dc094','photo-1558655146-9f40138edfeb']]:t.includes('Lobo')?['Acolhimento que inspira confiança','Um espaço clínico pensado para estar perto',['photo-1576091160399-112ba8d25d1d','photo-1584982751601-97dcc096659c','photo-1559757148-5c350d0d3c56']]:t.includes('Sorriso')?['Sorrisos em boas mãos','Tecnologia, leveza e um atendimento próximo',['photo-1609840114035-3c981b782dfe','photo-1550831107-1553da8c8464','photo-1588776814546-1ffcf47267a5']]:t.includes('Sanare')?['Precisão que se vê','Clareza, tecnologia e atenção em cada consulta',['photo-1505751172876-fa1923c5c528','photo-1584982751601-97dcc096659c','photo-1576091160399-112ba8d25d1d']]:t.includes('TEA')?['Um espaço para cada descoberta','Cores, vínculo e rotina que acolhe',['photo-1596464716127-f2a82984de30','photo-1503454537195-1dcabb73ffb9','photo-1542810634-71277d95dcbb']]:['Visual systems in motion','A gallery for modern digital craft',['photo-1497366754035-f200968a6e72','photo-1558655146-9f40138edfeb','photo-1497215842964-222b430dc094']];const s=d.createElement('style');s.textContent='.enterprise-photo-deck{width:min(1180px,calc(100% - 2rem));margin:clamp(4rem,9vw,9rem) auto;display:grid;gap:clamp(1.5rem,4vw,4rem);align-items:end}.enterprise-photo-copy{max-width:38rem}.enterprise-photo-copy span{display:block;margin-bottom:.8rem;color:var(--enterprise-accent,var(--acid));font:700 .72rem/1.2 system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase}.enterprise-photo-copy h2{margin:0;font-size:clamp(2rem,5vw,4.8rem);line-height:.96;letter-spacing:-.055em}.enterprise-photo-copy p{margin:1.25rem 0 0;max-width:34rem;line-height:1.65;opacity:.76}.enterprise-photo-grid{display:grid;grid-template-columns:1.15fr .85fr;grid-template-rows:repeat(2,minmax(130px,1fr));gap:clamp(.65rem,1.4vw,1.15rem);min-height:clamp(340px,45vw,590px)}.enterprise-photo-frame{margin:0;overflow:hidden;border-radius:clamp(14px,2vw,26px);background:rgba(127,127,127,.14)}.enterprise-photo-frame:first-child{grid-row:span 2}.enterprise-photo-frame img{width:100%;height:100%;display:block;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}@media(hover:hover){.enterprise-photo-frame:hover img{transform:scale(1.055)}}@media(min-width:760px){.enterprise-photo-deck{grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr)}}@media(max-width:520px){.enterprise-photo-deck{width:calc(100% - 1.25rem);margin:3.5rem auto}.enterprise-photo-grid{min-height:300px;gap:.55rem}}@media(prefers-reduced-motion:reduce){.enterprise-photo-frame img{transition:none}}';d.head.append(s);const deck=d.createElement('section');deck.className='enterprise-photo-deck';deck.setAttribute('aria-label',m[0]);deck.innerHTML='<div class="enterprise-photo-copy"><span>'+m[0]+'</span><h2>'+m[1]+'</h2><p>Fotografias de apoio que tornam a experiência digital mais humana, concreta e memorável.</p></div><div class="enterprise-photo-grid">'+m[2].map((id,i)=>'<figure class="enterprise-photo-frame"><img src="https://images.unsplash.com/'+id+'?auto=format&fit=crop&w='+(i?'900':'1400')+'&q=82" alt="Fotografia de apoio" loading="lazy" decoding="async">').join('')+'</div>';main.append(deck);if(window.gsap&&window.ScrollTrigger&&!matchMedia('(prefers-reduced-motion: reduce)').matches){const ctx=gsap.context(()=>{const mm=gsap.matchMedia();mm.add('(min-width:760px)',()=>gsap.to(deck.querySelectorAll('.enterprise-photo-frame img'),{yPercent:i=>i===0?-7:7,ease:'none',scrollTrigger:{trigger:deck,start:'top bottom',end:'bottom top',scrub:.7}}));gsap.from(deck.querySelectorAll('.enterprise-photo-copy>*,.enterprise-photo-frame'),{autoAlpha:0,y:28,duration:.8,stagger:.1,ease:'power3.out',scrollTrigger:{trigger:deck,start:'top 78%',once:true}});});deck.querySelectorAll('img').forEach(i=>i.addEventListener('load',()=>ScrollTrigger.refresh(),{once:true}));addEventListener('pagehide',()=>ctx.revert(),{once:true});}})();</script>
+<script id="tea-photo-deck-cleanup">(()=>{const d=document,deck=d.querySelector('.enterprise-photo-deck');if(deck)deck.remove();d.head.querySelectorAll('style').forEach(style=>{if(style.textContent.includes('.enterprise-photo-deck'))style.remove();});})();</script>
+<script id="tea-section-photo-decor">(()=>{
+  const d = document;
+  // Per-panel decor arrays — themed images that match the panel content.
+  // 0: hero, 1: sobre/space-up, 2: metodo, 3: estimulos, 4: espaco, 5: contato
+  const IMAGES = [
+    ['photo-1540479859555-17af45c78602','photo-1607454411735-46b6876a4aaa'], // hero / sobre — terapia infantil
+    ['photo-1540479859555-17af45c78602','photo-1503454537195-1dcabb73ffb9'], // sobre / metodo
+    ['photo-1607454411735-46b6876a4aaa','photo-1542810634-71277d95dcbb'], // metodo / estimulos
+    ['photo-1542810634-71277d95dcbb','photo-1597524678053-34d8a87a7c02'], // estimulos / espaco
+    ['photo-1503454537195-1dcabb73ffb9','photo-1597524678053-34d8a87a7c02'], // espaco
+    ['photo-1540479859555-17af45c78602','photo-1607454411735-46b6876a4aaa']  // contato
+  ];
+  d.querySelectorAll('.panel').forEach((panel, idx) => {
+    const pair = IMAGES[idx] || IMAGES[0];
+    const decor = d.createElement('div');
+    decor.className = 'tea-photo-decor';
+    decor.setAttribute('aria-hidden', 'true');
+    decor.innerHTML = pair.map(id =>
+      `<img src="https://images.unsplash.com/${id}?auto=format&fit=crop&w=900&q=80" alt="" loading="lazy" decoding="async">`
+    ).join('');
+    panel.prepend(decor);
+  });
+  const heroImg = d.querySelector('#s-hero .tea-photo-decor img');
+  if (heroImg && window.gsap && !matchMedia('(prefers-reduced-motion: reduce)').matches)
+    gsap.fromTo(heroImg, {opacity:0, scale:.92}, {opacity:.13, scale:1, duration:1.1, ease:'power3.out'});
+})();</script>
+</body>
+</html>

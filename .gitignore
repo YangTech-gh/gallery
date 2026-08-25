@@ -1,0 +1,18 @@
+# Backup files
+*.bak
+*.backup
+*.orig
+*.swp
+
+# Backup directories
+backups/
+backups-pre-fix/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.sublime-*
