@@ -32,6 +32,8 @@
 
     @media (scripting: none) {
       .reveal-el { opacity: 1 !important; transform: none !important; visibility: visible !important; }
+      .process-scene { position: relative !important; inset: auto !important; opacity: 1 !important; visibility: visible !important; transform: none !important; }
+      .process-demo { clip-path: none !important; }
     }
 
     /* UTILITIES */
@@ -349,251 +351,43 @@
     .process-bars { width:min(500px,84%); display:flex; align-items:end; gap:12px; height:220px; }
     .process-bars i { flex:1; height:var(--h); background:linear-gradient(var(--acid),var(--green)); border-radius:8px 8px 2px 2px; transform-origin:bottom; }
 
+    /* Static fallback: no pin below 1025px or when motion is reduced.
+       !important beats any inline styles left behind by JS timelines. */
     @media (max-width:1024px), (prefers-reduced-motion:reduce) {
       .process-stage { display:block; }
       .process-left { min-height:auto; }
       .process-index,.process-meter { display:none; }
       .process-viewport { min-height:auto; overflow:visible; }
       .process-scenes { position:relative; }
-      .process-scene,.process-scene:first-child { position:relative; inset:auto; opacity:1; visibility:visible; min-height:auto; border-bottom:1px solid var(--line); }
+      .process-scene,.process-scene:first-child { position:relative !important; inset:auto !important; opacity:1 !important; visibility:visible !important; transform:none !important; min-height:auto; border-bottom:1px solid var(--line); }
+      .process-demo { clip-path:none !important; min-height:260px; }
     }
 
-    /* MOTION WORKBENCH — one instrument, eighteen live engines */
-    .labs-section { border-top:1px solid var(--line); background:#030305; }
-    .labs-header { padding:110px 0 52px; }
-    /* ─── PLUGIN GRID SHOWCASE — bounded to viewport, only live cards occupy space ─── */
-    .loop-showcase { width:100%; min-height:100vh; min-height:100svh; position:relative; overflow:hidden; background:#000; z-index:1; box-sizing:border-box; display:flex; flex-direction:column; justify-content:center; padding:clamp(84px,13vh,130px) clamp(16px,4vw,48px) clamp(46px,8vh,76px); }
-    #loopSlides { display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(10px,1.5vw,20px); width:100%; max-width:1180px; margin:0 auto; }
-    /* Inactive cards are display:none — dead slots never reserve rows; the leftover
-       viewport space stays clean, undivided black. */
-    .loop-slide { display:none; position:relative; z-index:1; border-radius:clamp(12px,1.5vw,20px); overflow:hidden; background:rgba(255,255,255,.025); border:1px solid rgba(255,255,255,.06); aspect-ratio:16/10; min-height:230px; max-height:35svh; will-change:transform,opacity; }
-    .loop-slide.active { display:block; }
-    .loop-demo { width:100%; height:100%; position:relative; display:grid; place-items:center; overflow:hidden; }
-    .loop-label { position:absolute; top:clamp(16px,3vh,36px); left:clamp(16px,4vw,48px); z-index:10; pointer-events:none; }
-    .loop-label-tag { display:inline-flex; align-items:center; gap:6px; padding:5px 12px; border-radius:99px; background:rgba(197,255,50,.1); border:1px solid rgba(197,255,50,.25); font:600 9px/1 ui-monospace,monospace; color:var(--acid); letter-spacing:.12em; text-transform:uppercase; }
-    .loop-label-tag::before { content:""; width:5px; height:5px; border-radius:50%; background:var(--acid); box-shadow:0 0 8px var(--acid); }
-    .loop-label-name { display:block; margin-top:10px; font:200 clamp(22px,4vw,44px)/.9 Inter,sans-serif; letter-spacing:-.04em; color:var(--paper); }
-    .loop-label-name em { font-style:normal; font-weight:700; color:var(--acid); }
-    .loop-label-more { display:inline-block; margin-left:10px; padding:4px 10px; border-radius:99px; border:1px solid rgba(255,255,255,.12); font:600 11px/1 ui-monospace,monospace; color:rgba(255,255,255,.45); letter-spacing:.1em; vertical-align:middle; text-transform:uppercase; }
-    .loop-counter { position:absolute; top:clamp(16px,3vh,36px); right:clamp(16px,4vw,48px); z-index:10; font:700 11px/1 ui-monospace,monospace; color:var(--muted); letter-spacing:.14em; }
-    .loop-counter .cur { color:var(--acid); font-size:14px; }
-    .loop-hint { position:absolute; bottom:clamp(10px,2vh,24px); right:clamp(16px,4vw,48px); z-index:10; font:500 9px/1 ui-monospace,monospace; color:rgba(255,255,255,.2); letter-spacing:.12em; text-transform:uppercase; }
-    .loop-progress { position:absolute; bottom:0; left:0; right:0; height:2px; background:var(--line); z-index:20; }
-    .loop-progress-bar { height:100%; background:linear-gradient(90deg,var(--acid),var(--green),var(--acid)); width:0%; }
+    /* ─── PROCESS DEMO EXTENSIONS (labs merged into process story) ─── */
+    .pd-drag-field{position:relative;width:min(420px,78%);aspect-ratio:16/9;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px;}
+    .pd-zone{border:1px dashed rgba(197,255,50,.22);border-radius:14px;display:grid;place-items:center;font:600 8px/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:rgba(241,240,235,.28);letter-spacing:.12em;text-transform:uppercase;transition:border-color .25s,color .25s,background .25s;}
+    .pd-zone.highlight{border-color:var(--acid);color:var(--acid);background:rgba(197,255,50,.05);}
+    .pd-drag-chip{position:absolute;left:16px;top:16px;width:86px;height:86px;border-radius:20px;background:var(--acid);color:var(--bg);display:grid;place-items:center;font:700 9px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;cursor:grab;user-select:none;-webkit-user-select:none;touch-action:none;z-index:2;box-shadow:0 10px 30px rgba(197,255,50,.18);}
+    .pd-drag-chip:active{cursor:grabbing;}
+    .pd-term{width:min(400px,84%);background:#0a0a0f;border:1px solid rgba(255,255,255,.07);border-radius:12px;overflow:hidden;}
+    .pd-term-bar{display:flex;align-items:center;gap:6px;padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.05);font:600 8px/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:rgba(241,240,235,.4);letter-spacing:.1em;text-transform:uppercase;}
+    .pd-term-bar span{margin-left:auto;}
+    .pd-term-bar i{width:7px;height:7px;border-radius:50%;}
+    .pd-term-bar i:nth-child(1){background:#ff5f57;}
+    .pd-term-bar i:nth-child(2){background:#febc2e;}
+    .pd-term-bar i:nth-child(3){background:#28c840;}
+    .pd-term-body{padding:16px 14px;font:500 clamp(11px,1.6vw,15px)/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--paper);}
+    .pd-term-body .pd-prompt{color:var(--acid);}
+    #pdScrambleText{color:var(--acid);display:inline-block;min-width:7ch;}
+    .pd-cursor{display:inline-block;width:7px;height:13px;background:var(--acid);vertical-align:middle;margin-left:3px;animation:pdBlink 1s step-end infinite;}
+    @keyframes pdBlink{50%{opacity:0;}}
+    .pd-spark-stage{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;}
+    .pd-launch-btn{padding:13px 30px;border-radius:99px;border:1px solid var(--acid);color:var(--acid);background:transparent;font:700 10px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:background .25s;}
+    .pd-launch-btn:hover{background:rgba(197,255,50,.08);}
+    .pd-launch-hint{font:500 8px/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:rgba(241,240,235,.25);letter-spacing:.12em;text-transform:uppercase;}
 
-    /* Plugin tag overlay — floating badge on each demo */
-    .loop-plugin-tag {
-      position: absolute;
-      top: clamp(14px, 2.5vh, 28px);
-      right: clamp(14px, 2.5vw, 28px);
-      z-index: 30;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 14px;
-      border-radius: 99px;
-      background: rgba(6,6,10,.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,.08);
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      pointer-events: none;
-      animation: loopTagIn .5s cubic-bezier(.22,1,.36,1) both;
-    }
-    .loop-plugin-tag-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .loop-plugin-tag-name {
-      font: 700 10px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--paper);
-    }
-    .loop-plugin-tag-tier {
-      font: 600 8px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      padding-left: 8px;
-      border-left: 1px solid rgba(255,255,255,.1);
-    }
-    @keyframes loopTagIn {
-      from { opacity: 0; transform: translateY(-6px) scale(.92); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .loop-plugin-tag { animation: none; }
-    }
-
-    /* Retain per-demo styles used by runWorkbench inner HTML */
-    .wb-scene { width:100%; height:100%; position:relative; overflow:hidden; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
-    .wb-scene *,.wb-scene *::before,.wb-scene *::after { box-sizing:border-box; margin:0; padding:0; }
-    .wb-demo-nav { display:flex; align-items:center; justify-content:space-between; padding:12px 18px; border-bottom:1px solid rgba(255,255,255,.06); }
-    .wb-demo-brand { font:700 9px/1 ui-monospace,monospace; letter-spacing:.12em; text-transform:uppercase; color:var(--paper); display:flex; align-items:center; gap:7px; }
-    .wb-demo-brand i { width:18px; height:18px; border-radius:50%; border:1.5px solid var(--acid); display:grid; place-items:center; font-style:normal; font:700 7px/1 ui-monospace,monospace; color:var(--acid); }
-    .wb-demo-nav-links { display:flex; gap:16px; }
-    .wb-demo-nav-links span { font:600 8px/1 ui-monospace,monospace; text-transform:uppercase; letter-spacing:.1em; color:rgba(255,255,255,.35); cursor:pointer; transition:color .2s; }
-    .wb-demo-nav-links span:hover,.wb-demo-nav-links span.active { color:var(--acid); }
-    .wb-demo-badge { display:inline-flex; align-items:center; gap:5px; padding:4px 10px; border-radius:99px; border:1px solid rgba(197,255,50,.3); font:600 7px/1 ui-monospace,monospace; color:var(--acid); letter-spacing:.1em; text-transform:uppercase; }
-    .wb-demo-badge::before { content:""; width:4px; height:4px; border-radius:50%; background:var(--acid); }
-    .wb-demo-cta { display:inline-flex; align-items:center; gap:7px; padding:8px 18px; border-radius:99px; border:1px solid var(--acid); font:600 8px/1 ui-monospace,monospace; letter-spacing:.1em; text-transform:uppercase; color:var(--acid); cursor:pointer; background:0; transition:background .25s; }
-    .wb-demo-cta:hover { background:rgba(197,255,50,.08); }
-    .wb-demo-cta::after { content:""; width:14px; height:1px; background:currentColor; }
-    .wb-demo-card { border:1px solid rgba(255,255,255,.06); border-radius:14px; background:rgba(255,255,255,.025); overflow:hidden; }
-    .wb-demo-section-label { font:700 7px/1 ui-monospace,monospace; letter-spacing:.14em; text-transform:uppercase; color:var(--acid); }
-    .wb-hero-demo { display:flex; flex-direction:column; justify-content:center; padding:28px 24px; gap:16px; }
-    .wb-hero-demo .wb-hero-eyebrow { font:600 7px/1 ui-monospace,monospace; color:var(--acid); letter-spacing:.18em; text-transform:uppercase; }
-    .wb-hero-demo .wb-hero-heading { font:700 clamp(28px,5vw,48px)/.88 Inter,sans-serif; letter-spacing:-.05em; color:var(--paper); }
-    .wb-hero-demo .wb-hero-heading em { font-style:normal; color:var(--acid); }
-    .wb-hero-demo .wb-hero-line { display:block; overflow:hidden; }
-    .wb-hero-demo .wb-hero-line > span { display:block; transform:translateY(115%); }
-    .wb-hero-demo .wb-hero-sub { font-size:11px; line-height:1.7; color:rgba(255,255,255,.4); max-width:320px; }
-    .wb-hero-demo .wb-hero-ctas { display:flex; gap:10px; }
-    .wb-hero-demo .wb-hero-decor { position:absolute; right:-30px; top:50%; transform:translateY(-50%); width:140px; height:140px; border:1px solid rgba(197,255,50,.15); border-radius:50%; opacity:.4; }
-    .wb-hero-demo .wb-hero-decor::after { content:""; position:absolute; inset:25%; border:1px dashed rgba(197,255,50,.2); border-radius:50%; }
-    .wb-spa-demo { display:flex; flex-direction:column; }
-    .wb-spa-body { flex:1; overflow-y:auto; scroll-behavior:auto; }
-    .wb-spa-section { min-height:110px; padding:18px; display:flex; flex-direction:column; justify-content:center; gap:8px; border-bottom:1px solid rgba(255,255,255,.04); }
-    .wb-spa-section h4 { font:600 13px/1 Inter,sans-serif; color:var(--paper); }
-    .wb-spa-section p { font-size:10px; line-height:1.6; color:rgba(255,255,255,.35); max-width:260px; }
-    .wb-parallax-demo { position:relative; overflow:hidden; }
-    .wb-parallax-layer { position:absolute; inset:0; display:grid; place-items:center; }
-    .wb-parallax-bg { background:radial-gradient(ellipse at 30% 40%,rgba(197,255,50,.08),transparent 60%); }
-    .wb-parallax-shapes { display:flex; gap:24px; }
-    .wb-parallax-shapes i { width:40px; height:40px; border:1px solid rgba(197,255,50,.25); border-radius:10px; display:block; }
-    .wb-parallax-shapes i:nth-child(2) { border-radius:50%; width:50px; height:50px; border-color:rgba(34,197,94,.3); }
-    .wb-parallax-shapes i:nth-child(3) { border-radius:4px; width:36px; height:36px; border-color:rgba(109,124,255,.3); }
-    .wb-parallax-fg { font:700 clamp(22px,4vw,42px)/.85 Inter,sans-serif; letter-spacing:-.06em; color:var(--paper); text-align:center; }
-    .wb-parallax-fg em { font-style:normal; color:var(--acid); }
-    .wb-flip-demo { display:flex; flex-direction:column; padding:14px; gap:10px; }
-    .wb-flip-toolbar { display:flex; gap:6px; }
-    .wb-flip-btn { padding:5px 12px; border-radius:99px; border:1px solid rgba(255,255,255,.08); font:600 7px/1 ui-monospace,monospace; text-transform:uppercase; letter-spacing:.1em; color:rgba(255,255,255,.35); background:0; cursor:pointer; transition:.2s; }
-    .wb-flip-btn.active,.wb-flip-btn:hover { border-color:var(--acid); color:var(--acid); }
-    .wb-flip-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; flex:1; }
-    .wb-flip-grid.list-view { grid-template-columns:1fr; }
-    .wb-flip-item { border:1px solid rgba(255,255,255,.06); border-radius:10px; padding:10px; display:flex; flex-direction:column; gap:6px; background:rgba(255,255,255,.02); min-height:80px; }
-    .wb-flip-grid.list-view .wb-flip-item { flex-direction:row; align-items:center; min-height:0; padding:8px 12px; }
-    .wb-flip-item-thumb { flex:1; border-radius:6px; min-height:40px; }
-    .wb-flip-item:nth-child(1) .wb-flip-item-thumb { background:linear-gradient(135deg,#1a2a1a,#0a1a0a); }
-    .wb-flip-item:nth-child(2) .wb-flip-item-thumb { background:linear-gradient(135deg,#2a1a1a,#1a0a0a); }
-    .wb-flip-item:nth-child(3) .wb-flip-item-thumb { background:linear-gradient(135deg,#1a1a2a,#0a0a1a); }
-    .wb-flip-item:nth-child(4) .wb-flip-item-thumb { background:linear-gradient(135deg,#2a2a1a,#1a1a0a); }
-    .wb-flip-item:nth-child(5) .wb-flip-item-thumb { background:linear-gradient(135deg,#2a1a2a,#1a0a1a); }
-    .wb-flip-item:nth-child(6) .wb-flip-item-thumb { background:linear-gradient(135deg,#1a2a2a,#0a1a1a); }
-    .wb-flip-grid.list-view .wb-flip-item-thumb { min-width:36px; min-height:36px; flex:0; }
-    .wb-flip-item-info { display:flex; flex-direction:column; gap:3px; }
-    .wb-flip-item-title { font:600 8px/1 ui-monospace,monospace; color:var(--paper); letter-spacing:.04em; }
-    .wb-flip-item-cat { font:500 6px/1 ui-monospace,monospace; color:rgba(255,255,255,.3); letter-spacing:.08em; text-transform:uppercase; }
-    .wb-drag-demo { display:grid; place-items:center; position:relative; }
-    .wb-drag-swatch { width:80px; height:80px; border-radius:18px; background:var(--acid); display:grid; place-items:center; font:700 9px/1 ui-monospace,monospace; color:var(--bg); cursor:grab; box-shadow:0 12px 40px rgba(197,255,50,.2); user-select:none; touch-action:none; z-index:2; }
-    .wb-drag-swatch:active { cursor:grabbing; }
-    .wb-drag-zones { position:absolute; inset:0; display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; padding:20px; pointer-events:none; }
-    .wb-drag-zone { border:1px dashed rgba(255,255,255,.08); border-radius:14px; display:grid; place-items:center; font:600 7px/1 ui-monospace,monospace; color:rgba(255,255,255,.15); letter-spacing:.1em; text-transform:uppercase; }
-    .wb-drag-zone.highlight { border-color:var(--acid); color:var(--acid); background:rgba(197,255,50,.04); }
-    .wb-throw-demo { position:relative; display:flex; align-items:center; justify-content:center; }
-    .wb-throw-stack { position:relative; width:200px; height:140px; }
-    .wb-throw-card { position:absolute; inset:0; border-radius:14px; border:1px solid rgba(255,255,255,.08); padding:14px; display:flex; flex-direction:column; justify-content:space-between; cursor:grab; user-select:none; touch-action:none; }
-    .wb-throw-card:active { cursor:grabbing; }
-    .wb-throw-card:nth-child(1) { background:linear-gradient(135deg,#0c1a0c,#0a140a); z-index:3; }
-    .wb-throw-card:nth-child(2) { background:linear-gradient(135deg,#1a0c0c,#140a0a); z-index:2; transform:scale(.95) translateY(6px); }
-    .wb-throw-card:nth-child(3) { background:linear-gradient(135deg,#0c0c1a,#0a0a14); z-index:1; transform:scale(.9) translateY(12px); }
-    .wb-throw-card-head { display:flex; justify-content:space-between; align-items:center; }
-    .wb-throw-card-title { font:700 10px/1 Inter,sans-serif; color:var(--paper); }
-    .wb-throw-card-tag { font:600 6px/1 ui-monospace,monospace; color:var(--acid); letter-spacing:.1em; text-transform:uppercase; }
-    .wb-throw-card-label { font:500 7px/1 ui-monospace,monospace; color:rgba(255,255,255,.3); letter-spacing:.08em; text-transform:uppercase; }
-    .wb-throw-hint { position:absolute; bottom:-20px; font:500 7px/1 ui-monospace,monospace; color:rgba(255,255,255,.2); letter-spacing:.1em; text-transform:uppercase; }
-    .wb-chapter-demo { position:relative; overflow:hidden; }
-    .wb-chapter-slide { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; padding:20px; text-align:center; opacity:0; visibility:hidden; transition:none; }
-    .wb-chapter-slide.active { opacity:1; visibility:visible; }
-    .wb-chapter-num { font:800 48px/1 Inter,sans-serif; color:rgba(197,255,50,.08); letter-spacing:-.06em; }
-    .wb-chapter-title { font:700 clamp(18px,3vw,28px)/.9 Inter,sans-serif; color:var(--paper); letter-spacing:-.04em; }
-    .wb-chapter-desc { font-size:10px; line-height:1.6; color:rgba(255,255,255,.35); max-width:260px; }
-    .wb-chapter-dots { position:absolute; bottom:14px; display:flex; gap:6px; }
-    .wb-chapter-dots i { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,.15); }
-    .wb-chapter-dots i.active { background:var(--acid); }
-    .wb-chapter-hint { position:absolute; top:14px; right:16px; font:500 6px/1 ui-monospace,monospace; color:rgba(255,255,255,.2); letter-spacing:.1em; text-transform:uppercase; }
-    .wb-split-demo { display:grid; place-items:center; padding:20px; }
-    .wb-split-heading { font:700 clamp(26px,5vw,52px)/.82 Inter,sans-serif; letter-spacing:-.07em; color:var(--paper); text-align:center; }
-    .wb-split-heading em { font-style:normal; color:var(--acid); }
-    .wb-split-heading .char { display:inline-block; will-change:transform; }
-    .wb-terminal-demo { width:90%; max-width:380px; }
-    .wb-terminal { background:#0a0a0f; border:1px solid rgba(255,255,255,.06); border-radius:10px; overflow:hidden; }
-    .wb-terminal-bar { display:flex; align-items:center; gap:6px; padding:8px 12px; border-bottom:1px solid rgba(255,255,255,.04); }
-    .wb-terminal-dot { width:6px; height:6px; border-radius:50%; }
-    .wb-terminal-dot:nth-child(1) { background:#ff5f57; }
-    .wb-terminal-dot:nth-child(2) { background:#febc2e; }
-    .wb-terminal-dot:nth-child(3) { background:#28c840; }
-    .wb-terminal-body { padding:14px; display:flex; flex-direction:column; gap:6px; min-height:100px; }
-    .wb-terminal-line { font:400 10px/1.5 ui-monospace,monospace; }
-    .wb-terminal-line .prompt { color:var(--acid); }
-    .wb-terminal-line .cmd { color:rgba(255,255,255,.7); }
-    .wb-terminal-line .ok { color:#22c55e; }
-    .wb-terminal-line .warn { color:#ff6b35; }
-    .wb-terminal-cursor { display:inline-block; width:6px; height:12px; background:var(--acid); animation:wbBlink 1s step-end infinite; vertical-align:middle; }
-    @keyframes wbBlink { 50% { opacity:0; } }
-    .wb-scramble-demo { display:grid; place-items:center; padding:20px; }
-    .wb-scramble-text { font:700 clamp(28px,6vw,56px)/.85 Inter,sans-serif; letter-spacing:-.06em; color:var(--paper); text-align:center; }
-    .wb-scramble-sub { font:500 8px/1 ui-monospace,monospace; color:rgba(255,255,255,.25); letter-spacing:.14em; text-transform:uppercase; margin-top:12px; }
-    .wb-motionpath-demo { width:100%; padding:10px; }
-    .wb-motionpath-svg { width:100%; overflow:visible; }
-    .wb-motionpath-svg .mp-line { fill:none; stroke:rgba(197,255,50,.2); stroke-width:1.5; stroke-dasharray:4 6; }
-    .wb-motionpath-svg .mp-route { fill:none; stroke:var(--acid); stroke-width:2; stroke-linecap:round; }
-    .wb-motionpath-svg .mp-node { fill:rgba(255,255,255,.06); stroke:rgba(255,255,255,.1); stroke-width:1; }
-    .wb-motionpath-svg .mp-node-text { font:600 7px/1 ui-monospace,monospace; fill:rgba(255,255,255,.4); text-anchor:middle; dominant-baseline:central; }
-    .wb-motionpath-svg .mp-dot { fill:var(--acid); filter:drop-shadow(0 0 8px var(--acid)); }
-    .wb-drawsvg-demo { display:grid; place-items:center; }
-    .wb-drawsvg-logo { width:120px; height:120px; }
-    .wb-drawsvg-logo path { fill:none; stroke:var(--acid); stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
-    .wb-morph-demo { display:grid; place-items:center; gap:16px; }
-    .wb-morph-shape { width:120px; height:120px; overflow:visible; }
-    .wb-morph-shape path { fill:var(--acid); }
-    .wb-morph-label { font:600 8px/1 ui-monospace,monospace; color:rgba(255,255,255,.3); letter-spacing:.14em; text-transform:uppercase; }
-    .wb-confetti-demo { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; }
-    .wb-confetti-btn { padding:12px 28px; border-radius:99px; border:1px solid var(--acid); font:700 10px/1 ui-monospace,monospace; letter-spacing:.12em; text-transform:uppercase; color:var(--acid); background:0; cursor:pointer; transition:background .25s; }
-    .wb-confetti-btn:hover { background:rgba(197,255,50,.08); }
-    .wb-confetti-piece { position:absolute; width:8px; height:8px; border-radius:2px; pointer-events:none; }
-    .wb-ease-demo { display:flex; flex-direction:column; gap:24px; padding:20px; width:80%; }
-    .wb-ease-row { display:flex; align-items:center; gap:12px; }
-    .wb-ease-label { font:500 7px/1 ui-monospace,monospace; color:rgba(255,255,255,.3); letter-spacing:.1em; text-transform:uppercase; min-width:56px; }
-    .wb-ease-track { flex:1; height:2px; background:rgba(255,255,255,.06); position:relative; border-radius:1px; }
-    .wb-ease-ball { position:absolute; top:50%; left:0; transform:translateY(-50%); width:16px; height:16px; border-radius:50%; }
-    .wb-ease-ball.generic { background:rgba(255,255,255,.25); }
-    .wb-ease-ball.brand { background:var(--acid); box-shadow:0 0 16px rgba(197,255,50,.3); }
-    .wb-bounce-demo { display:flex; align-items:flex-end; justify-content:center; gap:16px; padding:20px; height:100%; }
-    .wb-bounce-card { width:80px; border-radius:12px; border:1px solid rgba(255,255,255,.06); padding:10px; display:flex; flex-direction:column; align-items:center; gap:6px; background:rgba(255,255,255,.02); }
-    .wb-bounce-icon { width:28px; height:28px; border-radius:8px; display:grid; place-items:center; }
-    .wb-bounce-card:nth-child(1) .wb-bounce-icon { background:rgba(197,255,50,.15); }
-    .wb-bounce-card:nth-child(2) .wb-bounce-icon { background:rgba(34,197,94,.15); }
-    .wb-bounce-card:nth-child(3) .wb-bounce-icon { background:rgba(109,124,255,.15); }
-    .wb-bounce-card-label { font:500 7px/1 ui-monospace,monospace; color:rgba(255,255,255,.35); letter-spacing:.08em; text-transform:uppercase; }
-    .wb-wiggle-demo { display:grid; place-items:center; gap:14px; }
-    .wb-wiggle-bell { width:56px; height:56px; border-radius:16px; border:1px solid rgba(255,255,255,.08); display:grid; place-items:center; background:rgba(255,255,255,.025); cursor:pointer; font:20px/1 sans-serif; }
-    .wb-wiggle-badge { position:absolute; top:-4px; right:-4px; width:14px; height:14px; border-radius:50%; background:var(--acid); display:grid; place-items:center; font:600 7px/1 ui-monospace,monospace; color:var(--bg); }
-    .wb-wiggle-label { font:500 7px/1 ui-monospace,monospace; color:rgba(255,255,255,.25); letter-spacing:.1em; text-transform:uppercase; }
-    .wb-rough-demo { display:flex; flex-direction:column; gap:20px; padding:20px; width:80%; }
-    .wb-rough-row { display:flex; align-items:center; gap:12px; }
-    .wb-rough-label { font:500 7px/1 ui-monospace,monospace; color:rgba(255,255,255,.3); letter-spacing:.1em; text-transform:uppercase; min-width:56px; }
-    .wb-rough-track { flex:1; height:2px; background:rgba(255,255,255,.06); position:relative; border-radius:1px; }
-    .wb-rough-ball { position:absolute; top:50%; left:0; transform:translateY(-50%); width:14px; height:14px; border-radius:3px; }
-    .wb-rough-ball.smooth { background:rgba(255,255,255,.25); }
-    .wb-rough-ball.rough { background:var(--acid); box-shadow:0 0 12px rgba(197,255,50,.25); border-radius:2px; }
-    .wb-cf-green { background:var(--green); }
-    .wb-cf-acid { background:var(--acid); }
-    .wb-cf-blue { background:var(--blue); }
-    .wb-cf-red { background:var(--red); }
-    .wb-cf-purple { background:var(--purple); }
-    .wb-cf-orange { background:var(--orange); }
-    .wb-particle { position:absolute; left:50%; top:50%; width:7px; height:7px; background:var(--acid); border-radius:50%; }
-
-    .labs-section .section-head { display:flex; justify-content:space-between; gap:32px; align-items:end; }
-    .labs-section .section-head h2 { margin:0; max-width:700px; font-size:clamp(36px,6vw,88px); line-height:.9; letter-spacing:-.07em; text-transform:uppercase; }
-    .labs-section .section-head p { margin:0; max-width:380px; color:var(--muted); font-size:13px; line-height:1.65; }
-    @media(max-width:900px){.labs-section .section-head{display:block}.labs-section .section-head p{margin-top:18px}}
-
-    @media(max-width:520px){.labs-header{padding:76px 0 32px}#loopSlides{grid-template-columns:1fr}.loop-label-name{font-size:clamp(22px,7vw,36px)}.loop-label{left:16px;top:16px}.loop-counter{left:16px;right:auto;top:16px}.loop-hint{display:none}}
+    /* Shared particle (process launch + contact channels) */
+    .wb-particle{position:absolute;left:50%;top:50%;width:7px;height:7px;background:var(--acid);border-radius:50%;pointer-events:none;z-index:5;}
 
     /* STATS */
     .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; padding: 80px 0; border-top: 1px solid var(--line); }
@@ -713,17 +507,10 @@
       .process-orbit { width: min(180px, 80%); }
       .process-bars { height: 140px; gap: 8px; }
 
-      /* Loop showcase */
-      #loopSlides { grid-template-columns: 1fr; }
-      .loop-slide { aspect-ratio: 16/10; min-height: 180px; max-height: 38svh; border-radius: 12px; }
-      .loop-label { left: 14px; top: 14px; }
-      .loop-label-name { font-size: clamp(20px, 6vw, 32px); }
-      .loop-counter { right: 14px; top: 14px; font-size: 9px; }
-      .loop-hint { display: none; }
-      .loop-plugin-tag { padding: 5px 10px; font-size: 8px; top: 10px; right: 10px; }
-      .loop-plugin-tag-dot { width: 5px; height: 5px; }
-      .loop-plugin-tag-name { font-size: 9px; }
-      .loop-plugin-tag-tier { font-size: 7px; }
+      /* Process demos (merged scenes) */
+      .pd-drag-field { width: 92%; min-height: 170px; gap: 6px; padding: 10px; }
+      .pd-drag-chip { width: 68px; height: 68px; border-radius: 16px; font-size: 8px; }
+      .pd-term-body { font-size: 11px; padding: 12px; }
 
       /* Image sections */
       .img-section { min-height: 65svh; overflow: hidden; }
@@ -784,8 +571,7 @@
       .stat-num { font-size: 36px; }
       .process-scene-num { font-size: 36px; }
       .process-demo { min-height: 160px; }
-      .loop-slide { aspect-ratio: auto; min-height: min(220px, 45svh); max-height: none; }
-      .loop-label-name { font-size: clamp(18px, 6vw, 28px); }
+      .pd-drag-chip { width: 60px; height: 60px; font-size: 7px; }
       .contact-grid { padding: 48px var(--pad); }
       .cap-grid { grid-template-columns: 1fr; }
     }
@@ -809,8 +595,7 @@
       .g-card:hover { transform: none; }
       .contact-ch:hover { transform: none; }
 
-      .wb-terminal-cursor { animation: none; opacity: .5; }
-      .wb-wiggle-badge { animation: none; }
+      .pd-cursor { animation: none; opacity: .5; }
     }
     @media (hover: none) and (pointer: coarse) { a, button, [role="button"] { touch-action: manipulation; } }
     ::-webkit-scrollbar { width: 5px; }
@@ -947,7 +732,7 @@
     /* ── SERVICES BAND ── */
     .services-band{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:100px 0 110px;background:linear-gradient(180deg,rgba(197,255,50,.018),transparent 60%);}
     .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
-    @media(max-width:760px){.services-grid{grid-template-columns:1fr;}}
+    @media(max-width:1024px) and (min-width:601px){.services-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
     .service-cell{position:relative;padding:36px 32px 32px;background:var(--bg);display:flex;flex-direction:column;gap:18px;transition:background .3s;isolation:isolate;}
     .service-cell::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 100% 0%,rgba(197,255,50,.07),transparent 55%);opacity:0;transition:opacity .35s;}
     .service-cell:hover{background:rgba(255,255,255,.028);}
@@ -960,6 +745,18 @@
     .service-cell .service-meta i{width:18px;height:1px;background:var(--muted);}
     .service-cell:hover .service-meta{color:var(--acid);opacity:1;}
     .service-cell:hover .service-meta i{background:var(--acid);}
+
+    /* ── SERVICES MOBILE: centered header + alternating zigzag cards ── */
+    @media(max-width:600px){
+      .section-eyebrow-bar{justify-items:center;text-align:center;}
+      .section-eyebrow-bar .seb-left{display:flex;flex-direction:column;align-items:center;}
+      .section-eyebrow-bar h2{max-width:none;margin-inline:auto;font-size:clamp(30px,9vw,44px);}
+      .section-eyebrow-bar .seb-right{text-align:center;margin-inline:auto;}
+      .services-grid{display:flex;flex-direction:column;background:none;border:0;border-radius:0;overflow:visible;}
+      .service-cell{width:min(88%,360px);margin-bottom:14px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.02);}
+      .service-cell:nth-child(odd){align-self:flex-start;border-top-left-radius:6px;}
+      .service-cell:nth-child(even){align-self:flex-end;border-top-right-radius:6px;}
+    }
 
     /* ── VOCABULARY TICKER ── */
     .vocab-strip{position:relative;padding:34px 0;background:var(--bg);border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;}
@@ -1051,7 +848,6 @@
     <nav class="toplinks" aria-label="Navegacao principal">
       <a href="#projects" data-i18n="navProjects">Projetos</a>
       <a href="#process" data-i18n="navProcess">Processo</a>
-      <a href="#labs" data-i18n="navLabs">Labs</a>
       <a href="#capabilities" data-i18n="navCapabilities">Capacidades</a>
       <a href="#contact" data-i18n="navContact">Contato</a>
     </nav>
@@ -1064,7 +860,6 @@
   <div class="mobile-nav" id="mobileNav" aria-label="Menu mobile">
     <a href="#projects" data-i18n="navProjects">Projetos</a>
     <a href="#process" data-i18n="navProcess">Processo</a>
-    <a href="#labs" data-i18n="navLabs">Labs</a>
     <a href="#capabilities" data-i18n="navCapabilities">Capacidades</a>
     <a href="#contact" data-i18n="navContact">Contato</a>
   </div>
@@ -1214,7 +1009,7 @@
       <div class="gallery-pin gallery-tablet" id="galleryPin">
         <div class="gallery-intro">
           <span class="kicker reveal-el" data-i18n="kicker1">01 / Trabalhos Selecionados</span>
-          <h2 id="projectsHeading" class="reveal-el" data-i18n="projectsH2">Entregues &<br>mensurados.</h2>
+          <h2 id="projectsHeading" class="reveal-el" data-i18n="projectsH2">Prospecções<br>recentes.</h2>
           <p class="reveal-el" data-i18n="projectsDesc">Cada projeto comeca com um problema de negocio e termina com um resultado mensuravel. Role horizontalmente para explorar.</p>
         </div>
         <a href="lobo-mayer.html" class="g-card reveal-el" aria-label="Abrir projeto Lobo Mayer">
@@ -1370,14 +1165,14 @@
       <div class="process-stage" id="processStage">
         <div class="process-left">
           <div>
-            <span class="kicker" data-i18n="kicker2">02 / Nosso Processo</span>
+            <span class="kicker" data-i18n="kicker2">03 / Nosso Processo</span>
             <h2 id="processHeading" data-i18n="processH2">Como<br>construimos.</h2>
             <p data-i18n="processDesc">Uma metodologia comprovada refinada em dezenas de projetos enterprise. Do discovery a entrega, com arquitetura de motion em cada camada.</p>
           </div>
           <div>
             <div class="process-meter"><span>START</span><span class="process-meter-track"><i class="process-meter-fill" id="processProgress"></i></span><span id="processPercent">00%</span></div>
             <div class="process-index" aria-label="Etapas do processo">
-              <button class="active" data-process-jump="0" aria-label="Ir para etapa 1">01</button><button data-process-jump="1" aria-label="Ir para etapa 2">02</button><button data-process-jump="2" aria-label="Ir para etapa 3">03</button><button data-process-jump="3" aria-label="Ir para etapa 4">04</button>
+              <button class="active" data-process-jump="0" aria-label="Ir para etapa 1">01</button><button data-process-jump="1" aria-label="Ir para etapa 2">02</button><button data-process-jump="2" aria-label="Ir para etapa 3">03</button><button data-process-jump="3" aria-label="Ir para etapa 4">04</button><button data-process-jump="4" aria-label="Ir para etapa 5">05</button><button data-process-jump="5" aria-label="Ir para etapa 6">06</button><button data-process-jump="6" aria-label="Ir para etapa 7">07</button>
             </div>
           </div>
         </div>
@@ -1399,6 +1194,31 @@
               <div class="process-scene-head"><span class="process-scene-num">04</span><div><h3 data-i18n="step4Title">Lancamento & Medicao</h3><p data-i18n="step4Desc">Deploy, analytics, testes e otimizacao iterativa para impacto sustentado.</p><div class="process-step-tags"><span>Physics2D</span><span>TextPlugin</span><span>ScrollTo</span></div></div></div>
               <div class="process-demo"><div class="process-demo-grid"></div><div class="process-bars"><i style="--h:34%"></i><i style="--h:55%"></i><i style="--h:44%"></i><i style="--h:78%"></i><i style="--h:96%"></i><i style="--h:84%"></i></div></div>
             </article>
+            <article class="process-scene" data-process-scene>
+              <div class="process-scene-head"><span class="process-scene-num">05</span><div><h3 data-i18n="step5Title">Interacao Tangivel</h3><p data-i18n="step5Desc">Arraste, jogue e encaixe com fisica de inercia. Configuradores de produto, quadros kanban e UIs espaciais ganham peso real.</p><div class="process-step-tags"><span>Draggable</span><span>InertiaPlugin</span></div></div></div>
+              <div class="process-demo"><div class="process-demo-grid"></div>
+                <div class="pd-drag-field" id="pdDragField">
+                  <span class="pd-zone">Cor</span><span class="pd-zone">Material</span><span class="pd-zone">Acabamento</span>
+                  <div class="pd-drag-chip" id="pdDragChip">ARRASTE</div>
+                </div>
+              </div>
+            </article>
+            <article class="process-scene" data-process-scene>
+              <div class="process-scene-head"><span class="process-scene-num">06</span><div><h3 data-i18n="step6Title">Conteudo Dinamico</h3><p data-i18n="step6Desc">Texto que se escreve, embaralha e atualiza ao vivo. Terminais, contadores e copys que reagem ao estado do sistema.</p><div class="process-step-tags"><span>ScrambleText</span><span>TextPlugin</span></div></div></div>
+              <div class="process-demo"><div class="process-demo-grid"></div>
+                <div class="pd-term">
+                  <div class="pd-term-bar"><i></i><i></i><i></i><span>yang@prod — live</span></div>
+                  <div class="pd-term-body"><span class="pd-prompt">$</span>&nbsp;<span id="pdScrambleText">DEPLOY</span><span class="pd-cursor" aria-hidden="true"></span></div>
+                </div>
+              </div>
+            </article>
+            <article class="process-scene" data-process-scene>
+              <div class="process-scene-head"><span class="process-scene-num">07</span><div><h3 data-i18n="step7Title">Fisica & Entrega</h3><p data-i18n="step7Desc">Velocidade, gravidade e friccao dirigem particulas e micro-celebracoes. O toque final que faz o produto parecer vivo.</p><div class="process-step-tags"><span>Physics2D</span><span>CustomBounce</span></div></div></div>
+              <div class="process-demo pd-spark-stage"><div class="process-demo-grid"></div>
+                <button class="pd-launch-btn" id="pdLaunchBtn" type="button">Lancar release</button>
+                <span class="pd-launch-hint">clique para celebrar</span>
+              </div>
+            </article>
           </div>
         </div>
       </div>
@@ -1416,37 +1236,13 @@
       </div>
     </section>
 
-    <!-- LABS - IMMERSIVE SHOWCASES -->
-    <section class="labs-section" id="labs" aria-labelledby="labsHeading">
-      <div class="labs-header shell" data-ascii-deco data-ascii-w="80" data-ascii-h="20" data-ascii-mode="scatter" data-ascii-fps="3" data-ascii-pos="bleed-r">
-        <div class="section-head">
-          <div>
-            <span class="kicker reveal-el" data-i18n="kicker3">03 / Labs Interativos</span>
-            <h2 id="labsHeading" class="reveal-el" data-i18n="labsH2">Como construimos.</h2>
-          </div>
-          <p class="reveal-el" data-i18n="labsDesc">Fragmentos funcionais de trabalho enterprise real. Cada demo mostra uma tecnica usada em projetos entregues.</p>
-        </div>
-      </div>
-
-      <div class="loop-showcase" id="loopShowcase" aria-label="GSAP 3.15 plugin showcase">
-        <div id="loopSlides"></div>
-        <div class="loop-label"><span class="loop-label-tag">LIVE DEMO</span><span class="loop-label-name" id="loopLabelName"></span></div>
-        <div class="loop-counter"><span class="cur" id="loopCur">01</span> / <span id="loopTotal">14</span></div>
-        <span class="loop-hint">AUTO-LOOPING</span>
-        <div class="loop-progress"><div class="loop-progress-bar" id="loopProgressBar"></div></div>
-      </div>
-      <div class="sr-only" aria-hidden="true">
-        <i data-workbench-demo="Draggable"></i><i data-workbench-demo="InertiaPlugin"></i><i data-workbench-demo="Observer"></i><i data-workbench-demo="SplitText"></i><i data-workbench-demo="TextPlugin"></i><i data-workbench-demo="ScrambleTextPlugin"></i><i data-workbench-demo="MotionPathPlugin"></i><i data-workbench-demo="DrawSVGPlugin"></i><i data-workbench-demo="MorphSVGPlugin"></i><i data-workbench-demo="Physics2DPlugin"></i><i data-workbench-demo="CustomEase"></i><i data-workbench-demo="CustomBounce"></i><i data-workbench-demo="CustomWiggle"></i><i data-workbench-demo="EasePack"></i>
-      </div>
-
-      <!-- Stats -->
-      <div class="shell">
-        <div class="stats-row">
-          <div class="stat reveal-el"><span class="stat-num" data-count="48000">0</span><span class="stat-label" data-i18n="stat1">Linhas de Codigo</span></div>
-          <div class="stat reveal-el"><span class="stat-num" data-count="108000">0</span><span class="stat-label" data-i18n="stat2">Arquivos Criados</span></div>
-          <div class="stat reveal-el"><span class="stat-num" data-count="98">0</span><span class="stat-label" data-i18n="stat3">Satisfacao do Cliente %</span></div>
-          <div class="stat reveal-el"><span class="stat-num" data-text="infinito">∞</span><span class="stat-label" data-i18n="stat4">Marketing Impactado</span></div>
-        </div>
+    <!-- STATS BAND -->
+    <section class="stats-band shell" aria-label="Yang Tech em numeros">
+      <div class="stats-row">
+        <div class="stat reveal-el"><span class="stat-num" data-count="48000">0</span><span class="stat-label" data-i18n="stat1">Linhas de Codigo</span></div>
+        <div class="stat reveal-el"><span class="stat-num" data-count="108000">0</span><span class="stat-label" data-i18n="stat2">Arquivos Criados</span></div>
+        <div class="stat reveal-el"><span class="stat-num" data-count="98">0</span><span class="stat-label" data-i18n="stat3">Satisfacao do Cliente %</span></div>
+        <div class="stat reveal-el"><span class="stat-num" data-text="infinito">∞</span><span class="stat-label" data-i18n="stat4">Marketing Impactado</span></div>
       </div>
     </section>
 
@@ -1565,7 +1361,6 @@
           <li><a href="#projects">Projetos</a></li>
           <li><a href="#services">Serviços</a></li>
           <li><a href="#process">Processo</a></li>
-          <li><a href="#labs">Labs</a></li>
           <li><a href="#capabilities">Capacidades</a></li>
           <li><a href="#contact">Contato</a></li>
         </ul>
@@ -1639,7 +1434,7 @@
     // ─── i18n ───
     const translations = {
       pt: {
-        navProjects: "Projetos", navProcess: "Processo", navLabs: "Labs", navCapabilities: "Capacidades", navContact: "Contato",
+        navProjects: "Projetos", navProcess: "Processo", navCapabilities: "Capacidades", navContact: "Contato",
         heroEyebrow: "Solucoes Digitais Enterprise",
         heroLine1: "Nos desenhamos", heroLine2: "Solucoes Digitais", heroLine3: "perfeitas para sua necessidade",
         heroSub: "Precisando de Sistemas, Aplicativos ou Automacoes? Entre em contato.",
@@ -1665,25 +1460,17 @@
         feat2: "Design Engineering — componentes prontos para producao",
         feat3: "Performance Budgets — metricas de velocidade garantidas",
         feat4: "Acessibilidade — conformidade WCAG desde o primeiro commit",
-        kicker2: "02 / Nosso Processo", processH2: "Como\nconstruimos.",
+        kicker2: "03 / Nosso Processo", processH2: "Como\nconstruimos.",
         processDesc: "Uma metodologia comprovada refinada em dezenas de projetos enterprise. Do discovery a entrega, com arquitetura de motion em cada camada.",
         step1Title: "Discovery & Auditoria", step1Desc: "Analise profunda dos objetivos de negocio, ativos existentes, restricoes tecnicas e cenario competitivo. Mapeamos o espaco de oportunidade primeiro.",
         step2Title: "Arquitetura de Motion", step2Desc: "Definimos o DNA de movimento do seu produto. Principios de animacao, curvas de easing, tokens de timing e padroes de interacao.",
         step3Title: "Design Engineering", step3Desc: "Implementacao pixel-perfect com codigo de producao. Bibliotecas de componentes, sistemas responsivos, acessibilidade e performance.",
         step4Title: "Lancamento & Medicao", step4Desc: "Deploy com confianca. Analytics pos-lancamento, testes A/B, monitoramento de performance e otimizacao iterativa para impacto sustentado.",
+        step5Title: "Interacao Tangivel", step5Desc: "Arraste, jogue e encaixe com fisica de inercia. Configuradores de produto, quadros kanban e UIs espaciais ganham peso real.",
+        step6Title: "Conteudo Dinamico", step6Desc: "Texto que se escreve, embaralha e atualiza ao vivo. Terminais, contadores e copys que reagem ao estado do sistema.",
+        step7Title: "Fisica & Entrega", step7Desc: "Velocidade, gravidade e friccao dirigem particulas e micro-celebracoes. O toque final que faz o produto parecer vivo.",
         kickerCraft: "O Oficio", craftH2: "Cada detalhe e\numa decisao.",
         craftDesc: "Por tras de cada projeto entregue existe uma biblioteca de padroes interativos, testados em dispositivos e refinados em deployments enterprise reais.",
-        kicker3: "03 / Labs Interativos", labsH2: "Como construimos.",
-        labsDesc: "Fragmentos funcionais de trabalho enterprise real. Cada demo mostra uma tecnica usada em projetos entregues.",
-        lab1Title: "Interfaces de Proximidade", lab1Desc: "Elementos respondem a distancia do cursor com easing baseado em fisica. Reduz carga cognitiva em dashboards densos e grids de produto.",
-        lab1Item1: "PRODUTOS", lab1Item2: "HOVER", lab1Item3: "CURSOR", lab1Item4: "GRIDS", lab1Item5: "DADOS", lab1Item6: "CARDS",
-        lab2Title: "Sequencias Coreografadas", lab2Desc: "Animacoes multi-etapa que revertem, repetem e respondem ao estado do usuario. Alimenta fluxos de onboarding e configuradores.", lab2Btn: "Replay sequencia",
-        lab3Title: "Storytelling por Scroll", lab3Desc: "A posicao do scroll vira uma timeline. Fixe secoes, navegue animacoes, alterne entre capitulos. A base de toda landing page.", lab3DemoText: "Scroll e uma timeline",
-        lab4Title: "Transicoes de Layout", lab4Desc: "Elementos se transformam entre layouts preservando memoria espacial. Alimenta animacoes de filtro e visualizacoes grid-para-lista.", lab4Btn: "Alternar layout",
-        lab5Title: "Interacao Tangivel", lab5Desc: "Arraste, jogue e encaixe com fisica de inercia. Alimenta configuradores de produto, quadros kanban e UIs espaciais.", lab5DragText: "Arraste-me",
-        lab6Title: "Animacao de Caminho SVG", lab6Desc: "Desenhe, trace e siga caminhos personalizados. Alimenta visualizacoes de dados, ilustracoes animadas e wayfinding.", lab6Btn: "Replay rota",
-        lab7Title: "Tipografia em Motion", lab7Desc: "Caracteres, palavras e linhas se animam independentemente. Alimenta titulos editoriais, efeitos de digitacao e conteudo dinamico.", lab7Btn: "Reescrever", lab7Heading: "Palavras tem peso.",
-        lab8Title: "Motion Baseado em Fisica", lab8Desc: "Velocidade, gravidade e friccao dirigem sistemas de particulas. Alimenta momentos de celebracao e efeitos ambientes.", lab8Btn: "Lancar explosao",
         kicker4: "04 / Capacidades", aboutH2: "O que entregamos.",
         aboutDesc: "Estudio de design motion-first. Arquitetamos sistemas de movimento que escalam com seu negocio.",
         cap1Title: "Sistemas de Identidade Visual", cap1Desc: "Identidade visual completa com DNA de motion. Animacao de logotipo, sistemas tipograficos, arquitetura de cores e bibliotecas de componentes.",
@@ -1709,7 +1496,7 @@
         splitStatusText: "STATUS: SISTEMAS SE SENTEM VIVOS_"
       },
       en: {
-        navProjects: "Projects", navProcess: "Process", navLabs: "Labs", navCapabilities: "Capabilities", navContact: "Contact",
+        navProjects: "Projects", navProcess: "Process", navCapabilities: "Capabilities", navContact: "Contact",
         heroEyebrow: "Enterprise Digital Solutions",
         heroLine1: "We design", heroLine2: "Digital Solutions", heroLine3: "tailored to your needs",
         heroSub: "Need Systems, Apps or Automations? Get in touch.",
@@ -1735,25 +1522,17 @@
         feat2: "Design Engineering — production-ready components",
         feat3: "Performance Budgets — guaranteed speed metrics",
         feat4: "Accessibility — WCAG compliance from first commit",
-        kicker2: "02 / Our Process", processH2: "How we\nbuild it.",
+        kicker2: "03 / Our Process", processH2: "How we\nbuild it.",
         processDesc: "A proven methodology refined across dozens of enterprise engagements. Discovery through delivery, with motion architecture at every layer.",
         step1Title: "Discovery & Audit", step1Desc: "Deep dive into business objectives, existing assets, technical constraints, and competitive landscape.",
         step2Title: "Motion Architecture", step2Desc: "Define the movement DNA of your product. Animation principles, easing curves, timing tokens, and interaction patterns.",
         step3Title: "Design Engineering", step3Desc: "Pixel-perfect implementation with production-grade code. Component libraries, responsive systems, accessibility.",
         step4Title: "Launch & Measure", step4Desc: "Deploy with confidence. Post-launch analytics, A/B testing, performance monitoring, iterative optimization.",
+        step5Title: "Tangible Interaction", step5Desc: "Drag, throw, and snap with inertia physics. Product configurators, kanban boards, and spatial UIs gain real weight.",
+        step6Title: "Dynamic Content", step6Desc: "Text that types, scrambles, and updates live. Terminals, counters, and copy that reacts to system state.",
+        step7Title: "Physics & Delivery", step7Desc: "Velocity, gravity, and friction drive particles and micro-celebrations. The finishing touch that makes products feel alive.",
         kickerCraft: "The Craft", craftH2: "Every detail is\na decision.",
         craftDesc: "Behind every shipped project is a library of interactive patterns, tested across devices and refined through real enterprise deployments.",
-        kicker3: "03 / Interactive Labs", labsH2: "How we build.",
-        labsDesc: "Working fragments of real enterprise work. Each demo showcases a technique used in shipped projects.",
-        lab1Title: "Proximity Interfaces", lab1Desc: "Elements respond to cursor distance with physics-based easing. Reduces cognitive load in dense dashboards and product grids.",
-        lab1Item1: "PRODUCTS", lab1Item2: "HOVER", lab1Item3: "CURSOR", lab1Item4: "GRIDS", lab1Item5: "DATA", lab1Item6: "CARDS",
-        lab2Title: "Choreographed Sequences", lab2Desc: "Multi-step animations that reverse, loop, and respond to user state. Powers onboarding flows and product configurators.", lab2Btn: "Replay sequence",
-        lab3Title: "Scroll Storytelling", lab3Desc: "The scroll position becomes a timeline. Pin sections, scrub animations, snap between chapters. The foundation of every landing page.", lab3DemoText: "Scroll is a timeline",
-        lab4Title: "Layout Transitions", lab4Desc: "Elements morph between layouts preserving spatial memory. Powers filter animations and grid-to-list views.", lab4Btn: "Toggle layout",
-        lab5Title: "Tangible Interaction", lab5Desc: "Drag, throw, and snap with inertia physics. Powers product configurators, kanban boards, and spatial UIs.", lab5DragText: "Drag me",
-        lab6Title: "SVG Path Animation", lab6Desc: "Draw, trace, and route along custom paths. Powers data visualizations, animated illustrations, and wayfinding.", lab6Btn: "Replay route",
-        lab7Title: "Typography in Motion", lab7Desc: "Characters, words, and lines animate independently. Powers editorial headings, typing effects, and dynamic content.", lab7Btn: "Rewrite", lab7Heading: "Words have weight.",
-        lab8Title: "Physics-Based Motion", lab8Desc: "Velocity, gravity, and friction drive particle systems. Powers celebration moments and ambient effects.", lab8Btn: "Release burst",
         kicker4: "04 / Capabilities", aboutH2: "What we deliver.",
         aboutDesc: "Motion-first design studio. We architect movement systems that scale with your business.",
         cap1Title: "Brand Identity Systems", cap1Desc: "Complete visual identity with motion DNA. Logo animation, type systems, color architecture, and component libraries.",
@@ -2234,7 +2013,7 @@
 
     // ─── TOPBAR ───
     ScrollTrigger.create({ start: "top -80", end: 99999, toggleClass: { className: "scrolled", targets: "#topbar" } });
-    ["projects", "process", "labs", "capabilities", "contact"].forEach(id => {
+    ["projects", "process", "capabilities", "contact"].forEach(id => {
       ScrollTrigger.create({
         trigger: "#" + id, start: "top center", end: "bottom center",
         onToggle: self => {
@@ -2357,11 +2136,14 @@
       });
     }
 
-    // ─── PROCESS: PINNED GSAP 3.15 STORY ENGINE ───
+    // ─── PROCESS: PINNED GSAP STORY ENGINE ───
+    // Desktop (>1025px, motion allowed): scenes pinned + scrubbed.
+    // Mobile / reduced motion: static CSS fallback — every scene renders.
+    // The master timeline is built ONLY inside the desktop context so its
+    // fromTo() initial states (opacity:0) can never leak onto mobile.
     const processScenes = gsap.utils.toArray("[data-process-scene]");
     const processButtons = gsap.utils.toArray("[data-process-jump]");
     const processSection = $("#process");
-    let processMaster;
     if (processSection && processScenes.length) {
       const setActiveProcess = index => {
         processButtons.forEach((button, i) => {
@@ -2370,23 +2152,24 @@
           button.setAttribute("aria-current", active ? "step" : "false");
         });
       };
-      const processEase = window.CustomEase ? (CustomEase.create("yangSignal", "M0,0 C0.16,1 0.3,1 1,1"), "yangSignal") : "power3.out";
-      processMaster = gsap.timeline({ defaults: { ease: processEase }, paused: true });
-      processScenes.forEach((scene, i) => {
-        if (i) processMaster.to(processScenes[i - 1], { autoAlpha: 0, yPercent: -8, duration: .24 }, i);
-        processMaster.fromTo(scene, { autoAlpha: 0, yPercent: 10 }, { autoAlpha: 1, yPercent: 0, duration: .32, onStart: () => setActiveProcess(i), onReverseComplete: () => setActiveProcess(Math.max(0, i - 1)) }, i);
-        const demo = scene.querySelector(".process-demo");
-        processMaster.fromTo(demo, { clipPath: "inset(48% 48% 48% 48% round 24px)" }, { clipPath: "inset(0% 0% 0% 0% round 24px)", duration: .42 }, i + .08);
-      });
-      processMaster.to(".process-radar-line", { rotation: 360, duration: 1, ease: "none" }, 0)
-        .fromTo("#processWavePath", { drawSVG: "0%" }, { drawSVG: "100%", duration: .8 }, 1)
-        .to(".process-orbit i", { rotation: 720, motionPath: { path: [{x:110,y:-80},{x:220,y:0},{x:110,y:80},{x:0,y:0},{x:110,y:-80}], curviness:1.6 }, duration: .9, ease: "none" }, 2)
-        .fromTo(".process-bars i", { scaleY: 0 }, { scaleY: 1, stagger: .035, duration: .45, ease: "back.out(1.8)" }, 3);
 
       const processMM = gsap.matchMedia();
       processMM.add("(min-width: 1025px) and (prefers-reduced-motion: no-preference)", () => {
+        const processEase = window.CustomEase ? (CustomEase.create("yangSignal", "M0,0 C0.16,1 0.3,1 1,1"), "yangSignal") : "power3.out";
+        const processMaster = gsap.timeline({ defaults: { ease: processEase }, paused: true });
+        processScenes.forEach((scene, i) => {
+          if (i) processMaster.to(processScenes[i - 1], { autoAlpha: 0, yPercent: -8, duration: .24 }, i);
+          processMaster.fromTo(scene, { autoAlpha: 0, yPercent: 10 }, { autoAlpha: 1, yPercent: 0, duration: .32, onStart: () => setActiveProcess(i), onReverseComplete: () => setActiveProcess(Math.max(0, i - 1)) }, i);
+          const demo = scene.querySelector(".process-demo");
+          if (demo) processMaster.fromTo(demo, { clipPath: "inset(48% 48% 48% 48% round 24px)" }, { clipPath: "inset(0% 0% 0% 0% round 24px)", duration: .42 }, i + .08);
+        });
+        processMaster.to(".process-radar-line", { rotation: 360, duration: 1, ease: "none" }, 0)
+          .fromTo("#processWavePath", { drawSVG: "0%" }, { drawSVG: "100%", duration: .8 }, 1)
+          .to(".process-orbit i", { rotation: 720, motionPath: { path: [{x:110,y:-80},{x:220,y:0},{x:110,y:80},{x:0,y:0},{x:110,y:-80}], curviness:1.6 }, duration: .9, ease: "none" }, 2)
+          .fromTo(".process-bars i", { scaleY: 0 }, { scaleY: 1, stagger: .035, duration: .45, ease: "back.out(1.8)" }, 3);
+
         const trigger = ScrollTrigger.create({
-          trigger: processSection, start: "top top", end: () => "+=" + innerHeight * 4,
+          trigger: processSection, start: "top top", end: () => "+=" + innerHeight * processScenes.length,
           pin: "#processStage", scrub: .7, animation: processMaster, invalidateOnRefresh: true,
           onUpdate: self => {
             gsap.set("#processProgress", { scaleX: self.progress });
@@ -2399,504 +2182,65 @@
           button.addEventListener("click", handler);
           return [button, handler];
         });
-        return () => { processHandlers.forEach(([button, handler]) => button.removeEventListener("click", handler)); trigger.kill(); };
-      });
-    }
-
-    // ─── ENTERPRISE PLUGIN CATALOG ───
-    const pluginCatalog = [
-      ["Draggable","free","Direct manipulation UI — drag, rotate, snap with bounds.",'Draggable.create(el,{type:"x,y",bounds:box})',"Product Configurators"],
-      ["InertiaPlugin","premium","Momentum-aware throwing with velocity decay and snap points.",'Draggable.create(el,{inertia:true,snap:{x:snapX}})',"Carousels & Stacks"],
-      ["Observer","free","Unify wheel, touch, pointer into intent — swipe, scroll, navigate.",'Observer.create({type:"wheel,touch",onDown:next})',"Full-Screen Chapters"],
-      ["SplitText","free","Split accessible text into lines, words, chars for staggered reveals.",'const s=SplitText.create(h,{type:"words,chars"})',"Editorial Typography"],
-      ["TextPlugin","free","Tween text replacement — counters, dynamic copy, live updates.",'gsap.to(el,{text:"System online",duration:1})',"Terminal & Live Data"],
-      ["ScrambleTextPlugin","premium","Controlled character scrambling for reveal and transition effects.",'gsap.to(el,{scrambleText:{text:"DECRYPTED"}})',"Tech Brand Effects"],
-      ["MotionPathPlugin","free","Move elements along SVG or coordinate paths with auto-rotate.",'gsap.to(dot,{motionPath:{path:"#route",align:"#route"}})',"Data Visualizations"],
-      ["DrawSVGPlugin","premium","Animate SVG stroke visibility with precise start/end control.",'gsap.from(path,{drawSVG:"0%",duration:1.5})',"Logo Animations"],
-      ["MorphSVGPlugin","free","Morph compatible SVG shapes with natural interpolation.",'gsap.to(shape,{morphSVG:"#target"})',"Icon Transitions"],
-      ["Physics2DPlugin","premium","Velocity, angle, gravity — drive particles and projectiles.",'gsap.to(p,{physics2D:{velocity:300,gravity:500}})',"Celebration Effects"],
-      ["CustomEase","free","Author and reuse exact brand easing curves.",'CustomEase.create("brand","M0,0 C.2,1 .3,1 1,1")',"Brand Motion DNA"],
-      ["CustomBounce","premium","Physically readable bounce with adjustable strength and squash.",'CustomBounce.create("drop",{strength:.7})',"Playful Entrances"],
-      ["CustomWiggle","premium","Natural shake and wiggle — notification, error, attention signals.",'CustomWiggle.create("signal",{wiggles:8})',"Micro-Animations"],
-      ["EasePack","free","SlowMo, RoughEase, ExpoScaleEase — specialized easing library.",'gsap.to(el,{ease:"rough({strength:1,points:20})"})',"Brutalist Motion"]
-    ];
-
-    // ─── PLUGIN GRID SHOWCASE — batches of 4, staggered fades ───
-    const loopItems = pluginCatalog.map((item, i) => ({ name:item[0], tier:item[1], description:item[2], code:item[3], useCase:item[4], index:i }));
-    const loopTotal = loopItems.length;
-    const loopSlidesEl = $("#loopSlides");
-    const loopLabelName = $("#loopLabelName");
-    const loopCurEl = $("#loopCur");
-    const loopBar = $("#loopProgressBar");
-    const loopShowcase = $("#loopShowcase");
-    const LOOP_DURATION = 6500;
-    const BATCH_SIZE = window.innerWidth < 900 ? 2 : 4;
-    let batchIdx = 0, batchTimer = null, batchRaf = null, barStart = 0, switching = false;
-    const batches = [];
-    for (let i = 0; i < loopTotal; i += BATCH_SIZE) batches.push(loopItems.slice(i, i + BATCH_SIZE));
-
-    // Build one grid card per plugin; each card owns its state + fade lifecycle
-    loopItems.forEach((item, i) => {
-      const slide = document.createElement("div");
-      slide.className = "loop-slide";
-      slide.dataset.loopSlide = i;
-      slide.innerHTML = `<div class="loop-demo" id="loopDemo${i}" data-workbench-demo="${item.name}"></div>`;
-      slide._state = { animation:null, draggable:null, demoObserver:null, split:null, ctx:null, intervals:[], elements:[] };
-      // Hover pins THIS card only: its fade-out is cancelled while siblings keep cycling
-      slide.addEventListener("mouseenter", () => {
-        if (slide._outTl) { slide._outTl.kill(); slide._outTl = null; }
-        gsap.killTweensOf(slide);
-        gsap.to(slide, { opacity:1, y:0, scale:1.02, duration:.35, ease:"power3.out", overwrite:true });
-      });
-      slide.addEventListener("mouseleave", () => {
-        gsap.to(slide, { scale:1, duration:.35, ease:"power3.out" });
-      });
-      loopSlidesEl.appendChild(slide);
-    });
-
-    let wb; // state bag of whichever demo runWorkbench is currently building
-
-    function makeTag(item) {
-      const tierColor = item.tier === "premium" ? "var(--orange)" : "var(--green)";
-      const tagEl = document.createElement("div");
-      tagEl.className = "loop-plugin-tag";
-      tagEl.innerHTML = `<span class="loop-plugin-tag-dot" style="background:${tierColor};box-shadow:0 0 8px ${tierColor}"></span><span class="loop-plugin-tag-name">${item.name}</span><span class="loop-plugin-tag-tier">${item.tier}</span>`;
-      return tagEl;
-    }
-
-    function cleanupSlide(slide) {
-      const st = slide._state;
-      if (!st) return;
-      st.animation?.kill?.(); st.animation = null;
-      st.draggable?.forEach?.(d => d.kill()); st.draggable = null;
-      st.demoObserver?.kill?.(); st.demoObserver = null;
-      st.split?.revert?.(); st.split = null;
-      st.intervals.forEach(id => clearInterval(id));
-      st.elements.forEach(el => el.remove());
-      st.intervals = []; st.elements = [];
-      const demo = slide.querySelector(".loop-demo");
-      if (demo) { gsap.killTweensOf(demo.querySelectorAll("*")); demo.innerHTML = ""; }
-    }
-
-    function showBatch(b) {
-      if (switching) return;
-      switching = true;
-      clearTimeout(batchTimer); cancelAnimationFrame(batchRaf);
-      batchIdx = gsap.utils.wrap(0, batches.length, b);
-      const slides = gsap.utils.toArray(loopSlidesEl.children);
-      const items = batches[batchIdx];
-
-      // Label + range counter
-      const first = items[0], last = items[items.length - 1];
-      loopLabelName.innerHTML = `<em>${first.name}</em> — ${first.useCase}${items.length > 1 ? ` <span class="loop-label-more">+${items.length - 1} more live</span>` : ""}`;
-      loopCurEl.textContent = `${String(first.index + 1).padStart(2, "0")}–${String(last.index + 1).padStart(2, "0")}`;
-      gsap.fromTo(loopLabelName, { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: .4, ease: "power3.out" });
-
-      // Fade out every currently visible card (staggered), including hover-pinned ones
-      const leaving = slides.filter(s => s.classList.contains("active"));
-      leaving.forEach((s, k) => {
-        if (s._outTl) { s._outTl.kill(); }
-        s._outTl = gsap.to(s, {
-          opacity: 0, y: -14, scale: .97, duration: .45, delay: k * .08, ease: "power2.in", overwrite: "auto",
-          onComplete: () => { s.classList.remove("active"); s._outTl = null; cleanupSlide(s); }
-        });
+        return () => {
+          processHandlers.forEach(([button, handler]) => button.removeEventListener("click", handler));
+          trigger.kill();
+          processMaster.kill();
+          gsap.set(processScenes, { clearProps: "all" });
+          $$(".process-demo").forEach(el => gsap.set(el, { clearProps: "all" }));
+          gsap.set("#processProgress", { clearProps: "all" });
+        };
       });
 
-      // Fade the new batch in — each card enters on its own beat
-      const enterDelay = leaving.length ? 320 : 0;
-      items.forEach((item, k) => {
-        setTimeout(() => {
-          const slide = slides[item.index];
-          cleanupSlide(slide);
-          gsap.killTweensOf(slide);
-          slide.style.opacity = ""; slide.style.transform = "";
-          // Render BEFORE building: SplitText/Draggable need live layout measurements
-          slide.classList.add("active");
-          gsap.set(slide, { opacity: 0 });
-          const demoEl = slide.querySelector(".loop-demo");
-          const tag = makeTag(item);
-          demoEl.appendChild(tag);
-          slide._state.elements.push(tag);
-          wb = slide._state;
-          runWorkbench(item.name, demoEl);
-          gsap.fromTo(slide, { opacity: 0, y: 22, scale: .96 }, {
-            opacity: 1, y: 0, scale: 1, duration: .55, ease: "power3.out", overwrite: "auto",
-            onComplete: () => { if (k === items.length - 1) { switching = false; startBar(); } }
-          });
-        }, enterDelay + k * 140);
-      });
-    }
-
-    function startBar() {
-      clearTimeout(batchTimer); cancelAnimationFrame(batchRaf);
-      barStart = performance.now();
-      const tickBar = now => {
-        const pct = Math.min(100, ((now - barStart) / LOOP_DURATION) * 100);
-        loopBar.style.width = pct + "%";
-        if (pct < 100) batchRaf = requestAnimationFrame(tickBar);
-      };
-      batchRaf = requestAnimationFrame(tickBar);
-      batchTimer = setTimeout(() => showBatch(batchIdx + 1), LOOP_DURATION);
-    }
-
-    function pauseLoop() { clearTimeout(batchTimer); cancelAnimationFrame(batchRaf); }
-
-    // Reduced motion: show all cards at once, static demos, no auto-loop
-    if (reduce) {
-      gsap.utils.toArray(loopSlidesEl.children).forEach(slide => {
-        slide.classList.add("active");
-        slide.style.opacity = "1"; slide.style.visibility = "visible";
-      });
-      loopItems.forEach(item => {
-        const demoEl = $(`#loopDemo${item.index}`);
-        if (!demoEl) return;
-        demoEl.appendChild(makeTag(item));
-        wb = demoEl.closest(".loop-slide")?._state;
-        runWorkbench(item.name, demoEl);
-      });
-      loopLabelName.innerHTML = `<em>All Plugins</em> — All 14 shown simultaneously`;
-    } else {
-      // Kick off batch cycling
-      let inView = true;
-      const maybeStart = () => { if (inView && document.visibilityState === "visible" && !switching) startBar(); };
-      showBatch(0);
-
-      // Visibility API: pause when tab hidden
-      document.addEventListener("visibilitychange", () => {
-        if (document.hidden) pauseLoop();
-        else maybeStart();
-      });
-
-      // IntersectionObserver: pause when scrolled away
-      if ("IntersectionObserver" in window && loopShowcase) {
-        new IntersectionObserver(([entry]) => {
-          inView = entry.isIntersecting;
-          if (inView) maybeStart(); else pauseLoop();
-        }, { threshold: .15 }).observe(loopShowcase);
-      }
-    }
-
-    // Scoped per card: gsap.context makes every selector string resolve INSIDE
-    // this card only, so concurrent demos with duplicate ids never cross-animate.
-    function runWorkbench(name, targetEl){
-      if (!targetEl) return;
-      const st = targetEl.closest(".loop-slide")?._state;
-      if (st && typeof gsap.context === "function") {
-        st.ctx?.revert?.();
-        st.ctx = gsap.context(() => { buildDemo(name, targetEl); }, targetEl);
-      } else {
-        buildDemo(name, targetEl);
-      }
-    }
-
-    function buildDemo(name, targetEl){
-      if (!targetEl) return;
-      targetEl.innerHTML = "";
-      switch(name){
-
-        // ─── 05 DRAGGABLE: Product Configurator ───
-        case "Draggable": {
-          targetEl.innerHTML=`<div class="wb-scene wb-drag-demo" id="wbDragScene">
-            <div class="wb-drag-zones"><div class="wb-drag-zone" data-zone="0">Cor</div><div class="wb-drag-zone" data-zone="1">Material</div><div class="wb-drag-zone" data-zone="2">Finish</div></div>
-            <div class="wb-drag-swatch" id="wbDragSwatch">ARRASTE</div>
-          </div>`;
-          const swatch=targetEl.querySelector('#wbDragSwatch');
-          const zones=targetEl.querySelectorAll('.wb-drag-zone');
-          const scene=targetEl.querySelector('#wbDragScene');
-          wb.draggable=Draggable.create(swatch,{
-            type:'x,y',bounds:scene,edgeResistance:.8,
-            onDrag:function(){
-              const sr=swatch.getBoundingClientRect();
-              const cx=sr.left+sr.width/2,cy=sr.top+sr.height/2;
-              zones.forEach(z=>{
-                const zr=z.getBoundingClientRect();
-                const hit=cx>zr.left&&cx<zr.right&&cy>zr.top&&cy<zr.bottom;
-                z.classList.toggle('highlight',hit);
-              });
-            },
-            onDragEnd:function(){
-              zones.forEach(z=>z.classList.remove('highlight'));
-            }
-          });
-          break;
-        }
-
-        // ─── 06 INERTIA: Throw Carousel ───
-        case "InertiaPlugin": {
-          targetEl.innerHTML=`<div class="wb-scene wb-throw-demo">
-            <div class="wb-throw-stack" id="wbThrowStack">
-              <div class="wb-throw-card"><div class="wb-throw-card-head"><span class="wb-throw-card-title">Lobo Mayer</span><span class="wb-throw-card-tag">01</span></div><span class="wb-throw-card-label">Enterprise / Marca</span></div>
-              <div class="wb-throw-card"><div class="wb-throw-card-head"><span class="wb-throw-card-title">Sanare</span><span class="wb-throw-card-tag">02</span></div><span class="wb-throw-card-label">Saude / Plataforma</span></div>
-              <div class="wb-throw-card"><div class="wb-throw-card-head"><span class="wb-throw-card-title">Gisele</span><span class="wb-throw-card-tag">03</span></div><span class="wb-throw-card-label">Moda / E-Commerce</span></div>
-            </div>
-            <span class="wb-throw-hint">← jogue para os lados →</span>
-          </div>`;
-          const stack=targetEl.querySelector('#wbThrowStack');
-          const cards=stack.querySelectorAll('.wb-throw-card');
-          let throwIdx=0;
-          function resetCards(){
-            cards.forEach((c,i)=>{
-              gsap.set(c,{x:0,y:0,rotation:0,scale:1-i*.05,y:i*6,opacity:1,zIndex:3-i});
+      // ── Scene 05 · tangible drag — interactive on every viewport ──
+      const pdChip = $("#pdDragChip"), pdField = $("#pdDragField");
+      if (pdChip && pdField && window.Draggable) {
+        const pdZones = $$(".pd-zone", pdField);
+        Draggable.create(pdChip, {
+          type: "x,y", bounds: pdField, edgeResistance: .78, inertia: !!window.InertiaPlugin,
+          onPress() { gsap.to(pdChip, { scale: 1.08, duration: .2, overwrite: "auto" }); },
+          onRelease() { gsap.to(pdChip, { scale: 1, duration: .4, ease: "back.out(2)", overwrite: "auto" }); },
+          onDrag() {
+            const r = pdChip.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+            pdZones.forEach(z => {
+              const b = z.getBoundingClientRect();
+              z.classList.toggle("highlight", cx > b.left && cx < b.right && cy > b.top && cy < b.bottom);
             });
-          }
-          resetCards();
-          cards.forEach((card,i)=>{
-            wb.draggable=Draggable.create(card,{
-              type:'x',bounds:targetEl,inertia:true,edgeResistance:.6,
-              onDragEnd:function(){
-                const dx=this.x;
-                if(Math.abs(dx)>60){
-                  const dir=dx>0?1:-1;
-                  gsap.to(card,{x:dir*400,rotation:dir*25,opacity:0,duration:.35,ease:'power2.in',onComplete:()=>{
-                    throwIdx++;if(throwIdx>=cards.length)throwIdx=0;
-                    resetCards();
-                    gsap.fromTo(card,{x:-dir*300,y:0,rotation:-dir*15,opacity:0},{x:0,rotation:0,opacity:1,y:0,duration:.5,ease:'back.out(1.4)'});
-                  }});
-                }else{gsap.to(card,{x:0,duration:.4,ease:'elastic.out(1,.6)'});}
-              }
-            })[0];
-          });
-          break;
-        }
+          },
+          onDragEnd() { pdZones.forEach(z => z.classList.remove("highlight")); }
+        });
+      }
 
-        // ─── 07 OBSERVER: Full-Screen Chapters ───
-        case "Observer": {
-          targetEl.innerHTML=`<div class="wb-scene wb-chapter-demo" id="wbChapterDemo">
-            <span class="wb-chapter-hint">wheel / swipe</span>
-            <div class="wb-chapter-slide active" data-chapter="0"><span class="wb-chapter-num">01</span><h4 class="wb-chapter-title">Motion Architecture</h4><p class="wb-chapter-desc">Definimos o DNA de movimento do produto. Curvas, tokens de timing e padroes de interacao.</p></div>
-            <div class="wb-chapter-slide" data-chapter="1"><span class="wb-chapter-num">02</span><h4 class="wb-chapter-title">Design Engineering</h4><p class="wb-chapter-desc">Implementacao pixel-perfect. Componentes responsivos, acessibilidade e performance.</p></div>
-            <div class="wb-chapter-slide" data-chapter="2"><span class="wb-chapter-num">03</span><h4 class="wb-chapter-title">Launch & Measure</h4><p class="wb-chapter-desc">Deploy, analytics, testes A/B e otimizacao iterativa para impacto sustentado.</p></div>
-            <div class="wb-chapter-dots"><i class="active"></i><i></i><i></i></div>
-          </div>`;
-          const chapterDemo=targetEl.querySelector('#wbChapterDemo');
-          const slides=targetEl.querySelectorAll('.wb-chapter-slide');
-          const dots=targetEl.querySelectorAll('.wb-chapter-dots i');
-          let chapIdx=0;
-          function showChapter(idx){
-            if(idx<0||idx>=slides.length)return;
-            const prev=slides[chapIdx];
-            gsap.to(prev,{autoAlpha:0,yPercent:-10,duration:.35,ease:'power2.in',onComplete:()=>prev.classList.remove('active')});
-            chapIdx=idx;
-            const next=slides[chapIdx];
-            next.classList.add('active');
-            gsap.fromTo(next,{autoAlpha:0,yPercent:10},{autoAlpha:1,yPercent:0,duration:.4,ease:'power2.out'});
-            dots.forEach((d,i)=>d.classList.toggle('active',i===chapIdx));
-          }
-          wb.demoObserver=Observer.create({
-            target:chapterDemo,type:'wheel,touch',wheelSpeed:-1,tolerance:40,preventDefault:true,
-            onUp:()=>showChapter(chapIdx-1),onDown:()=>showChapter(chapIdx+1),
-            onLeft:()=>showChapter(chapIdx+1),onRight:()=>showChapter(chapIdx-1)
-          });
-          break;
-        }
+      // ── Scene 06 · live content cycle ──
+      const pdScramble = $("#pdScrambleText");
+      if (pdScramble && window.ScrambleTextPlugin && !reduce) {
+        const pdWords = ["DEPLOY", "BUILD", "SHIP", "SCALE"];
+        const pdTl = gsap.timeline({ repeat: -1 });
+        pdWords.forEach((w, i) => pdTl.to(pdScramble, { duration: 1.1, scrambleText: { text: w, chars: "01<>/{}[]#", speed: .4 }, ease: "none" }, i * 2.2));
+      }
 
-        // ─── 08 SPLIT TEXT: Editorial Heading ───
-        case "SplitText": {
-          targetEl.innerHTML=`<div class="wb-scene wb-split-demo">
-            <h3 class="wb-split-heading" id="wbSplitHeading">Motion is <em>meaning.</em></h3>
-          </div>`;
-          const heading=targetEl.querySelector('#wbSplitHeading');
-          if(reduce){heading.style.opacity=1;break;}
-          wb.split=SplitText.create(heading,{type:'words,chars'});
-          wb.animation=gsap.from(wb.split.chars,{yPercent:120,rotation:6,autoAlpha:0,stagger:.02,duration:.6,ease:'power4.out',repeat:-1,repeatDelay:3,yoyo:true});
-          break;
-        }
-
-        // ─── 09 TEXT PLUGIN: Terminal Status ───
-        case "TextPlugin": {
-          targetEl.innerHTML=`<div class="wb-scene wb-terminal-demo" style="display:grid;place-items:center">
-            <div class="wb-terminal"><div class="wb-terminal-bar"><span class="wb-terminal-dot"></span><span class="wb-terminal-dot"></span><span class="wb-terminal-dot"></span></div>
-            <div class="wb-terminal-body" id="wbTermBody">
-              <div class="wb-terminal-line"><span class="prompt">yang@system</span> <span class="cmd">~ $</span> <span id="wbTermText"></span><span class="wb-terminal-cursor"></span></div>
-              <div class="wb-terminal-line" id="wbTermLog"></div>
-            </div></div>
-          </div>`;
-          const termText=targetEl.querySelector('#wbTermText');
-          const termLog=targetEl.querySelector('#wbTermLog');
-          const commands=['gsap.registerPlugin(ScrollTrigger)','motion.init({smooth:true})','components.build(target)','deploy.sh --prod','status: ONLINE'];
-          const logs=['✓ 18 plugins loaded','✓ motion architecture ready','✓ 48,000 components deployed','✓ 98% client satisfaction','▸ system operational'];
-          let cmdIdx=0;
-          function typeCmd(){
-            if(cmdIdx>=commands.length){cmdIdx=0;termLog.innerHTML='';}
-            const cmd=commands[cmdIdx];
-            gsap.to(termText,{duration:1.2,text:cmd,ease:'none',onUpdate:function(){termText.textContent=cmd.substring(0,Math.round(this.progress()*cmd.length))+'_';},onComplete:()=>{termText.textContent=cmd;termLog.innerHTML+=`<br><span class="ok">${logs[cmdIdx]}</span>`;cmdIdx++;setTimeout(typeCmd,1500);}});
-          }
-          typeCmd();
-          break;
-        }
-
-        // ─── 10 SCRAMBLE TEXT: Encrypted Reveal ───
-        case "ScrambleTextPlugin": {
-          targetEl.innerHTML=`<div class="wb-scene wb-scramble-demo">
-            <div class="wb-scramble-text" id="wbScrambleText">ENCRYPTED</div>
-            <div class="wb-scramble-sub" id="wbScrambleSub">Yang Tech Digital Systems</div>
-          </div>`;
-          const scramText=targetEl.querySelector('#wbScrambleText');
-          const scramSub=targetEl.querySelector('#wbScrambleSub');
-          if(reduce){scramText.textContent='YANG TECH';break;}
-          wb.animation=gsap.timeline({repeat:-1,repeatDelay:1});
-          wb.animation.to(scramText,{duration:1.8,scrambleText:{text:'YANG TECH',chars:'01<>/{}[]#',revealDelay:.4},ease:'none'})
-            .to(scramSub,{duration:.6,autoAlpha:1,y:0,ease:'power2.out'},'-=.4')
-            .to({},{duration:2})
-            .to(scramText,{duration:1.2,scrambleText:{text:'ENCRYPTED',chars:'01<>/{}[]#'},ease:'none'})
-            .to(scramSub,{duration:.3,autoAlpha:0,y:5,ease:'power2.in'});
-          break;
-        }
-
-        // ─── 11 MOTION PATH: Workflow Diagram ───
-        case "MotionPathPlugin": {
-          targetEl.innerHTML=`<div class="wb-scene wb-motionpath-demo" style="display:grid;place-items:center">
-            <svg class="wb-motionpath-svg" viewBox="0 0 400 220">
-              <line class="mp-line" x1="60" y1="50" x2="340" y2="50"/>
-              <line class="mp-line" x1="60" y1="110" x2="340" y2="110"/>
-              <line class="mp-line" x1="60" y1="170" x2="340" y2="170"/>
-              <path id="wbMpRoute" class="mp-route" d="M60 50 C120 50 140 110 200 110 S280 170 340 170"/>
-              <rect class="mp-node" x="40" y="36" width="40" height="28" rx="6"/><text class="mp-node-text" x="60" y="50">INICIO</text>
-              <rect class="mp-node" x="170" y="96" width="60" height="28" rx="6"/><text class="mp-node-text" x="200" y="110">BUILD</text>
-              <rect class="mp-node" x="320" y="156" width="40" height="28" rx="6"/><text class="mp-node-text" x="340" y="170">LANCA</text>
-              <circle id="wbMpDot" class="mp-dot" r="5"/>
-            </svg>
-          </div>`;
-          if(reduce){targetEl.querySelector('#wbMpDot').setAttribute('cx','340');targetEl.querySelector('#wbMpDot').setAttribute('cy','170');break;}
-          wb.animation=gsap.to('#wbMpDot',{duration:3,repeat:-1,repeatDelay:1,motionPath:{path:'#wbMpRoute',align:'#wbMpRoute',alignOrigin:[.5,.5],autoRotate:true},ease:'power2.inOut'});
-          break;
-        }
-
-        // ─── 12 DRAW SVG: Logo Stroke Draw ───
-        case "DrawSVGPlugin": {
-          targetEl.innerHTML=`<div class="wb-scene wb-drawsvg-demo">
-            <svg class="wb-drawsvg-logo" viewBox="0 0 120 120">
-              <path id="wbDrawPath1" d="M60 10 L60 110"/>
-              <path id="wbDrawPath2" d="M60 40 L95 70 L60 100"/>
-              <path id="wbDrawPath3" d="M35 30 Q60 10 85 30"/>
-              <circle cx="60" cy="10" r="4" fill="none" stroke="var(--acid)" stroke-width="2"/>
-              <circle cx="95" cy="70" r="3" fill="none" stroke="var(--acid)" stroke-width="1.5"/>
-            </svg>
-          </div>`;
-          if(reduce){targetEl.querySelectorAll('.wb-drawsvg-logo path').forEach(p=>p.style.strokeDasharray='none');break;}
-          const logoTl=gsap.timeline({repeat:-1,repeatDelay:2});
-          logoTl.set('.wb-drawsvg-logo path',{drawSVG:'0%'})
-            .to('#wbDrawPath1',{drawSVG:'100%',duration:.8,ease:'power2.inOut'})
-            .to('#wbDrawPath2',{drawSVG:'100%',duration:1,ease:'power2.inOut'},'-=.3')
-            .to('#wbDrawPath3',{drawSVG:'100%',duration:.7,ease:'power2.inOut'},'-=.4')
-            .to({},{duration:1.5})
-            .to('.wb-drawsvg-logo path',{drawSVG:'0%',duration:.5,stagger:.08});
-          wb.animation=logoTl;
-          break;
-        }
-
-        // ─── 13 MORPH SVG: Icon Morph ───
-        case "MorphSVGPlugin": {
-          targetEl.innerHTML=`<div class="wb-scene wb-morph-demo" style="display:grid;place-items:center;gap:16px">
-            <svg class="wb-morph-shape" viewBox="0 0 120 120">
-              <path id="wbMorphA" d="M60 10 L110 60 L60 110 L10 60 Z"/>
-              <path id="wbMorphB" d="M60 5 C80 5 115 30 115 60 C115 90 80 115 60 115 C40 115 5 90 5 60 C5 30 40 5 60 5 Z" visibility="hidden"/>
-              <path id="wbMorphC" d="M60 5 L85 20 L105 50 L95 80 L70 105 L45 105 L20 80 L10 50 L30 20 Z" visibility="hidden"/>
-            </svg>
-            <span class="wb-morph-label" id="wbMorphLabel">Diamond</span>
-          </div>`;
-          const morphLabel=targetEl.querySelector('#wbMorphLabel');
-          const labels=['Diamond','Circle','Star'];
-          wb.animation=gsap.timeline({repeat:-1,repeatDelay:1});
-          wb.animation.to('#wbMorphA',{duration:1,morphSVG:'#wbMorphB',ease:'power2.inOut',onUpdate:function(){if(this.progress()>.5)morphLabel.textContent=labels[1];}})
-            .to('#wbMorphA',{duration:1,morphSVG:'#wbMorphC',ease:'power2.inOut',onUpdate:function(){if(this.progress()>.5)morphLabel.textContent=labels[2];}})
-            .to({},{duration:1})
-            .to('#wbMorphA',{duration:.8,morphSVG:'#wbMorphB',ease:'power2.inOut',onUpdate:function(){if(this.progress()>.5)morphLabel.textContent=labels[1];}})
-            .to('#wbMorphA',{duration:.8,morphSVG:'#wbMorphA',ease:'power2.inOut',onUpdate:function(){if(this.progress()>.5)morphLabel.textContent=labels[0];}});
-          break;
-        }
-
-        // ─── 14 PHYSICS 2D: Launch Confetti ───
-        case "Physics2DPlugin": {
-          targetEl.innerHTML=`<div class="wb-scene wb-confetti-demo" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px">
-            <button class="wb-confetti-btn" id="wbConfettiBtn">LANCAR</button>
-            <span style="font:500 7px/1 ui-monospace,monospace;color:rgba(255,255,255,.2);letter-spacing:.1em;text-transform:uppercase">clique para lancar confetti</span>
-          </div>`;
-          const cfBtn=targetEl.querySelector('#wbConfettiBtn');
-          const colors=['wb-cf-green','wb-cf-acid','wb-cf-blue','wb-cf-red','wb-cf-purple','wb-cf-orange'];
-          function fireConfetti(){
-            for(let i=0;i<40;i++){
-              const p=document.createElement('i');
-              p.className='wb-confetti-piece '+colors[Math.floor(Math.random()*colors.length)];
-              targetEl.appendChild(p);wb.elements.push(p);
-              const rect=cfBtn.getBoundingClientRect();
-              const demoRect=targetEl.getBoundingClientRect();
-              gsap.set(p,{left:rect.left-demoRect.left+rect.width/2,top:rect.top-demoRect.top});
-              gsap.to(p,{duration:gsap.utils.random(1,2),physics2D:{velocity:gsap.utils.random(150,400),angle:gsap.utils.random(200,340),gravity:280},rotation:gsap.utils.random(-360,360),scale:gsap.utils.random(.5,1.2),autoAlpha:0,onComplete:()=>p.remove()});
+      // ── Scene 07 · physics celebration ──
+      const pdLaunch = $("#pdLaunchBtn");
+      if (pdLaunch) {
+        const sparkColors = ["var(--green)", "var(--acid)", "var(--blue)", "var(--red)", "var(--purple)", "var(--orange)"];
+        pdLaunch.addEventListener("click", () => {
+          if (reduce) return;
+          const stage = pdLaunch.closest(".process-demo");
+          if (!stage) return;
+          const lr = pdLaunch.getBoundingClientRect(), sr = stage.getBoundingClientRect();
+          for (let i = 0; i < 34; i++) {
+            const p = document.createElement("i");
+            p.className = "wb-particle";
+            p.style.background = sparkColors[i % sparkColors.length];
+            stage.appendChild(p);
+            gsap.set(p, { left: lr.left - sr.left + lr.width / 2, top: lr.top - sr.top + lr.height / 2 });
+            if (window.Physics2DPlugin) {
+              gsap.to(p, { duration: gsap.utils.random(.8, 1.6), physics2D: { velocity: gsap.utils.random(120, 320), angle: gsap.utils.random(200, 340), gravity: 260 }, rotation: gsap.utils.random(-300, 300), autoAlpha: 0, onComplete: () => p.remove() });
+            } else {
+              gsap.to(p, { duration: gsap.utils.random(.6, 1.1), x: gsap.utils.random(-140, 140), y: gsap.utils.random(-170, 30), autoAlpha: 0, onComplete: () => p.remove() });
             }
           }
-          cfBtn.addEventListener('click',fireConfetti);
-          setTimeout(fireConfetti,800);
-          break;
-        }
-
-        // ─── 15 CUSTOM EASE: Brand Curve ───
-        case "CustomEase": {
-          targetEl.innerHTML=`<div class="wb-scene wb-ease-demo" style="display:flex;flex-direction:column;gap:24px;padding:20px;width:80%;justify-content:center">
-            <div class="wb-ease-row"><span class="wb-ease-label">Generica</span><div class="wb-ease-track"><div class="wb-ease-ball generic" id="wbEaseBall1"></div></div></div>
-            <div class="wb-ease-row"><span class="wb-ease-label">Yang Tech</span><div class="wb-ease-track"><div class="wb-ease-ball brand" id="wbEaseBall2"></div></div></div>
-          </div>`;
-          if(reduce)break;
-          const ball1=targetEl.querySelector('#wbEaseBall1');
-          const ball2=targetEl.querySelector('#wbEaseBall2');
-          if(window.CustomEase)CustomEase.create('yangEase','M0,0 C0.16,1 0.3,1 1,1');
-          wb.animation=gsap.timeline({repeat:-1,repeatDelay:1.5});
-          wb.animation.fromTo(ball1,{x:0},{x:280,duration:1.5,ease:'power3.out'})
-            .fromTo(ball2,{x:0},{x:280,duration:1.5,ease:window.CustomEase?'yangEase':'power3.out'},0);
-          break;
-        }
-
-        // ─── 16 CUSTOM BOUNCE: Card Drop ───
-        case "CustomBounce": {
-          targetEl.innerHTML=`<div class="wb-scene wb-bounce-demo" style="display:flex;align-items:flex-end;justify-content:center;gap:16px;padding:20px;height:100%">
-            <div class="wb-bounce-card"><div class="wb-bounce-icon">⚡</div><span class="wb-bounce-card-label">Sistemas</span></div>
-            <div class="wb-bounce-card"><div class="wb-bounce-icon">◈</div><span class="wb-bounce-card-label">Motion</span></div>
-            <div class="wb-bounce-card"><div class="wb-bounce-icon">▲</div><span class="wb-bounce-card-label">Design</span></div>
-          </div>`;
-          const bounceCards=targetEl.querySelectorAll('.wb-bounce-card');
-          if(window.CustomBounce)CustomBounce.create('wbCardDrop',{strength:.6,squash:1.5});
-          wb.animation=gsap.timeline({repeat:-1,repeatDelay:2});
-          bounceCards.forEach((card,i)=>{
-            gsap.set(card,{y:-200,autoAlpha:0,scaleY:1,scaleX:1});
-          });
-          wb.animation.to(bounceCards,{y:0,autoAlpha:1,duration:1.2,ease:window.CustomBounce?'wbCardDrop':'bounce.out',stagger:.15});
-          break;
-        }
-
-        // ─── 17 CUSTOM WIGGLE: Notification ───
-        case "CustomWiggle": {
-          targetEl.innerHTML=`<div class="wb-scene wb-wiggle-demo" style="display:grid;place-items:center;gap:14px">
-            <button class="wb-wiggle-bell" id="wbWiggleBtn" style="position:relative">🔔<span class="wb-wiggle-badge">3</span></button>
-            <span class="wb-wiggle-label">clique para testar</span>
-          </div>`;
-          const wiggleBtn=targetEl.querySelector('#wbWiggleBtn');
-          if(window.CustomWiggle)CustomWiggle.create('wbBellWiggle',{wiggles:8,type:'easeOut'});
-          wiggleBtn.addEventListener('click',()=>{
-            if(reduce)return;
-            gsap.fromTo(wiggleBtn,{rotation:0},{rotation:12,duration:.6,ease:window.CustomWiggle?'wbBellWiggle':'rough({strength:1.5,points:10})',overwrite:true});
-          });
-          // Auto-wiggle on load
-          if(!reduce)gsap.delayedCall(.8,()=>gsap.fromTo(wiggleBtn,{rotation:0},{rotation:12,duration:.6,ease:window.CustomWiggle?'wbBellWiggle':'rough({strength:1.5,points:10})'}));
-          break;
-        }
-
-        // ─── 18 EASE PACK: Rough Industrial ───
-        case "EasePack": {
-          targetEl.innerHTML=`<div class="wb-scene wb-rough-demo" style="display:flex;flex-direction:column;gap:20px;padding:20px;width:80%;justify-content:center">
-            <div class="wb-rough-row"><span class="wb-rough-label">Smooth</span><div class="wb-rough-track"><div class="wb-rough-ball smooth" id="wbRoughBall1"></div></div></div>
-            <div class="wb-rough-row"><span class="wb-rough-label">Rough</span><div class="wb-rough-track"><div class="wb-rough-ball rough" id="wbRoughBall2"></div></div></div>
-            <div class="wb-rough-row"><span class="wb-rough-label">SlowMo</span><div class="wb-rough-track"><div class="wb-rough-ball smooth" id="wbRoughBall3"></div></div></div>
-          </div>`;
-          const rb1=targetEl.querySelector('#wbRoughBall1');
-          const rb2=targetEl.querySelector('#wbRoughBall2');
-          const rb3=targetEl.querySelector('#wbRoughBall3');
-          if(reduce)break;
-          wb.animation=gsap.timeline({repeat:-1,repeatDelay:1.5});
-          wb.animation.fromTo(rb1,{x:0},{x:280,duration:1.5,ease:'power2.out'})
-            .fromTo(rb2,{x:0},{x:280,duration:1.5,ease:'rough({strength:1.5,points:20,taper:"both"})'},0)
-            .fromTo(rb3,{x:0},{x:280,duration:2,ease:'slow(.7,.7,false)'},0);
-          break;
-        }
+        });
       }
     }
 

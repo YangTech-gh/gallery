@@ -187,6 +187,8 @@ nav.is-scrolled{background:rgba(var(--rgb-deep),.78);backdrop-filter:blur(18px) 
 .nav-call svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;}
 .nav-call .call-label{display:none;}
 
+.nav-links{display:none;}
+
 .nav-overlay{position:fixed;inset:0;top:var(--header-h);z-index:290;background:rgba(var(--rgb-deep),.98);
   display:flex;flex-direction:column;justify-content:center;align-items:center;gap:1.4rem;
   padding:2rem;opacity:0;visibility:hidden;pointer-events:none;
@@ -371,7 +373,7 @@ h3{font-size:clamp(1.1rem,2.4vw,1.45rem);font-weight:400;}
 .pull-quote cite{display:block;margin-top:.7rem;font-style:normal;font-family:var(--sans);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mute);font-style:normal;}
 
 .pillar-card{border:1px solid var(--gold-line);border-radius:var(--radius);padding:clamp(1.4rem,2.5vw,2.2rem);
-  background:linear-gradient(170deg,rgba(var(--rgb-navy-2),.55) 0%,rgba(10,19,32,.92) 100%);position:relative;overflow:hidden;}
+  background:linear-gradient(170deg,rgba(var(--rgb-navy-2),.65) 0%,rgba(var(--rgb-deep),.92) 100%);position:relative;overflow:hidden;box-shadow:0 4px 24px -10px rgba(var(--rgb-gold),.18);}
 .pillar-card::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-line),transparent);}
 .pillar-card h3{font-family:var(--serif);font-weight:380;font-size:1.28rem;margin-bottom:1rem;display:flex;align-items:center;gap:.7rem;color:var(--ink);}
 .pillar-card h3::before{content:'';width:1rem;height:1px;background:var(--gold);}
@@ -450,31 +452,176 @@ h3{font-size:clamp(1.1rem,2.4vw,1.45rem);font-weight:400;}
 .conheca-stat:last-child{border-right:0;}
 .conheca-stat b{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2rem);color:var(--gold-soft);font-weight:400;display:block;line-height:1;}
 .conheca-stat span{display:block;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);margin-top:.4rem;}
-.conheca-thumbs{position:relative;z-index:2;display:grid;grid-template-columns:repeat(2,1fr);gap:.65rem;margin-top:.2rem;}
-@media(min-width:520px){.conheca-thumbs{grid-template-columns:repeat(4,1fr);}}
-.conheca-thumb{margin:0;position:relative;aspect-ratio:1;border-radius:14px;overflow:hidden;background:var(--bg-navy-2);border:1px solid var(--gold-line);}
-.conheca-thumb .thumb-tag{position:absolute;left:8px;top:8px;z-index:2;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);background:rgba(var(--rgb-gold),.78);padding:.3rem .55rem;border-radius:100px;font-weight:600;}
-.thumb-art{position:absolute;inset:0;}
-.thumb-art--recep{background:linear-gradient(135deg,rgba(var(--rgb-navy-2),.95),rgba(var(--rgb-gold),.25));}
-.thumb-art--recep::after{content:"";position:absolute;left:50%;top:62%;transform:translate(-50%,-50%);width:60%;height:8%;background:linear-gradient(180deg,var(--gold-soft),var(--gold));border-radius:8px;box-shadow:0 6px 20px rgba(var(--rgb-gold),.45);}
-.thumb-art--recep::before{content:"";position:absolute;left:20%;bottom:18%;width:60%;height:30%;border:1px dashed rgba(var(--rgb-gold),.5);border-radius:14px;}
-.thumb-art--espera{background:radial-gradient(circle at 50% 30%,rgba(var(--rgb-gold),.35),rgba(var(--rgb-navy-2),.95) 60%);}
-.thumb-art--espera::before{content:"";position:absolute;left:24%;bottom:18%;width:50%;height:24%;background:linear-gradient(135deg,var(--gold-soft),var(--gold));border-radius:8px;box-shadow:0 6px 20px rgba(var(--rgb-gold),.4);}
-.thumb-art--espera::after{content:"";position:absolute;left:42%;top:22%;width:24%;height:28%;background:var(--bg-navy);border-radius:50% 50% 4px 4px;transform:rotate(-8deg);}
-.thumb-art--consult{background:linear-gradient(160deg,rgba(var(--rgb-deep),.95),rgba(var(--rgb-navy-2),.95) 60%);}
-.thumb-art--consult::before{content:"";position:absolute;left:18%;top:32%;width:64%;height:24%;background:linear-gradient(180deg,rgba(var(--rgb-gold),.6),transparent);border-radius:12px;transform:perspective(120px) rotateX(20deg);}
-.thumb-art--consult::after{content:"";position:absolute;left:38%;bottom:10%;width:24%;height:34%;background:rgba(var(--rgb-gold-soft),.45);border-radius:6px 6px 2px 2px;}
-.thumb-art--trat{background:radial-gradient(circle at 50% 70%,rgba(var(--rgb-gold),.25),rgba(var(--rgb-deep),.95) 70%);}
-.thumb-art--trat::before{content:"";position:absolute;left:30%;bottom:30%;width:40%;height:24%;border:1.5px solid rgba(var(--rgb-gold),.85);border-radius:50%;box-shadow:0 0 18px rgba(var(--rgb-gold),.4);}
-.thumb-art--trat::after{content:"";position:absolute;left:48%;top:35%;width:6%;height:6%;border-radius:50%;background:var(--gold-soft);box-shadow:0 0 12px rgba(var(--rgb-gold),.6);}
-.conheca-pill-list{position:relative;z-index:2;display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.4rem;}
-.conheca-pill{display:inline-flex;align-items:center;gap:.4rem;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold-line);border-radius:100px;padding:.32rem .72rem;background:rgba(var(--rgb-gold),.04);font-weight:500;}
-.conheca-pill svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:1.6;}
-.conheca-actions{position:relative;z-index:2;display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.8rem;}
-.conheca-actions svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.7;}
-.conheca-foot-note{position:relative;z-index:2;margin:0;font-size:.78rem;color:var(--ink-mute);line-height:1.5;}
-.conheca-foot-note a{color:var(--gold-soft);text-decoration:none;border-bottom:1px solid var(--gold-line);}
-.conheca-foot-note a:hover{border-bottom-color:var(--gold);}
+/* =========================================================
+   ACCORDION GALLERY — real photos, smooth expand + full-view
+   ========================================================= */
+.accordion-gallery {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  width: 100%;
+  max-width: 100%;
+  height: 460px;
+  perspective: 1400px;
+  perspective-origin: 50% 50%;
+  margin-top: .6rem;
+}
+
+.ag-panel {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 14px;
+  cursor: pointer;
+  display: block;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  background: var(--bg-navy);
+  box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.8);
+  will-change: flex-grow, transform;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ag-panel:focus-visible {
+  box-shadow: 0 0 0 2px var(--gold), 0 10px 30px -18px rgba(0, 0, 0, 0.8);
+}
+
+.ag-panel__frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.ag-panel__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  will-change: transform, filter;
+}
+
+.ag-panel__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  transform-origin: center center;
+}
+
+.ag-panel__overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 40%, rgba(var(--rgb-deep), 0.82) 100%);
+}
+
+.ag-panel__label {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  right: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.ag-panel__bar {
+  flex: 0 0 auto;
+  width: 3px;
+  height: 22px;
+  border-radius: 3px;
+  background: var(--gold);
+  opacity: 0;
+  box-shadow: 0 0 12px rgba(var(--rgb-gold), 0.6);
+}
+
+.ag-panel__text {
+  color: var(--ink);
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(0.9rem, 1.2vw, 1.15rem);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+}
+
+@media (max-width: 640px) {
+  .accordion-gallery {
+    flex-direction: column;
+    perspective: none;
+    height: auto !important;
+    gap: 8px;
+  }
+  .ag-panel {
+    height: clamp(9rem, 32vw, 14rem);
+    min-height: 0;
+    transform: none !important;
+  }
+  .ag-panel__media img {
+    transform: none !important;
+    filter: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ag-panel,
+  .ag-panel__media {
+    will-change: auto;
+  }
+}
+
+/* =========================================================
+   CONHEÇA — pill list, actions, foot note
+   (unstyled before → unsized SVGs rendered 300x150 black = long dark gap on mobile)
+   ========================================================= */
+.conheca-pill-list{position:relative;z-index:2;display:flex;flex-wrap:wrap;gap:.5rem;}
+.conheca-pill{display:inline-flex;align-items:center;gap:.45rem;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gold);border:1px solid var(--gold-line);border-radius:100px;padding:.38rem .8rem;background:rgba(var(--rgb-gold),.04);}
+.conheca-pill svg{width:12px;height:12px;stroke:var(--gold-soft);fill:none;stroke-width:1.6;flex:0 0 auto;}
+.conheca-actions{position:relative;z-index:2;display:flex;flex-wrap:wrap;gap:.8rem;}
+.conheca-foot-note{position:relative;z-index:2;font-size:.78rem;line-height:1.6;color:var(--ink-mute);}
+.conheca-foot-note a{color:var(--gold-soft);text-decoration:none;border-bottom:1px solid rgba(var(--rgb-gold),.35);}
+
+/* =========================================================
+   FULLSCREEN VIEWER — lightweight FLIP lightbox for the gallery
+   ========================================================= */
+.lm-box{position:fixed;inset:0;z-index:10001;display:flex;align-items:center;justify-content:center;
+  padding:clamp(.75rem,3vw,2.5rem);background:rgba(6,10,18,.92);backdrop-filter:blur(14px);
+  opacity:0;visibility:hidden;}
+.lm-box.is-open{opacity:1;visibility:visible;}
+.lm-box__img{display:block;max-width:min(94vw,1600px);max-height:min(86svh,86vh);width:auto;height:auto;
+  border-radius:var(--radius);border:1px solid var(--gold-line);
+  box-shadow:0 40px 120px -40px rgba(0,0,0,.85);
+  transform-origin:0 0;will-change:transform;user-select:none;-webkit-user-drag:none;}
+.lm-box__caption{position:absolute;left:50%;bottom:calc(1rem + env(safe-area-inset-bottom));transform:translateX(-50%);
+  font-family:var(--serif);font-size:.95rem;letter-spacing:.02em;color:var(--ink);
+  background:rgba(var(--rgb-deep),.72);backdrop-filter:blur(10px);border:1px solid var(--gold-line);
+  padding:.55rem 1.15rem;border-radius:100px;white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis;}
+.lm-box__close{position:absolute;top:calc(1rem + env(safe-area-inset-top));right:max(1rem,env(safe-area-inset-right));
+  width:44px;height:44px;border-radius:50%;border:1px solid var(--gold-line);
+  background:rgba(var(--rgb-deep),.72);backdrop-filter:blur(10px);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;color:var(--gold-soft);
+  transition:transform .25s var(--ease-out-quart),background .25s;-webkit-tap-highlight-color:transparent;}
+.lm-box__close:hover{transform:rotate(90deg);background:rgba(var(--rgb-gold),.15);}
+.lm-box__close svg{width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none;}
 
 /* =========================================================
    SECTION — DIRETOR MÉDICO
@@ -875,7 +1022,7 @@ footer{padding:3rem var(--gutter) calc(7rem + env(safe-area-inset-bottom));borde
      ====================================================== -->
 <style>
 body{padding-top:30px!important;padding-bottom:30px!important}
-.yang-mq{position:fixed;left:0;right:0;z-index:99980;height:30px;overflow:hidden;font-family:'Cinzel',serif;pointer-events:auto;transition:filter .4s cubic-bezier(.4,0,.2,1),background .4s;cursor:auto !important}
+.yang-mq{position:fixed;left:0;right:0;z-index:200;height:30px;overflow:hidden;font-family:'Cinzel',serif;pointer-events:auto;transition:filter .4s cubic-bezier(.4,0,.2,1),background .4s;cursor:auto !important}
 .yang-mq *,.yang-mq *::before,.yang-mq *::after{cursor:auto !important}
 .yang-mq__btn{display:inline-flex;align-items:center;background:rgba(255,255,255,.18);color:inherit;padding:2px 10px;border-radius:3px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;transition:background .3s,transform .2s;text-decoration:none}
 .yang-mq__btn:hover{background:rgba(255,255,255,.32);transform:scale(1.05)}
@@ -895,7 +1042,7 @@ body{padding-top:30px!important;padding-bottom:30px!important}
 .yang-mq--top{background:linear-gradient(90deg,#000 0%,#1a1a1a 50%,#000 100%);background-size:200% 100%;animation:bgShift 6s ease-in-out infinite alternate;color:#fff;border-bottom:1px solid rgba(255,255,255,.12)}
 .yang-mq--btm{background:linear-gradient(90deg,#111 0%,#222 50%,#111 100%);background-size:200% 100%;animation:bgShift 6s ease-in-out infinite alternate-reverse;color:#fff;border-top:1px solid rgba(255,255,255,.12)}
 @keyframes bgShift{0%{background-position:0% 50%}100%{background-position:100% 50%}}
-.yang-mq:hover{filter:invert(1);z-index:99981}
+.yang-mq:hover{filter:invert(1);z-index:210}
 .yang-mq:hover .yang-mq__sep{transform:rotate(90deg)}
 .yang-mq:hover .yang-mq__inner{animation-play-state:paused}
 @media (prefers-reduced-motion:reduce){.yang-mq__inner,.yang-mq--top,.yang-mq--btm{animation:none!important}
@@ -1383,23 +1530,55 @@ body{padding-top:30px!important;padding-bottom:30px!important}}
           <div class="conheca-stat" role="listitem"><b>4.9★</b><span>avaliação média</span></div>
         </div>
 
-        <div class="conheca-thumbs" aria-label="Ambientes da clínica">
-          <figure class="conheca-thumb" data-reveal>
-            <span class="thumb-tag">Recepção</span>
-            <div class="thumb-art thumb-art--recep"></div>
-          </figure>
-          <figure class="conheca-thumb" data-reveal data-lag=".06">
-            <span class="thumb-tag">Sala de espera</span>
-            <div class="thumb-art thumb-art--espera"></div>
-          </figure>
-          <figure class="conheca-thumb" data-reveal data-lag=".12">
-            <span class="thumb-tag">Consultório</span>
-            <div class="thumb-art thumb-art--consult"></div>
-          </figure>
-          <figure class="conheca-thumb" data-reveal data-lag=".18">
-            <span class="thumb-tag">Tratamento</span>
-            <div class="thumb-art thumb-art--trat"></div>
-          </figure>
+        <div class="accordion-gallery" id="clinicaAccordion" role="list" aria-label="Galeria da clínica">
+          <button type="button" class="ag-panel" role="listitem" aria-label="Equipe" aria-haspopup="dialog">
+            <span class="ag-panel__frame">
+              <span class="ag-panel__media">
+                <img src="lobomayer-assets/01.jpg" alt="A Equipe Lobo Mayer" loading="lazy" draggable="false">
+              </span>
+              <span class="ag-panel__overlay" aria-hidden="true"></span>
+            </span>
+            <span class="ag-panel__label" aria-hidden="true">
+              <span class="ag-panel__bar"></span>
+              <span class="ag-panel__text">Equipe</span>
+            </span>
+          </button>
+          <button type="button" class="ag-panel" role="listitem" aria-label="Dermatologia" aria-haspopup="dialog">
+            <span class="ag-panel__frame">
+              <span class="ag-panel__media">
+                <img src="lobomayer-assets/02.jpg" alt="Dermatologia" loading="lazy" draggable="false">
+              </span>
+              <span class="ag-panel__overlay" aria-hidden="true"></span>
+            </span>
+            <span class="ag-panel__label" aria-hidden="true">
+              <span class="ag-panel__bar"></span>
+              <span class="ag-panel__text">Beleza e Saúde</span>
+            </span>
+          </button>
+          <button type="button" class="ag-panel" role="listitem" aria-label="Consultório" aria-haspopup="dialog">
+            <span class="ag-panel__frame">
+              <span class="ag-panel__media">
+                <img src="lobomayer-assets/04.jpg" alt="Consultório" loading="lazy" draggable="false">
+              </span>
+              <span class="ag-panel__overlay" aria-hidden="true"></span>
+            </span>
+            <span class="ag-panel__label" aria-hidden="true">
+              <span class="ag-panel__bar"></span>
+              <span class="ag-panel__text">Médicos Renomados</span>
+            </span>
+          </button>
+          <button type="button" class="ag-panel" role="listitem" aria-label="Ortopedia" aria-haspopup="dialog">
+            <span class="ag-panel__frame">
+              <span class="ag-panel__media">
+                <img src="lobomayer-assets/lobomayer-dr.jpg" alt="Ortopedia" loading="lazy" draggable="false">
+              </span>
+              <span class="ag-panel__overlay" aria-hidden="true"></span>
+            </span>
+            <span class="ag-panel__label" aria-hidden="true">
+              <span class="ag-panel__bar"></span>
+              <span class="ag-panel__text">Dor e Nutrologia</span>
+            </span>
+          </button>
         </div>
 
         <div class="conheca-pill-list" aria-label="Equipamentos e diferenciais da clínica">
@@ -2052,9 +2231,261 @@ body{padding-top:30px!important;padding-bottom:30px!important}}
   // Build per-section scenes
   const pxEsp = $('#bg-especialidades'); if (pxEsp) buildGeoScene(pxEsp, { nodes: 14, drift: 0.55, hex:true });
 
+
+  /* ============ Accordion Gallery ============ */
+  function initClinicaAccordion(){
+    const root = document.getElementById('clinicaAccordion');
+    if (!root || root.dataset.accBound) return;
+    root.dataset.accBound = '1';
+    if (!window.gsap) return;
+    const { gsap } = window;
+
+    const panels = Array.from(root.querySelectorAll('.ag-panel'));
+    const images = panels.map(p => p.querySelector('.ag-panel__media img'));
+    const barEls = panels.map(p => p.querySelector('.ag-panel__bar'));
+    const textEls = panels.map(p => p.querySelector('.ag-panel__text'));
+
+    let active = 2;
+    const count = panels.length;
+    const expandRatio = 0.55;
+    const duration = 0.75;
+    const ease = 'power2.out';
+    const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function applyLayout(animate) {
+      const r = Math.min(Math.max(expandRatio, 0.2), 0.9);
+      const grow = count > 1 ? (r * (count - 1)) / (1 - r) : 1;
+      const dur = animate && !prefersReduced ? duration : 0;
+
+      panels.forEach((panel, i) => {
+        const isActive = i === active;
+        const img = images[i];
+        const bar = barEls[i];
+        const text = textEls[i];
+
+        // Panel expansion — smooth flex-grow
+        gsap.to(panel, {
+          flexGrow: isActive ? grow : 1,
+          duration: dur,
+          ease: ease
+        });
+
+        // Image: zoom from 1.18 (cropped) to 1.0 (full view) when active
+        // + subtle parallax shift based on distance from active
+        if (img) {
+          const dist = i - active;
+          const parallaxX = dist * 20;
+          const scale = isActive ? 1 : 1.18;
+          const grayscale = isActive ? 0 : 1;
+          const brightness = isActive ? 1 : 0.6;
+
+          gsap.to(img, {
+            scale: scale,
+            x: parallaxX,
+            filter: `grayscale(${grayscale}) brightness(${brightness})`,
+            duration: dur,
+            ease: ease
+          });
+        }
+
+        // Label reveal with stagger
+        if (bar && text) {
+          if (isActive) {
+            gsap.to(bar, { opacity: 1, x: 0, duration: dur * 0.7, ease: ease, delay: 0.05 });
+            gsap.to(text, { opacity: 1, x: 0, duration: dur * 0.7, ease: ease, delay: 0.1 });
+          } else {
+            gsap.to([bar, text], { opacity: 0, x: -14, duration: dur * 0.5, ease: ease });
+          }
+        }
+
+        panel.classList.toggle('is-active', isActive);
+      });
+    }
+
+    // Set initial states
+    panels.forEach((panel, i) => {
+      const img = images[i];
+      const bar = barEls[i];
+      const text = textEls[i];
+      const isActive = i === active;
+
+      if (img) {
+        gsap.set(img, {
+          scale: isActive ? 1 : 1.18,
+          x: (i - active) * 20,
+          filter: `grayscale(${isActive ? 0 : 1}) brightness(${isActive ? 1 : 0.6})`
+        });
+      }
+      if (bar) gsap.set(bar, { opacity: isActive ? 1 : 0, x: isActive ? 0 : -14 });
+      if (text) gsap.set(text, { opacity: isActive ? 1 : 0, x: isActive ? 0 : -14 });
+      panel.classList.toggle('is-active', isActive);
+    });
+
+    // Event listeners — buttons, not links: activate panel + open fullscreen viewer
+    const viewer = initClinicaViewer();
+    panels.forEach((p, i) => {
+      p.addEventListener('mouseenter', () => { if (active !== i) { active = i; applyLayout(true); } });
+      p.addEventListener('focus', () => { if (active !== i) { active = i; applyLayout(true); } });
+      p.addEventListener('click', () => {
+        if (active !== i) { active = i; applyLayout(true); }
+        viewer.open(i, p);
+      });
+      p.addEventListener('keydown', (e) => {
+        let next = i;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          e.preventDefault(); next = (i + 1) % count;
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          e.preventDefault(); next = (i - 1 + count) % count;
+        }
+        if (next !== i) { panels[next].focus(); active = next; applyLayout(true); }
+      });
+    });
+
+    // Resize observer
+    const ro = new ResizeObserver(() => applyLayout(false));
+    ro.observe(root);
+
+    // Entrance animation
+    if (!prefersReduced) gsap.fromTo(root, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', delay: 0.15 });
+  }
+
+  /* ============ Fullscreen viewer — lightweight FLIP lightbox (images are not links) ============ */
+  let clinicaViewer = null;
+  function initClinicaViewer(){
+    if (clinicaViewer) return clinicaViewer;
+    const root = document.getElementById('clinicaAccordion');
+    if (!root) return { open(){} };
+    root.dataset.viewerBound = '1';
+
+    const panels = Array.from(root.querySelectorAll('.ag-panel'));
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const hasGsap = typeof window.gsap !== 'undefined';
+
+    // Overlay built once, appended to body (avoids transformed ancestors breaking position:fixed)
+    const box = document.createElement('div');
+    box.className = 'lm-box';
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-modal', 'true');
+    box.setAttribute('aria-label', 'Visualização em tela cheia da galeria da clínica');
+    box.innerHTML =
+      '<img class="lm-box__img" alt="" draggable="false">' +
+      '<span class="lm-box__caption" aria-hidden="true"></span>' +
+      '<button type="button" class="lm-box__close" aria-label="Fechar visualização">' +
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>';
+    document.body.appendChild(box);
+
+    const img = box.querySelector('.lm-box__img');
+    const cap = box.querySelector('.lm-box__caption');
+    const closeBtn = box.querySelector('.lm-box__close');
+
+    let current = -1;
+    let opener = null;
+
+    const srcAt   = (i) => { const t = panels[i] && panels[i].querySelector('.ag-panel__media img'); return t ? (t.currentSrc || t.src) : ''; };
+    const labelAt = (i) => {
+      const p = panels[i];
+      const t = p && p.querySelector('.ag-panel__text');
+      return (t && t.textContent.trim()) || (p && p.getAttribute('aria-label')) || '';
+    };
+
+    function unlock(){
+      document.documentElement.style.overflow = '';
+      box.classList.remove('is-open');
+      current = -1;
+      if (opener){ opener.focus({ preventScroll: true }); opener = null; }
+    }
+
+    function open(i, triggerEl){
+      if (current >= 0 || i < 0 || i >= panels.length) return;
+      current = i;
+      opener = triggerEl || null;
+      img.src = srcAt(i);
+      img.alt = labelAt(i);
+      cap.textContent = labelAt(i);
+      document.documentElement.style.overflow = 'hidden'; // lock page scroll while open
+
+      if (!hasGsap || reduced){
+        box.classList.add('is-open');
+        closeBtn.focus({ preventScroll: true });
+        return;
+      }
+
+      const thumb = panels[i].querySelector('.ag-panel__media img');
+      const startRect = thumb ? thumb.getBoundingClientRect() : null;
+
+      gsap.fromTo(box, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3, ease: 'power2.out' }); // overlay fade
+      gsap.set(cap, { autoAlpha: 0 });
+      gsap.set(img, { clearProps: 'transform' });
+
+      const flipIn = () => {
+        if (current < 0) return;
+        const endRect = img.getBoundingClientRect();
+        if (startRect && endRect.width > 0 && endRect.height > 0){
+          gsap.fromTo(img,
+            { x: startRect.left - endRect.left,
+              y: startRect.top - endRect.top,
+              scaleX: startRect.width / endRect.width,
+              scaleY: startRect.height / endRect.height },
+            { x: 0, y: 0, scaleX: 1, scaleY: 1, duration: 0.65, ease: 'expo.out' });
+        } else {
+          gsap.fromTo(img, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.35 });
+        }
+        gsap.to(cap, { autoAlpha: 1, duration: 0.4, delay: 0.25 });
+      };
+
+      if (img.complete && img.naturalWidth) flipIn();
+      else img.addEventListener('load', flipIn, { once: true });
+
+      closeBtn.focus({ preventScroll: true });
+    }
+
+    function close(){
+      if (current < 0) return;
+      const i = current;
+      if (!hasGsap || reduced){
+        unlock();
+        return;
+      }
+      const thumb = panels[i] && panels[i].querySelector('.ag-panel__media img');
+      if (!thumb || !thumb.isConnected){
+        gsap.to(box, { autoAlpha: 0, duration: 0.25, onComplete: () => {
+          gsap.set(box, { clearProps: 'opacity,visibility' });
+          gsap.set(img, { clearProps: 'transform' });
+          unlock();
+        } });
+        return;
+      }
+      const r0 = img.getBoundingClientRect();
+      const r1 = thumb.getBoundingClientRect();
+      gsap.to(img, {
+        x: r1.left - r0.left,
+        y: r1.top - r0.top,
+        scaleX: r1.width / r0.width,
+        scaleY: r1.height / r0.height,
+        duration: 0.5, ease: 'expo.inOut'
+      });
+      gsap.to(box, { autoAlpha: 0, duration: 0.45, delay: 0.12, onComplete: () => {
+        gsap.set(box, { clearProps: 'opacity,visibility' });
+        gsap.set(img, { clearProps: 'transform' });
+        unlock();
+      } });
+    }
+
+    closeBtn.addEventListener('click', close);
+    box.addEventListener('click', (e) => { if (e.target === box) close(); });
+    document.addEventListener('keydown', (e) => {
+      if (current < 0) return;
+      if (e.key === 'Escape') { e.preventDefault(); close(); }
+      else if (e.key === 'Tab') { e.preventDefault(); closeBtn.focus(); } // single focusable → trivial trap
+    });
+
+    clinicaViewer = { open, close };
+    return clinicaViewer;
+  }
+
   /* ============ GSAP — best-practice, opt-in via matchMedia ============ */
   function initGSAP(){
-    if (!window.gsap){ return; }
+    if (!window.gsap){ initClinicaViewer(); return; } // no GSAP → viewer still works, instantly
     const { gsap, ScrollTrigger, SplitText, MotionPathPlugin, Draggable, InertiaPlugin, EasePack } = window;
     // register plugins (per GSAP 3.15 docs)
     gsap.registerPlugin(ScrollTrigger, SplitText, MotionPathPlugin, Draggable, InertiaPlugin, EasePack && Object.values(EasePack).filter(Boolean));
@@ -2128,7 +2559,10 @@ body{padding-top:30px!important;padding-bottom:30px!important}}
         track.addEventListener('mouseleave', () => loop.play());
       }
 
-      // Dotnav active state via ScrollTrigger (replaces IntersectionObserver for accuracy)
+      /* Accordion Gallery + fullscreen viewer now initialized after the matchMedia blocks below,
+         so they also work under prefers-reduced-motion (they gate their own animation). */
+
+            // Dotnav active state via ScrollTrigger (replaces IntersectionObserver for accuracy)
       const dotBtns = $$('#dotnav button');
       const dotMap = dotBtns.map(b => ({ btn: b, target: $('#' + b.dataset.goto) })).filter(s => s.target);
       dotMap.forEach(({ btn, target }) => {
@@ -2147,6 +2581,9 @@ body{padding-top:30px!important;padding-bottom:30px!important}}
     mm.add('(prefers-reduced-motion: reduce)', () => {
       gsap.set('[data-reveal]', { opacity: 1, y: 0 });
     });
+
+    // Accordion gallery + fullscreen viewer — run for everyone (self-gates on reduced motion)
+    initClinicaAccordion();
   }
 
   // Initialize GSAP after DOM ready (give the loader scripts time to load)
