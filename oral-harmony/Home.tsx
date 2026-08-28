@@ -219,9 +219,9 @@ export default function Home() {
 
       if (!reducedMotion) {
         gsap.to(".precision-symbol", { rotation: 40, duration: 2.8, repeat: -1, yoyo: true, ease: editorialRoughness });
-        gsap.to(".physics-orb", { scale: 1.06, duration: 2.3, repeat: -1, yoyo: true, ease: porcelainScale });
+        gsap.to(".weight-orb", { scale: 1.06, duration: 2.3, repeat: -1, yoyo: true, ease: porcelainScale });
         gsap.to(".contact-spark", { rotation: 23, duration: 3.8, repeat: -1, yoyo: true, ease: slowBreath });
-        gsap.to(".motion-keyword", {
+        gsap.to(".presence-keyword", {
           duration: 1.2,
           repeat: -1,
           yoyo: true,
@@ -413,7 +413,7 @@ export default function Home() {
             <div className="hero-orbit" aria-label="Marca gráfica da Oral Harmony">
               <div className="orbit-note"><Sparkles size={15} aria-hidden="true" /> cuidado com intenção</div>
               <div className="orbit-center">
-                <img src="/gallery/oral-harmony/assets/irmas-hero.png" alt="Bruna e Isabela - Oral Harmony" className="orbit-portrait" />
+                <img src="./assets/irmas-hero.png" alt="Bruna e Isabela - Oral Harmony" className="orbit-portrait" />
               </div>
               <div className="orbit-petal petal-one" /><div className="orbit-petal petal-two" /><div className="orbit-petal petal-three" />
               <p className="orbit-caption">ORAL<br />HARMONY</p>
@@ -477,7 +477,7 @@ export default function Home() {
             <div className="motion-legend" data-reveal><span><i className="legend-drag" /> Arraste para explorar</span><PlugLabel>Draggable + InertiaPlugin + Flip</PlugLabel></div>
           </section>
 
-          <section className="precision">
+          <section className="precision section-shell">
             <div className="precision-symbol" aria-hidden="true"><span /><span /><span /></div>
             <figure className="precision-portrait" data-reveal><img src={clinicImages.avaliacao} alt="Detalhe da experiência de avaliação da Oral Harmony" /><figcaption>Consulta com conversa clara, sem pressa.</figcaption></figure>
             <div className="precision-copy" data-reveal>
@@ -486,20 +486,38 @@ export default function Home() {
               <p>Bruna é especializada em endodontia. Isabela está concluindo sua especialização em implantodontia. Juntas, unem estudo contínuo e uma escuta que respeita o seu ritmo.</p>
               <div className="founder-points"><span><Check size={16} /> Conversa clara em cada etapa</span><span><Check size={16} /> Plano de cuidado individual</span><span><Check size={16} /> Ambiente sereno e seguro</span></div>
             </div>
-            <div className="precision-aside" data-reveal><span>Bruna & Isabela</span><b>O cuidado tem duas assinaturas e uma mesma intenção.</b><PlugLabel>CustomEase + CustomWiggle + Physics2DPlugin</PlugLabel></div>
           </section>
 
           <section className="motion-lab section-shell">
             <div className="section-meta" data-reveal><span>04 / Ritmo da harmonia</span><span>Movimento responsivo</span></div>
-            <div className="motion-lab-title" data-reveal><h2>Pequenos gestos. <i>Grande diferença.</i></h2><p>Uma camada experimental de movimento traduz a atenção aos detalhes que existe em cada atendimento.</p></div>
+            <div className="motion-lab-header" data-reveal>
+              <h2>Pequenos gestos.<br /><i>Grande diferença.</i></h2>
+              <p>Uma camada experimental de movimento traduz a atenção aos detalhes que existe em cada atendimento.</p>
+            </div>
             <div className="motion-lab-grid">
-              <div className="morph-panel" data-reveal>
-                <svg className="morph-graphic" viewBox="0 0 300 300" aria-hidden="true"><path className="morph-flower" d="M150 33c28 57 88 47 99 105-57 12-48 71-99 99-51-28-42-87-99-99 11-58 71-48 99-105Z" /><circle cx="150" cy="150" r="13" /></svg>
-                <span>Forma que se adapta</span><PlugLabel>MorphSVG + DrawSVG</PlugLabel>
+              <div className="morph-card" data-reveal>
+                <div className="morph-card-inner">
+                  <svg className="morph-svg" viewBox="0 0 300 300" aria-hidden="true">
+                    <path className="morph-flower" d="M150 33c28 57 88 47 99 105-57 12-48 71-99 99-51-28-42-87-99-99 11-58 71-48 99-105Z" />
+                    <circle cx="150" cy="150" r="13" />
+                  </svg>
+                </div>
+                <div className="morph-card-content">
+                  <span className="morph-label">Forma que se adapta</span>
+                  <PlugLabel>MorphSVG + DrawSVG</PlugLabel>
+                </div>
               </div>
-              <div className="motion-right-stack">
-                <div className="motion-copy-card" data-reveal><p className="motion-keyword">presença</p><span>O conteúdo reage com suavidade, sem retirar a autonomia de quem navega.</span><PlugLabel>TextPlugin + ScrambleText</PlugLabel></div>
-                <div className="motion-orb-card" data-reveal><div className="physics-orb" /><span>Movimento com peso e pausa.</span><PlugLabel>PhysicsProps + CustomBounce</PlugLabel></div>
+              <div className="motion-stack">
+                <div className="presence-card" data-reveal>
+                  <p className="presence-keyword">presença</p>
+                  <span className="presence-desc">O conteúdo reage com suavidade, sem retirar a autonomia de quem navega.</span>
+                  <PlugLabel>TextPlugin + ScrambleText</PlugLabel>
+                </div>
+                <div className="weight-card" data-reveal>
+                  <div className="weight-orb" />
+                  <span className="weight-desc">Movimento com peso e pausa.</span>
+                  <PlugLabel>PhysicsProps + CustomBounce</PlugLabel>
+                </div>
               </div>
             </div>
           </section>
