@@ -46,9 +46,9 @@ import { SplitText } from "gsap/SplitText";
 import TextPlugin from "gsap/TextPlugin";
 
 const clinicImages = {
-  equipe: "/gallery/oral-harmony/assets/irmas-black&white-style.jpg",
-  sorriso: "/gallery/oral-harmony/assets/irmas-hero.png",
-  avaliacao: "/gallery/oral-harmony/assets/irmas-hero.png",
+  equipe: "./assets/irmas-black&white-style.jpg",
+  sorriso: "./assets/irmas-hero.png",
+  avaliacao: "./assets/irmas-hero.png",
 };
 
 const services = [
@@ -477,7 +477,7 @@ export default function Home() {
             <div className="motion-legend" data-reveal><span><i className="legend-drag" /> Arraste para explorar</span><PlugLabel>Draggable + InertiaPlugin + Flip</PlugLabel></div>
           </section>
 
-          <section className="precision section-shell">
+          <section className="precision">
             <div className="precision-symbol" aria-hidden="true"><span /><span /><span /></div>
             <figure className="precision-portrait" data-reveal><img src={clinicImages.avaliacao} alt="Detalhe da experiência de avaliação da Oral Harmony" /><figcaption>Consulta com conversa clara, sem pressa.</figcaption></figure>
             <div className="precision-copy" data-reveal>
