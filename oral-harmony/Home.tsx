@@ -438,10 +438,6 @@ export default function Home() {
           <section className="consultation-scene section-shell" aria-labelledby="consulta-title">
             <div className="consultation-meta" data-reveal><span>02 / Sua consulta</span><span>escuta · clareza · cuidado</span></div>
             <div className="consultation-grid">
-              <figure className="consultation-image" data-reveal>
-                <img src={clinicImages.avaliacao} alt="Profissional em um momento de avaliação na Oral Harmony" />
-                <figcaption><span>Tempo para ouvir</span><b>Tempo para decidir.</b></figcaption>
-              </figure>
               <div className="consultation-copy" data-reveal>
                 <p className="eyebrow"><span className="eyebrow-dot" /> Uma conversa, antes de tudo</p>
                 <h2 id="consulta-title">O cuidado começa quando <i>você é ouvido.</i></h2>
