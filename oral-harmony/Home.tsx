@@ -46,9 +46,9 @@ import { SplitText } from "gsap/SplitText";
 import TextPlugin from "gsap/TextPlugin";
 
 const clinicImages = {
-  equipe: "./assets/irmas-black&white-style.jpg",
-  sorriso: "./assets/irmas-hero.png",
-  avaliacao: "./assets/irmas-hero.png",
+  equipe: "/gallery/oral-harmony/assets/irmas-black&white-style.jpg",
+  sorriso: "/gallery/oral-harmony/assets/irmas-hero.png",
+  avaliacao: "/gallery/oral-harmony/assets/irmas-hero.png",
 };
 
 const services = [
@@ -407,7 +407,9 @@ export default function Home() {
             </div>
             <div className="hero-orbit" aria-label="Marca gráfica da Oral Harmony">
               <div className="orbit-note"><Sparkles size={15} aria-hidden="true" /> cuidado com intenção</div>
-              <div className="orbit-center"><span>O</span><small>H</small></div>
+              <div className="orbit-center">
+                <img src="/gallery/oral-harmony/assets/irmas-hero.png" alt="Bruna e Isabela - Oral Harmony" className="orbit-portrait" />
+              </div>
               <div className="orbit-petal petal-one" /><div className="orbit-petal petal-two" /><div className="orbit-petal petal-three" />
               <p className="orbit-caption">ORAL<br />HARMONY</p>
             </div>

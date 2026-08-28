@@ -32,8 +32,6 @@
 
     @media (scripting: none) {
       .reveal-el { opacity: 1 !important; transform: none !important; visibility: visible !important; }
-      .process-scene { position: relative !important; inset: auto !important; opacity: 1 !important; visibility: visible !important; transform: none !important; }
-      .process-demo { clip-path: none !important; }
     }
 
     /* UTILITIES */
@@ -164,7 +162,7 @@
     .gallery-intro { min-width: 45vw; display: flex; flex-direction: column; justify-content: center; padding-right: 60px; flex-shrink: 0; }
     .gallery-intro h2 { font-size: clamp(40px, 6vw, 88px); font-weight: 200; line-height: .9; letter-spacing: -.06em; text-transform: uppercase; margin: 16px 0 0; }
     .gallery-intro p { margin-top: 20px; color: var(--muted); font-size: 14px; line-height: 1.7; max-width: 380px; }
-    .g-card { flex-shrink: 0; width: clamp(340px, 30vw, 480px); min-height: 70vh; border-radius: var(--radius); overflow: hidden; position: relative; display: flex; flex-direction: column; background: rgba(255,255,255,.02); transition: transform .5s cubic-bezier(.22,1,.36,1); cursor: pointer; isolation: isolate; }
+    .g-card { flex-shrink: 0; width: clamp(260px, 22vw, 340px); min-height: 320px; border-radius: var(--radius); overflow: hidden; position: relative; display: flex; flex-direction: column; background: rgba(255,255,255,.02); transition: transform .5s cubic-bezier(.22,1,.36,1); cursor: pointer; isolation: isolate; }
     .g-card::before { content:""; position:absolute; inset:-1px; border-radius:inherit; padding:1px; background:conic-gradient(from var(--rainbow-angle,0deg),#ff3b3b,#ff6b35,#c5ff32,#22c55e,#6d7cff,#a855f7,#ff3b3b); -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0); -webkit-mask-composite:xor; mask-composite:exclude; animation:rainbowBorder 4s linear infinite; z-index:-1; }
     .g-card:hover { transform: translateY(-6px); }
     @property --rainbow-angle { syntax:'<angle>'; inherits:false; initial-value:0deg; }
@@ -193,81 +191,6 @@
 
 
     /* PROCESS SECTION — pinned, scrubbed operating system */
-    .process-section { position: relative; min-height: 100svh; border-top: 1px solid var(--line); overflow: clip; }
-    .process-stage { min-height: 100svh; display: grid; grid-template-columns: minmax(280px,.72fr) minmax(0,1.28fr); width: min(1440px,100%); margin:auto; position:relative; }
-    .process-stage::before { content:""; position:absolute; inset:0; pointer-events:none; background:radial-gradient(circle at var(--process-x,72%) var(--process-y,35%),rgba(197,255,50,.09),transparent 32%); }
-    .process-left { padding: clamp(90px,10vh,130px) var(--pad); display:flex; flex-direction:column; justify-content:space-between; border-right:1px solid var(--line); position:relative; z-index:2; }
-    .process-left h2 { font-size:clamp(48px,7vw,108px); font-weight:200; line-height:.82; letter-spacing:-.075em; text-transform:uppercase; margin:20px 0 0; }
-    .process-left p { margin-top:26px; color:var(--muted); font-size:14px; line-height:1.75; max-width:400px; }
-    .process-meter { margin-top:36px; display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:14px; font:600 9px/1 ui-monospace,monospace; letter-spacing:.14em; color:var(--muted); }
-    .process-meter-track { height:2px; background:var(--line); overflow:hidden; }
-    .process-meter-fill { display:block; width:100%; height:100%; background:var(--acid); transform:scaleX(0); transform-origin:left; }
-    .process-index { display:flex; gap:8px; flex-wrap:wrap; margin-top:24px; }
-    .process-index button { width:42px; height:42px; border:1px solid var(--line); border-radius:50%; color:var(--muted); font:700 10px ui-monospace,monospace; transition:.25s; }
-    .process-index button.active,.process-index button:hover { color:var(--bg); border-color:var(--acid); background:var(--acid); }
-    .process-viewport { min-height:100svh; position:relative; overflow:hidden; }
-    .process-scenes { position:absolute; inset:0; }
-    .process-scene { position:absolute; inset:0; padding:clamp(90px,12vh,150px) var(--pad); display:grid; grid-template-rows:auto 1fr; gap:30px; opacity:0; visibility:hidden; }
-    .process-scene:first-child { opacity:1; visibility:visible; }
-    .process-scene-head { display:grid; grid-template-columns:auto 1fr; gap:24px; align-items:end; }
-    .process-scene-num { font:800 clamp(64px,10vw,160px)/.7 Inter,sans-serif; letter-spacing:-.08em; color:rgba(241,240,235,.05); }
-    .process-scene h3 { margin:0; font-size:clamp(30px,4vw,64px); line-height:.9; letter-spacing:-.06em; text-transform:uppercase; }
-    .process-scene p { margin:14px 0 0; max-width:520px; color:var(--muted); line-height:1.7; font-size:13px; }
-    .process-step-tags { display:flex; gap:7px; flex-wrap:wrap; margin-top:18px; }
-    .process-step-tags span { font:600 8px/1 ui-monospace,monospace; letter-spacing:.12em; text-transform:uppercase; padding:6px 9px; border:1px solid var(--line); border-radius:99px; color:var(--muted); }
-    .process-demo { align-self:center; min-height:300px; position:relative; display:grid; place-items:center; border:1px solid var(--line); border-radius:24px; overflow:hidden; background:rgba(255,255,255,.018); }
-    .process-demo-grid { position:absolute; inset:0; background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px); background-size:34px 34px; mask-image:linear-gradient(to bottom,black,transparent); }
-    .process-radar { width:min(280px,62%); aspect-ratio:1; border:1px solid rgba(197,255,50,.32); border-radius:50%; position:relative; }
-    .process-radar::before,.process-radar::after { content:""; position:absolute; inset:25%; border:1px solid rgba(197,255,50,.2); border-radius:50%; }
-    .process-radar::after { inset:48%; background:var(--acid); box-shadow:0 0 30px var(--acid); }
-    .process-radar-line { position:absolute; left:50%; top:50%; width:45%; height:1px; transform-origin:left; background:linear-gradient(90deg,var(--acid),transparent); }
-    .process-node { position:absolute; width:12px; height:12px; border-radius:50%; background:var(--green); box-shadow:0 0 16px var(--green); }
-    .process-node:nth-child(3){left:14%;top:30%}.process-node:nth-child(4){right:16%;top:20%}.process-node:nth-child(5){right:24%;bottom:18%}
-    .process-wave { width:min(520px,86%); height:180px; overflow:visible; }
-    .process-wave path { fill:none; stroke:var(--acid); stroke-width:2; }
-    .process-orbit { width:220px; aspect-ratio:1; border:1px dashed rgba(197,255,50,.4); border-radius:50%; position:relative; }
-    .process-orbit i { position:absolute; left:50%; top:50%; width:64px; height:64px; margin:-32px; border-radius:18px; background:var(--acid); color:var(--bg); display:grid; place-items:center; font:800 12px monospace; }
-    .process-bars { width:min(500px,84%); display:flex; align-items:end; gap:12px; height:220px; }
-    .process-bars i { flex:1; height:var(--h); background:linear-gradient(var(--acid),var(--green)); border-radius:8px 8px 2px 2px; transform-origin:bottom; }
-
-    /* Static fallback: no pin below 1025px or when motion is reduced.
-       !important beats any inline styles left behind by JS timelines. */
-    @media (max-width:1024px), (prefers-reduced-motion:reduce) {
-      .process-stage { display:block; }
-      .process-left { min-height:auto; }
-      .process-index,.process-meter { display:none; }
-      .process-viewport { min-height:auto; overflow:visible; }
-      .process-scenes { position:relative; }
-      .process-scene,.process-scene:first-child { position:relative !important; inset:auto !important; opacity:1 !important; visibility:visible !important; transform:none !important; min-height:auto; border-bottom:1px solid var(--line); }
-      .process-demo { clip-path:none !important; min-height:260px; }
-    }
-
-    /* ─── PROCESS DEMO EXTENSIONS (labs merged into process story) ─── */
-    .pd-drag-field{position:relative;width:min(420px,78%);aspect-ratio:16/9;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px;}
-    .pd-zone{border:1px dashed rgba(197,255,50,.22);border-radius:14px;display:grid;place-items:center;font:600 8px/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:rgba(241,240,235,.28);letter-spacing:.12em;text-transform:uppercase;transition:border-color .25s,color .25s,background .25s;}
-    .pd-zone.highlight{border-color:var(--acid);color:var(--acid);background:rgba(197,255,50,.05);}
-    .pd-drag-chip{position:absolute;left:16px;top:16px;width:86px;height:86px;border-radius:20px;background:var(--acid);color:var(--bg);display:grid;place-items:center;font:700 9px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;cursor:grab;user-select:none;-webkit-user-select:none;touch-action:none;z-index:2;box-shadow:0 10px 30px rgba(197,255,50,.18);}
-    .pd-drag-chip:active{cursor:grabbing;}
-    .pd-term{width:min(400px,84%);background:#0a0a0f;border:1px solid rgba(255,255,255,.07);border-radius:12px;overflow:hidden;}
-    .pd-term-bar{display:flex;align-items:center;gap:6px;padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.05);font:600 8px/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:rgba(241,240,235,.4);letter-spacing:.1em;text-transform:uppercase;}
-    .pd-term-bar span{margin-left:auto;}
-    .pd-term-bar i{width:7px;height:7px;border-radius:50%;}
-    .pd-term-bar i:nth-child(1){background:#ff5f57;}
-    .pd-term-bar i:nth-child(2){background:#febc2e;}
-    .pd-term-bar i:nth-child(3){background:#28c840;}
-    .pd-term-body{padding:16px 14px;font:500 clamp(11px,1.6vw,15px)/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--paper);}
-    .pd-term-body .pd-prompt{color:var(--acid);}
-    #pdScrambleText{color:var(--acid);display:inline-block;min-width:7ch;}
-    .pd-cursor{display:inline-block;width:7px;height:13px;background:var(--acid);vertical-align:middle;margin-left:3px;animation:pdBlink 1s step-end infinite;}
-    @keyframes pdBlink{50%{opacity:0;}}
-    .pd-spark-stage{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;}
-    .pd-launch-btn{padding:13px 30px;border-radius:99px;border:1px solid var(--acid);color:var(--acid);background:transparent;font:700 10px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:background .25s;}
-    .pd-launch-btn:hover{background:rgba(197,255,50,.08);}
-    .pd-launch-hint{font:500 8px/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:rgba(241,240,235,.25);letter-spacing:.12em;text-transform:uppercase;}
-
-    /* Shared particle (process launch + contact channels) */
-    .wb-particle{position:absolute;left:50%;top:50%;width:7px;height:7px;background:var(--acid);border-radius:50%;pointer-events:none;z-index:5;}
-
     /* STATS */
     .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; padding: 80px 0; border-top: 1px solid var(--line); }
     .stat { text-align: center; padding: 36px 16px; border: 1px solid var(--line); border-radius: 16px; background: rgba(255,255,255,.015); transition: border-color .3s, background .3s; }
@@ -323,9 +246,6 @@
       .hero-inner { grid-template-columns: 1fr; gap: 40px; }
       .hero-orb-wrap { height: 40vh; }
       .orb-ascii pre { font-size: 6.5px; line-height: 7.3px; }
-      .process-stage { grid-template-columns: 1fr; }
-      .process-left { min-height:auto; padding:80px var(--pad) 40px; border-right:0; border-bottom:1px solid var(--line); }
-      .process-viewport { min-height:auto; }
       .plugin-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
       .gallery-intro { min-width:0; }
       .g-card { width:100%; min-height:0; }
@@ -365,31 +285,10 @@
       /* Gallery — single column */
       .gallery-wrapper.full-screen { min-height: auto; padding: 64px 0; }
       .gallery-pin { width: 100%; max-width: 100%; display: grid; grid-template-columns: 1fr; gap: 16px; padding: 0 var(--pad); transform: none !important; }
-      .g-card { width: 100%; min-height: 0; }
+      .g-card { width: 100%; min-height: 280px; }
       .g-card-visual { min-height: 140px; }
       .g-card-body { padding: 20px 16px; }
       .g-card-cta { opacity: 1; transform: none; }
-
-      /* Process */
-      .process-section { min-height: auto; }
-      .process-stage { min-height: auto; }
-      .process-left { padding: 56px 18px 28px; }
-      .process-left h2 { font-size: clamp(36px, 10vw, 56px); }
-      .process-scene { padding: 24px 18px; gap: 14px; }
-      .process-scene-head { grid-template-columns: 42px 1fr; gap: 10px; align-items: start; }
-      .process-scene-num { font-size: 42px; }
-      .process-scene h3 { font-size: clamp(22px, 7vw, 34px); }
-      .process-scene p { margin-top: 8px; font-size: 12px; }
-      .process-step-tags { gap: 5px; }
-      .process-step-tags span { font-size: 7px; padding: 4px 7px; }
-      .process-demo { min-height: 180px; border-radius: 16px; }
-      .process-orbit { width: min(180px, 80%); }
-      .process-bars { height: 140px; gap: 8px; }
-
-      /* Process demos (merged scenes) */
-      .pd-drag-field { width: 92%; min-height: 170px; gap: 6px; padding: 10px; }
-      .pd-drag-chip { width: 68px; height: 68px; border-radius: 16px; font-size: 8px; }
-      .pd-term-body { font-size: 11px; padding: 12px; }
 
       /* Image sections */
       .img-section { min-height: 65svh; overflow: hidden; }
@@ -430,8 +329,8 @@
       .gallery-wrapper.full-screen { min-height:auto; padding:88px 0; }
       .gallery-pin.gallery-tablet { width:100%; max-width:100%; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; padding:0 var(--pad); transform:none!important; }
       .gallery-tablet .gallery-intro { grid-column:1/-1; min-width:0; max-width:100%; padding:0 0 24px; }
-      .gallery-tablet .g-card { width:100%; min-height:480px; }
-      .gallery-tablet .g-card:last-child { grid-column:1/-1; width:min(50%,420px); justify-self:center; }
+      .gallery-tablet .g-card { width:100%; min-height:360px; }
+      .gallery-tablet .g-card:last-child { grid-column:1/-1; width:min(50%,340px); justify-self:center; }
     }
     @media (max-width:360px) {
       :root { --pad:16px; }
@@ -448,9 +347,6 @@
       .hero-meta-item span { font-size: 8px; }
       .stats-row { grid-template-columns: 1fr; gap: 10px; }
       .stat-num { font-size: 36px; }
-      .process-scene-num { font-size: 36px; }
-      .process-demo { min-height: 160px; }
-      .pd-drag-chip { width: 60px; height: 60px; font-size: 7px; }
       .contact-grid { padding: 48px var(--pad); }
       .cap-grid { grid-template-columns: 1fr; }
     }
@@ -469,12 +365,8 @@
       .hero-orb-wrap { display: none !important; }
       .hero-marquee-track { animation: none; }
       .char-reveal .char { transform: none !important; }
-      .process-radar::after { box-shadow: none; }
-      .process-node { box-shadow: none; }
       .g-card:hover { transform: none; }
       .contact-ch:hover { transform: none; }
-
-      .pd-cursor { animation: none; opacity: .5; }
     }
     @media (hover: none) and (pointer: coarse) { a, button, [role="button"] { touch-action: manipulation; } }
     ::-webkit-scrollbar { width: 5px; }
@@ -704,8 +596,6 @@
     .cap-cell .cap-icon i.cap-icon-tag{position:absolute;top:-10px;right:-14px;font:700 8px/1 ui-monospace,monospace;color:var(--muted);opacity:.55;}
     .cap-icon-svg{width:18px;height:18px;stroke:var(--acid);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
 
-    /* ── Quoted Process / Process timeline visual cue ── */
-    .process-progress-rail{position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--acid) 50%,transparent);opacity:.4;}
   </style>
 </head>
 <body>
@@ -726,7 +616,6 @@
     <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false"><span></span></button>
     <nav class="toplinks" aria-label="Navegacao principal">
       <a href="#projects" data-i18n="navProjects">Projetos</a>
-      <a href="#process" data-i18n="navProcess">Processo</a>
       <a href="#capabilities" data-i18n="navCapabilities">Capacidades</a>
       <a href="#contact" data-i18n="navContact">Contato</a>
     </nav>
@@ -738,7 +627,6 @@
 
   <div class="mobile-nav" id="mobileNav" aria-label="Menu mobile">
     <a href="#projects" data-i18n="navProjects">Projetos</a>
-    <a href="#process" data-i18n="navProcess">Processo</a>
     <a href="#capabilities" data-i18n="navCapabilities">Capacidades</a>
     <a href="#contact" data-i18n="navContact">Contato</a>
   </div>
@@ -1013,69 +901,6 @@
     </section>
 
     <!-- PROCESS / WAY OF WORK -->
-    <section class="process-section" id="process" aria-labelledby="processHeading">
-      <div class="process-stage" id="processStage">
-        <div class="process-left">
-          <div>
-            <span class="kicker" data-i18n="kicker2">03 / Nosso Processo</span>
-            <h2 id="processHeading" data-i18n="processH2">Como<br>construimos.</h2>
-            <p data-i18n="processDesc">Uma metodologia comprovada refinada em dezenas de projetos enterprise. Do discovery a entrega, com arquitetura de motion em cada camada.</p>
-          </div>
-          <div>
-            <div class="process-meter"><span>START</span><span class="process-meter-track"><i class="process-meter-fill" id="processProgress"></i></span><span id="processPercent">00%</span></div>
-            <div class="process-index" aria-label="Etapas do processo">
-              <button class="active" data-process-jump="0" aria-label="Ir para etapa 1">01</button><button data-process-jump="1" aria-label="Ir para etapa 2">02</button><button data-process-jump="2" aria-label="Ir para etapa 3">03</button><button data-process-jump="3" aria-label="Ir para etapa 4">04</button><button data-process-jump="4" aria-label="Ir para etapa 5">05</button><button data-process-jump="5" aria-label="Ir para etapa 6">06</button><button data-process-jump="6" aria-label="Ir para etapa 7">07</button>
-            </div>
-          </div>
-        </div>
-        <div class="process-viewport">
-          <div class="process-scenes">
-            <article class="process-scene" data-process-scene>
-              <div class="process-scene-head"><span class="process-scene-num">01</span><div><h3 data-i18n="step1Title">Discovery & Auditoria</h3><p data-i18n="step1Desc">Analise profunda dos objetivos de negocio, ativos existentes, restricoes tecnicas e cenario competitivo.</p><div class="process-step-tags"><span>Observer</span><span>ScrollTrigger</span><span>quickTo</span></div></div></div>
-              <div class="process-demo"><div class="process-demo-grid"></div><div class="process-radar"><i class="process-radar-line"></i><i class="process-node"></i><i class="process-node"></i><i class="process-node"></i></div></div>
-            </article>
-            <article class="process-scene" data-process-scene>
-              <div class="process-scene-head"><span class="process-scene-num">02</span><div><h3 data-i18n="step2Title">Arquitetura de Motion</h3><p data-i18n="step2Desc">Definimos o DNA de movimento do produto, curvas, tokens de timing e padroes de interacao.</p><div class="process-step-tags"><span>CustomEase</span><span>CustomBounce</span><span>CustomWiggle</span></div></div></div>
-              <div class="process-demo"><div class="process-demo-grid"></div><svg class="process-wave" viewBox="0 0 600 200"><path id="processWavePath" d="M10 110 C80 20 120 190 190 100 S310 20 370 110 S500 195 590 75"/></svg></div>
-            </article>
-            <article class="process-scene" data-process-scene>
-              <div class="process-scene-head"><span class="process-scene-num">03</span><div><h3 data-i18n="step3Title">Design Engineering</h3><p data-i18n="step3Desc">Implementacao pixel-perfect, componentes responsivos, acessibilidade e performance.</p><div class="process-step-tags"><span>Flip</span><span>MorphSVG</span><span>MotionPath</span></div></div></div>
-              <div class="process-demo"><div class="process-demo-grid"></div><div class="process-orbit"><i>BUILD</i></div></div>
-            </article>
-            <article class="process-scene" data-process-scene>
-              <div class="process-scene-head"><span class="process-scene-num">04</span><div><h3 data-i18n="step4Title">Lancamento & Medicao</h3><p data-i18n="step4Desc">Deploy, analytics, testes e otimizacao iterativa para impacto sustentado.</p><div class="process-step-tags"><span>Physics2D</span><span>TextPlugin</span><span>ScrollTo</span></div></div></div>
-              <div class="process-demo"><div class="process-demo-grid"></div><div class="process-bars"><i style="--h:34%"></i><i style="--h:55%"></i><i style="--h:44%"></i><i style="--h:78%"></i><i style="--h:96%"></i><i style="--h:84%"></i></div></div>
-            </article>
-            <article class="process-scene" data-process-scene>
-              <div class="process-scene-head"><span class="process-scene-num">05</span><div><h3 data-i18n="step5Title">Interacao Tangivel</h3><p data-i18n="step5Desc">Arraste, jogue e encaixe com fisica de inercia. Configuradores de produto, quadros kanban e UIs espaciais ganham peso real.</p><div class="process-step-tags"><span>Draggable</span><span>InertiaPlugin</span></div></div></div>
-              <div class="process-demo"><div class="process-demo-grid"></div>
-                <div class="pd-drag-field" id="pdDragField">
-                  <span class="pd-zone">Cor</span><span class="pd-zone">Material</span><span class="pd-zone">Acabamento</span>
-                  <div class="pd-drag-chip" id="pdDragChip">ARRASTE</div>
-                </div>
-              </div>
-            </article>
-            <article class="process-scene" data-process-scene>
-              <div class="process-scene-head"><span class="process-scene-num">06</span><div><h3 data-i18n="step6Title">Conteudo Dinamico</h3><p data-i18n="step6Desc">Texto que se escreve, embaralha e atualiza ao vivo. Terminais, contadores e copys que reagem ao estado do sistema.</p><div class="process-step-tags"><span>ScrambleText</span><span>TextPlugin</span></div></div></div>
-              <div class="process-demo"><div class="process-demo-grid"></div>
-                <div class="pd-term">
-                  <div class="pd-term-bar"><i></i><i></i><i></i><span>yang@prod — live</span></div>
-                  <div class="pd-term-body"><span class="pd-prompt">$</span>&nbsp;<span id="pdScrambleText">DEPLOY</span><span class="pd-cursor" aria-hidden="true"></span></div>
-                </div>
-              </div>
-            </article>
-            <article class="process-scene" data-process-scene>
-              <div class="process-scene-head"><span class="process-scene-num">07</span><div><h3 data-i18n="step7Title">Fisica & Entrega</h3><p data-i18n="step7Desc">Velocidade, gravidade e friccao dirigem particulas e micro-celebracoes. O toque final que faz o produto parecer vivo.</p><div class="process-step-tags"><span>Physics2D</span><span>CustomBounce</span></div></div></div>
-              <div class="process-demo pd-spark-stage"><div class="process-demo-grid"></div>
-                <button class="pd-launch-btn" id="pdLaunchBtn" type="button">Lancar release</button>
-                <span class="pd-launch-hint">clique para celebrar</span>
-              </div>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- FULL-SCREEN IMAGE BREAK -->
     <section class="img-section right-overlay" aria-labelledby="craftH2">
       <div class="img-section-bg">
@@ -1212,7 +1037,6 @@
         <ul>
           <li><a href="#projects">Projetos</a></li>
           <li><a href="#services">Serviços</a></li>
-          <li><a href="#process">Processo</a></li>
           <li><a href="#capabilities">Capacidades</a></li>
           <li><a href="#contact">Contato</a></li>
         </ul>
@@ -1287,7 +1111,7 @@
     // ─── i18n ───
     const translations = {
       pt: {
-        navProjects: "Projetos", navProcess: "Processo", navCapabilities: "Capacidades", navContact: "Contato",
+        navProjects: "Projetos", navCapabilities: "Capacidades", navContact: "Contato",
         heroEyebrow: "Solucoes Digitais Enterprise",
         heroLine1: "Nos desenhamos", heroLine2: "Solucoes Digitais", heroLine3: "perfeitas para sua necessidade",
         heroSub: "Precisando de Sistemas, Aplicativos ou Automacoes? Entre em contato.",
@@ -1315,15 +1139,6 @@
         feat2: "Design Engineering — componentes prontos para producao",
         feat3: "Performance Budgets — metricas de velocidade garantidas",
         feat4: "Acessibilidade — conformidade WCAG desde o primeiro commit",
-        kicker2: "03 / Nosso Processo", processH2: "Como\nconstruimos.",
-        processDesc: "Uma metodologia comprovada refinada em dezenas de projetos enterprise. Do discovery a entrega, com arquitetura de motion em cada camada.",
-        step1Title: "Discovery & Auditoria", step1Desc: "Analise profunda dos objetivos de negocio, ativos existentes, restricoes tecnicas e cenario competitivo. Mapeamos o espaco de oportunidade primeiro.",
-        step2Title: "Arquitetura de Motion", step2Desc: "Definimos o DNA de movimento do seu produto. Principios de animacao, curvas de easing, tokens de timing e padroes de interacao.",
-        step3Title: "Design Engineering", step3Desc: "Implementacao pixel-perfect com codigo de producao. Bibliotecas de componentes, sistemas responsivos, acessibilidade e performance.",
-        step4Title: "Lancamento & Medicao", step4Desc: "Deploy com confianca. Analytics pos-lancamento, testes A/B, monitoramento de performance e otimizacao iterativa para impacto sustentado.",
-        step5Title: "Interacao Tangivel", step5Desc: "Arraste, jogue e encaixe com fisica de inercia. Configuradores de produto, quadros kanban e UIs espaciais ganham peso real.",
-        step6Title: "Conteudo Dinamico", step6Desc: "Texto que se escreve, embaralha e atualiza ao vivo. Terminais, contadores e copys que reagem ao estado do sistema.",
-        step7Title: "Fisica & Entrega", step7Desc: "Velocidade, gravidade e friccao dirigem particulas e micro-celebracoes. O toque final que faz o produto parecer vivo.",
         kickerCraft: "O Oficio", craftH2: "Cada detalhe e\numa decisao.",
         craftDesc: "Por tras de cada projeto entregue existe uma biblioteca de padroes interativos, testados em dispositivos e refinados em deployments enterprise reais.",
         kicker4: "04 / Capacidades", aboutH2: "O que entregamos.",
@@ -1351,7 +1166,7 @@
         splitStatusText: "STATUS: SISTEMAS SE SENTEM VIVOS_"
       },
       en: {
-        navProjects: "Projects", navProcess: "Process", navCapabilities: "Capabilities", navContact: "Contact",
+        navProjects: "Projects", navCapabilities: "Capabilities", navContact: "Contact",
         heroEyebrow: "Enterprise Digital Solutions",
         heroLine1: "We design", heroLine2: "Digital Solutions", heroLine3: "tailored to your needs",
         heroSub: "Need Systems, Apps or Automations? Get in touch.",
@@ -1379,15 +1194,6 @@
         feat2: "Design Engineering — production-ready components",
         feat3: "Performance Budgets — guaranteed speed metrics",
         feat4: "Accessibility — WCAG compliance from first commit",
-        kicker2: "03 / Our Process", processH2: "How we\nbuild it.",
-        processDesc: "A proven methodology refined across dozens of enterprise engagements. Discovery through delivery, with motion architecture at every layer.",
-        step1Title: "Discovery & Audit", step1Desc: "Deep dive into business objectives, existing assets, technical constraints, and competitive landscape.",
-        step2Title: "Motion Architecture", step2Desc: "Define the movement DNA of your product. Animation principles, easing curves, timing tokens, and interaction patterns.",
-        step3Title: "Design Engineering", step3Desc: "Pixel-perfect implementation with production-grade code. Component libraries, responsive systems, accessibility.",
-        step4Title: "Launch & Measure", step4Desc: "Deploy with confidence. Post-launch analytics, A/B testing, performance monitoring, iterative optimization.",
-        step5Title: "Tangible Interaction", step5Desc: "Drag, throw, and snap with inertia physics. Product configurators, kanban boards, and spatial UIs gain real weight.",
-        step6Title: "Dynamic Content", step6Desc: "Text that types, scrambles, and updates live. Terminals, counters, and copy that reacts to system state.",
-        step7Title: "Physics & Delivery", step7Desc: "Velocity, gravity, and friction drive particles and micro-celebrations. The finishing touch that makes products feel alive.",
         kickerCraft: "The Craft", craftH2: "Every detail is\na decision.",
         craftDesc: "Behind every shipped project is a library of interactive patterns, tested across devices and refined through real enterprise deployments.",
         kicker4: "04 / Capabilities", aboutH2: "What we deliver.",
@@ -1870,7 +1676,7 @@
 
     // ─── TOPBAR ───
     ScrollTrigger.create({ start: "top -80", end: 99999, toggleClass: { className: "scrolled", targets: "#topbar" } });
-    ["projects", "process", "capabilities", "contact"].forEach(id => {
+    ["projects", "capabilities", "contact"].forEach(id => {
       ScrollTrigger.create({
         trigger: "#" + id, start: "top center", end: "bottom center",
         onToggle: self => {
@@ -1993,114 +1799,6 @@
       });
     }
 
-    // ─── PROCESS: PINNED GSAP STORY ENGINE ───
-    // Desktop (>1025px, motion allowed): scenes pinned + scrubbed.
-    // Mobile / reduced motion: static CSS fallback — every scene renders.
-    // The master timeline is built ONLY inside the desktop context so its
-    // fromTo() initial states (opacity:0) can never leak onto mobile.
-    const processScenes = gsap.utils.toArray("[data-process-scene]");
-    const processButtons = gsap.utils.toArray("[data-process-jump]");
-    const processSection = $("#process");
-    if (processSection && processScenes.length) {
-      const setActiveProcess = index => {
-        processButtons.forEach((button, i) => {
-          const active = i === index;
-          button.classList.toggle("active", active);
-          button.setAttribute("aria-current", active ? "step" : "false");
-        });
-      };
-
-      const processMM = gsap.matchMedia();
-      processMM.add("(min-width: 1025px) and (prefers-reduced-motion: no-preference)", () => {
-        const processEase = window.CustomEase ? (CustomEase.create("yangSignal", "M0,0 C0.16,1 0.3,1 1,1"), "yangSignal") : "power3.out";
-        const processMaster = gsap.timeline({ defaults: { ease: processEase }, paused: true });
-        processScenes.forEach((scene, i) => {
-          if (i) processMaster.to(processScenes[i - 1], { autoAlpha: 0, yPercent: -8, duration: .24 }, i);
-          processMaster.fromTo(scene, { autoAlpha: 0, yPercent: 10 }, { autoAlpha: 1, yPercent: 0, duration: .32, onStart: () => setActiveProcess(i), onReverseComplete: () => setActiveProcess(Math.max(0, i - 1)) }, i);
-          const demo = scene.querySelector(".process-demo");
-          if (demo) processMaster.fromTo(demo, { clipPath: "inset(48% 48% 48% 48% round 24px)" }, { clipPath: "inset(0% 0% 0% 0% round 24px)", duration: .42 }, i + .08);
-        });
-        processMaster.to(".process-radar-line", { rotation: 360, duration: 1, ease: "none" }, 0)
-          .fromTo("#processWavePath", { drawSVG: "0%" }, { drawSVG: "100%", duration: .8 }, 1)
-          .to(".process-orbit i", { rotation: 720, motionPath: { path: [{x:110,y:-80},{x:220,y:0},{x:110,y:80},{x:0,y:0},{x:110,y:-80}], curviness:1.6 }, duration: .9, ease: "none" }, 2)
-          .fromTo(".process-bars i", { scaleY: 0 }, { scaleY: 1, stagger: .035, duration: .45, ease: "back.out(1.8)" }, 3);
-
-        const trigger = ScrollTrigger.create({
-          trigger: processSection, start: "top top", end: () => "+=" + innerHeight * processScenes.length,
-          pin: "#processStage", scrub: .7, animation: processMaster, invalidateOnRefresh: true,
-          onUpdate: self => {
-            gsap.set("#processProgress", { scaleX: self.progress });
-            $("#processPercent").textContent = Math.round(self.progress * 100).toString().padStart(2,"0") + "%";
-            const index = Math.min(processScenes.length - 1, Math.floor(self.progress * processScenes.length)); setActiveProcess(index);
-          }
-        });
-        const processHandlers = processButtons.map((button, index) => {
-          const handler = () => gsap.to(window, { scrollTo: trigger.start + ((trigger.end - trigger.start) * (index / (processScenes.length - 1))), duration: .9, ease: "power3.inOut" });
-          button.addEventListener("click", handler);
-          return [button, handler];
-        });
-        return () => {
-          processHandlers.forEach(([button, handler]) => button.removeEventListener("click", handler));
-          trigger.kill();
-          processMaster.kill();
-          gsap.set(processScenes, { clearProps: "all" });
-          $$(".process-demo").forEach(el => gsap.set(el, { clearProps: "all" }));
-          gsap.set("#processProgress", { clearProps: "all" });
-        };
-      });
-
-      // ── Scene 05 · tangible drag — interactive on every viewport ──
-      const pdChip = $("#pdDragChip"), pdField = $("#pdDragField");
-      if (pdChip && pdField && window.Draggable) {
-        const pdZones = $$(".pd-zone", pdField);
-        Draggable.create(pdChip, {
-          type: "x,y", bounds: pdField, edgeResistance: .78, inertia: !!window.InertiaPlugin,
-          onPress() { gsap.to(pdChip, { scale: 1.08, duration: .2, overwrite: "auto" }); },
-          onRelease() { gsap.to(pdChip, { scale: 1, duration: .4, ease: "back.out(2)", overwrite: "auto" }); },
-          onDrag() {
-            const r = pdChip.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-            pdZones.forEach(z => {
-              const b = z.getBoundingClientRect();
-              z.classList.toggle("highlight", cx > b.left && cx < b.right && cy > b.top && cy < b.bottom);
-            });
-          },
-          onDragEnd() { pdZones.forEach(z => z.classList.remove("highlight")); }
-        });
-      }
-
-      // ── Scene 06 · live content cycle ──
-      const pdScramble = $("#pdScrambleText");
-      if (pdScramble && window.ScrambleTextPlugin && !reduce) {
-        const pdWords = ["DEPLOY", "BUILD", "SHIP", "SCALE"];
-        const pdTl = gsap.timeline({ repeat: -1 });
-        pdWords.forEach((w, i) => pdTl.to(pdScramble, { duration: 1.1, scrambleText: { text: w, chars: "01<>/{}[]#", speed: .4 }, ease: "none" }, i * 2.2));
-      }
-
-      // ── Scene 07 · physics celebration ──
-      const pdLaunch = $("#pdLaunchBtn");
-      if (pdLaunch) {
-        const sparkColors = ["var(--green)", "var(--acid)", "var(--blue)", "var(--red)", "var(--purple)", "var(--orange)"];
-        pdLaunch.addEventListener("click", () => {
-          if (reduce) return;
-          const stage = pdLaunch.closest(".process-demo");
-          if (!stage) return;
-          const lr = pdLaunch.getBoundingClientRect(), sr = stage.getBoundingClientRect();
-          for (let i = 0; i < 34; i++) {
-            const p = document.createElement("i");
-            p.className = "wb-particle";
-            p.style.background = sparkColors[i % sparkColors.length];
-            stage.appendChild(p);
-            gsap.set(p, { left: lr.left - sr.left + lr.width / 2, top: lr.top - sr.top + lr.height / 2 });
-            if (window.Physics2DPlugin) {
-              gsap.to(p, { duration: gsap.utils.random(.8, 1.6), physics2D: { velocity: gsap.utils.random(120, 320), angle: gsap.utils.random(200, 340), gravity: 260 }, rotation: gsap.utils.random(-300, 300), autoAlpha: 0, onComplete: () => p.remove() });
-            } else {
-              gsap.to(p, { duration: gsap.utils.random(.6, 1.1), x: gsap.utils.random(-140, 140), y: gsap.utils.random(-170, 30), autoAlpha: 0, onComplete: () => p.remove() });
-            }
-          }
-        });
-      }
-    }
-
     // ─── SITE-WIDE PLUGIN LAYER: MOTION SUPPORTS NAVIGATION AND FEEDBACK ───
     if (!reduce) {
       if (window.ScrambleTextPlugin) {
@@ -2118,8 +1816,6 @@
         ScrollTrigger.batch(".cap-cell", { start:"top 88%", once:true, onEnter: batch => gsap.fromTo(batch, { y:36, autoAlpha:0 }, { y:0, autoAlpha:1, stagger:.07, duration:.8, ease:"cardArrival" }) });
       }
       Observer.create({ target:document, type:"pointer", onMove:self => {
-        document.documentElement.style.setProperty("--process-x", `${(self.x / innerWidth) * 100}%`);
-        document.documentElement.style.setProperty("--process-y", `${(self.y / innerHeight) * 100}%`);
       }});
       $$(".contact-ch").forEach(channel => {
         channel.addEventListener("click", () => {
@@ -2146,7 +1842,7 @@
     });
 
     // ─── HEADING SPLITS ───
-    $$(".section-head h2, .process-left h2, .gallery-intro h2, .img-content h2").forEach(h => {
+    $$(".section-head h2, .gallery-intro h2, .img-content h2").forEach(h => {
       try {
         let s = SplitText.create(h, { type: "words,chars" });
         sectionSplits.push({ el: h, split: s });
