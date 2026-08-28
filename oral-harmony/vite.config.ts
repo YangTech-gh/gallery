@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  base: "/oral-harmony/",
+  base: "/gallery/oral-harmony/",
   plugins: [react(), tailwindcss()],
   build: {
     outDir: "../oral-harmony-dist",
