@@ -486,14 +486,16 @@ export default function Home() {
 
           <section className="motion-lab section-shell">
             <div className="section-meta" data-reveal><span>04 / Ritmo da harmonia</span><span>Movimento responsivo</span></div>
+            <div className="motion-lab-title" data-reveal><h2>Pequenos gestos. <i>Grande diferença.</i></h2><p>Uma camada experimental de movimento traduz a atenção aos detalhes que existe em cada atendimento.</p></div>
             <div className="motion-lab-grid">
-              <div className="motion-lab-title" data-reveal><h2>Pequenos gestos. <i>Grande diferença.</i></h2><p>Uma camada experimental de movimento traduz a atenção aos detalhes que existe em cada atendimento.</p></div>
               <div className="morph-panel" data-reveal>
                 <svg className="morph-graphic" viewBox="0 0 300 300" aria-hidden="true"><path className="morph-flower" d="M150 33c28 57 88 47 99 105-57 12-48 71-99 99-51-28-42-87-99-99 11-58 71-48 99-105Z" /><circle cx="150" cy="150" r="13" /></svg>
                 <span>Forma que se adapta</span><PlugLabel>MorphSVG + DrawSVG</PlugLabel>
               </div>
-              <div className="motion-copy-card" data-reveal><p className="motion-keyword">presença</p><span>O conteúdo reage com suavidade, sem retirar a autonomia de quem navega.</span><PlugLabel>TextPlugin + ScrambleText</PlugLabel></div>
-              <div className="motion-orb-card" data-reveal><div className="physics-orb" /><span>Movimento com peso e pausa.</span><PlugLabel>PhysicsProps + CustomBounce</PlugLabel></div>
+              <div className="motion-right-stack">
+                <div className="motion-copy-card" data-reveal><p className="motion-keyword">presença</p><span>O conteúdo reage com suavidade, sem retirar a autonomia de quem navega.</span><PlugLabel>TextPlugin + ScrambleText</PlugLabel></div>
+                <div className="motion-orb-card" data-reveal><div className="physics-orb" /><span>Movimento com peso e pausa.</span><PlugLabel>PhysicsProps + CustomBounce</PlugLabel></div>
+              </div>
             </div>
           </section>
 
