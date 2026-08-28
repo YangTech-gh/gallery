@@ -393,6 +393,11 @@ export default function Home() {
       <main id="smooth-wrapper">
         <div id="smooth-content">
           <section className="hero section-shell">
+            <div className="hero-petals" aria-hidden="true">
+              {Array.from({ length: 14 }, (_, i) => (
+                <span key={i} className={`petal petal-${i % 5}`} style={{ left: `${5 + (i * 7) % 90}%`, animationDelay: `${(i * 1.3) % 8}s`, animationDuration: `${6 + (i % 4) * 1.5}s` }} />
+              ))}
+            </div>
             <div className="hero-copy-wrap">
               <p className="hero-kicker"><span className="eyebrow-dot" /> Odontologia e harmonização · Poços de Caldas</p>
               <h1 className="hero-title">Seu sorriso merece<br /><i>uma escuta atenta.</i></h1>
