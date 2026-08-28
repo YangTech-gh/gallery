@@ -161,11 +161,11 @@ export default function Home() {
 
   const chooseService = contextSafe((next: number) => {
     const cards = servicesRef.current?.querySelectorAll(".service-card");
-    if (!cards) return;
+    if (!cards || next === activeService) return;
     const state = Flip.getState(cards);
     setActiveService(next);
     requestAnimationFrame(() => {
-      Flip.from(state, { duration: 0.62, ease: "oral-out", absolute: true, stagger: 0.035 });
+      Flip.from(state, { duration: 0.55, ease: "oral-out", absolute: false, stagger: 0.03 });
     });
   });
 
@@ -392,7 +392,7 @@ export default function Home() {
 
       <main id="smooth-wrapper">
         <div id="smooth-content">
-          <section className="hero section-shell">
+          <section className="hero">
             <div className="hero-petals" aria-hidden="true">
               {Array.from({ length: 14 }, (_, i) => (
                 <span key={i} className={`petal petal-${i % 5}`} style={{ left: `${5 + (i * 7) % 90}%`, animationDelay: `${(i * 1.3) % 8}s`, animationDuration: `${6 + (i % 4) * 1.5}s` }} />
