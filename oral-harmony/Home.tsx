@@ -398,25 +398,27 @@ export default function Home() {
                 <span key={i} className={`petal petal-${i % 5}`} style={{ left: `${5 + (i * 7) % 90}%`, animationDelay: `${(i * 1.3) % 8}s`, animationDuration: `${6 + (i % 4) * 1.5}s` }} />
               ))}
             </div>
-            <div className="hero-copy-wrap">
-              <p className="hero-kicker"><span className="eyebrow-dot" /> Odontologia e harmonização · Poços de Caldas</p>
-              <h1 className="hero-title">Seu sorriso merece<br /><i>uma escuta atenta.</i></h1>
-              <p className="hero-copy">Um espaço de cuidado técnico e acolhedor, pensado para que você se sinta seguro em cada decisão.</p>
-              <div className="hero-actions">
-                <button className="button-primary" onClick={() => scrollTo("#contato")}>
-                  Falar com a Oral Harmony <MoveRight size={19} aria-hidden="true" />
-                </button>
-                <button className="text-button" onClick={() => scrollTo("#a-clinica")}>Conheça nossa história <ArrowDownRight size={17} aria-hidden="true" /></button>
+            <div className="hero-content">
+              <div className="hero-copy-wrap">
+                <p className="hero-kicker"><span className="eyebrow-dot" /> Odontologia e harmonização · Poços de Caldas</p>
+                <h1 className="hero-title">Seu sorriso merece<br /><i>uma escuta atenta.</i></h1>
+                <p className="hero-copy">Um espaço de cuidado técnico e acolhedor, pensado para que você se sinta seguro em cada decisão.</p>
+                <div className="hero-actions">
+                  <button className="button-primary" onClick={() => scrollTo("#contato")}>
+                    Falar com a Oral Harmony <MoveRight size={19} aria-hidden="true" />
+                  </button>
+                  <button className="text-button" onClick={() => scrollTo("#a-clinica")}>Conheça nossa história <ArrowDownRight size={17} aria-hidden="true" /></button>
+                </div>
+                <p className="availability"><Clock3 size={14} aria-hidden="true" /> Seg–Sex · atendimento com hora marcada</p>
               </div>
-              <p className="availability"><Clock3 size={14} aria-hidden="true" /> Seg–Sex · atendimento com hora marcada</p>
-            </div>
-            <div className="hero-orbit" aria-label="Marca gráfica da Oral Harmony">
-              <div className="orbit-note"><Sparkles size={15} aria-hidden="true" /> cuidado com intenção</div>
+              <div className="hero-orbit" aria-label="Marca gráfica da Oral Harmony">
+                <div className="orbit-note"><Sparkles size={15} aria-hidden="true" /> cuidado com intenção</div>
               <div className="orbit-center">
                 <img src="./assets/irmas-hero.png" alt="Bruna e Isabela - Oral Harmony" className="orbit-portrait" />
               </div>
               <div className="orbit-petal petal-one" /><div className="orbit-petal petal-two" /><div className="orbit-petal petal-three" />
               <p className="orbit-caption">ORAL<br />HARMONY</p>
+              </div>
             </div>
             <div className="hero-index"><span>01</span><i /> <span>06</span></div>
           </section>
@@ -455,7 +457,7 @@ export default function Home() {
 
           <section className="journey section-shell" id="cuidados">
             <div className="section-meta" data-reveal><span>03 / Caminhos de cuidado</span><span>Explore, arraste, escolha</span></div>
-            <div className="journey-heading" data-reveal><h2>O que faz sentido <i>para o seu momento?</i></h2><p>Do acompanhamento preventivo ao planejamento estético, o cuidado começa em uma avaliação individual.</p></div>
+            <div className="journey-heading" data-reveal><h2>O que faz sentido <br></br><i>para o seu momento?</i></h2><p>Do acompanhamento preventivo ao planejamento estético, o cuidado começa em uma avaliação individual.</p></div>
             <div className="care-rail" aria-hidden="true"><svg viewBox="0 0 440 210"><path className="care-track" d="M13 165 C110 35 175 203 270 92 C340 10 385 77 428 48" /></svg></div>
             <div className="care-orbit-wrap" aria-hidden="true">
               <svg viewBox="0 0 450 220"><path ref={pathRef} className="orbit-path" d="M18,90 C108,5 339,25 432,107 C346,204 119,196 18,90 Z" /></svg>
@@ -482,7 +484,7 @@ export default function Home() {
             <figure className="precision-portrait" data-reveal><img src={clinicImages.avaliacao} alt="Detalhe da experiência de avaliação da Oral Harmony" /><figcaption>Consulta com conversa clara, sem pressa.</figcaption></figure>
             <div className="precision-copy" data-reveal>
               <p className="eyebrow"><span className="eyebrow-dot" /> Cuidado com propósito</p>
-              <h2>Precisão que acolhe. <i>Leveza que permanece.</i></h2>
+              <h2>Precisão que acolhe. <br></br><i>Leveza que permanece.</i></h2>
               <p>Bruna é especializada em endodontia. Isabela está concluindo sua especialização em implantodontia. Juntas, unem estudo contínuo e uma escuta que respeita o seu ritmo.</p>
               <div className="founder-points"><span><Check size={16} /> Conversa clara em cada etapa</span><span><Check size={16} /> Plano de cuidado individual</span><span><Check size={16} /> Ambiente sereno e seguro</span></div>
             </div>
@@ -503,7 +505,7 @@ export default function Home() {
                   </svg>
                 </div>
                 <div className="morph-card-content">
-                  <span className="morph-label">Forma que se adapta</span>
+                  <span className="morph-label">Venha ser feliz na Oral Harmony</span>
                   <PlugLabel>MorphSVG + DrawSVG</PlugLabel>
                 </div>
               </div>
@@ -515,7 +517,7 @@ export default function Home() {
                 </div>
                 <div className="weight-card" data-reveal>
                   <div className="weight-orb" />
-                  <span className="weight-desc">Movimento com peso e pausa.</span>
+                  <span className="weight-desc">Cuidado, atenção e profissionalismo.</span>
                   <PlugLabel>PhysicsProps + CustomBounce</PlugLabel>
                 </div>
               </div>
@@ -523,7 +525,7 @@ export default function Home() {
           </section>
 
           <section className="faq section-shell">
-            <div className="faq-intro" data-reveal><p className="eyebrow"><span className="eyebrow-dot" /> Antes de vir</p><h2>Alguma dúvida <i>antes da avaliação?</i></h2></div>
+            <div className="faq-intro" data-reveal><p className="eyebrow"><span className="eyebrow-dot" /> Antes de vir</p><h2>Alguma dúvida <br></br> <i>antes da avaliação?</i></h2></div>
             <div className="faq-list" data-reveal>
               {["Como agendo minha avaliação?", "Quais são os horários de atendimento?", "Onde fica a Oral Harmony?"].map((question, index) => (
                 <div className={`faq-item ${faqOpen === index ? "open" : ""}`} key={question}>
