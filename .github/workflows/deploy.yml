@@ -1,0 +1,72 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: oral-harmony/package-lock.json
+
+      - name: Install oral-harmony dependencies
+        run: npm ci
+        working-directory: oral-harmony
+
+      - name: Build oral-harmony
+        run: npm run build
+        working-directory: oral-harmony
+
+      - name: Assemble deployment
+        run: |
+          mkdir -p _deploy
+
+          # Copy all static HTML files from repo root
+          cp *.html _deploy/
+
+          # Copy vendor GSAP plugins
+          cp -r vendor _deploy/vendor
+
+          # Copy client asset folders
+          for dir in lobomayer-assets maissorriso-assets; do
+            [ -d "$dir" ] && cp -r "$dir" "_deploy/$dir"
+          done
+
+          # Copy .nojekyll to disable Jekyll processing
+          cp .nojekyll _deploy/.nojekyll 2>/dev/null || true
+
+          # Copy the built oral-harmony React app into its subpath
+          cp -r oral-harmony-dist _deploy/oral-harmony
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _deploy
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
