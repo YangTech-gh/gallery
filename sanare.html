@@ -1283,8 +1283,10 @@
 
   // idle ambient motion — paused automatically while the tab is hidden
   // (the render loop stops on visibilitychange, freezing these tweens)
-  gsap.to(fiberRoot.rotation, { z: Math.PI*2, duration: 90, repeat:-1, ease:'none' });
-  gsap.to(speckRoot.rotation, { y: Math.PI*2, duration: 140, repeat:-1, ease:'none' });
+  if (!REDUCED_MOTION) {
+    gsap.to(fiberRoot.rotation, { z: Math.PI*2, duration: 90, repeat:-1, ease:'none' });
+    gsap.to(speckRoot.rotation, { y: Math.PI*2, duration: 140, repeat:-1, ease:'none' });
+  }
   ScrollTrigger.config({ ignoreMobileResize: true });
 
   // subtle hero parallax: the eyebrow + h1 drift slightly as the
@@ -1577,19 +1579,26 @@
     /* ---- Mobile nav + in-page navigation ------------------------ */
     const navToggle = document.querySelector('.nav-toggle');
     const navLinks = document.getElementById('primary-navigation');
+    let lastFocused = null;
     const closeMobileNav = () => {
       if (!navToggle || !navLinks) return;
       navToggle.classList.remove('is-open');
       navToggle.setAttribute('aria-expanded','false');
       navToggle.querySelector('.sr-only').textContent = 'Abrir menu';
       navLinks.classList.remove('is-open');
+      if (lastFocused && document.activeElement !== navToggle) lastFocused.focus?.();
     };
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navLinks?.classList.contains('is-open')) closeMobileNav();
+    });
     navToggle?.addEventListener('click', () => {
       const open = navToggle.getAttribute('aria-expanded') === 'true';
+      if (!open) lastFocused = document.activeElement;
       navToggle.classList.toggle('is-open', !open);
       navToggle.setAttribute('aria-expanded', String(!open));
       navToggle.querySelector('.sr-only').textContent = open ? 'Abrir menu' : 'Fechar menu';
       navLinks?.classList.toggle('is-open', !open);
+      if (!open) navLinks?.querySelector('a')?.focus();
     });
     document.querySelectorAll('a[href^="#"]').forEach((a) => {
       a.addEventListener('click', (e) => {

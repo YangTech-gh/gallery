@@ -142,13 +142,32 @@ export default function Home() {
   const [faqOpen, setFaqOpen] = useState<number | null>(null);
   const { contextSafe } = useGSAP({ scope: root });
 
+  const lastFocusedRef = useRef<HTMLElement | null>(null);
+
   useEffect(() => {
     const dismissMenu = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMenuOpen(false);
+      if (event.key === "Escape" && menuOpen) {
+        setMenuOpen(false);
+        if (lastFocusedRef.current) {
+          lastFocusedRef.current.focus();
+        }
+      }
     };
     window.addEventListener("keydown", dismissMenu);
     return () => window.removeEventListener("keydown", dismissMenu);
-  }, []);
+  }, [menuOpen]);
+
+  const toggleMenu = () => {
+    if (!menuOpen) {
+      lastFocusedRef.current = document.activeElement as HTMLElement;
+      setMenuOpen(true);
+    } else {
+      setMenuOpen(false);
+      if (lastFocusedRef.current) {
+        lastFocusedRef.current.focus();
+      }
+    }
+  };
 
   const scrollTo = contextSafe((id: string) => {
     setMenuOpen(false);
@@ -378,7 +397,7 @@ export default function Home() {
             <button className="nav-book" onClick={() => scrollTo("#contato")}>
               Agendar avaliação <ArrowUpRight size={15} aria-hidden="true" />
             </button>
-            <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? "Fechar menu" : "Abrir menu"} aria-expanded={menuOpen} aria-controls="menu-principal-mobile">
+            <button className="menu-toggle" onClick={toggleMenu} aria-label={menuOpen ? "Fechar menu" : "Abrir menu"} aria-expanded={menuOpen} aria-controls="menu-principal-mobile">
               {menuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
