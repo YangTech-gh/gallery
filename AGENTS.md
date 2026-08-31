@@ -14,6 +14,7 @@ Static portfolio of motion-rich, GSAP-driven single-page websites served as-is f
 ├── lobo-mayer.html         Clínica Lobo Mayer, 1913 lines (Babylon polyhedral bg)
 ├── maissorriso.html        Mais Sorriso, 1633 lines
 ├── tea.html                Clínica TEA — full paged UI (no scroll-smoother)
+├── franz-mayer.html        Dr. Franz Maier — medicina da dor (navy/gold; rebuilt 2026-08-30)
 ├── gsap-modern-sites/
 │   ├── SKILL.md            Reference skill for GSAP patterns
 │   ├── gsap-showcase.html  Living reference page linking the patterns in the skill
@@ -24,6 +25,8 @@ Static portfolio of motion-rich, GSAP-driven single-page websites served as-is f
 │   └── gsap/               19 GSAP 3.x plugins including all premium (.min.js, locally vendored)
 ├── lobomayer-assets/       favicons, doctor photo, video
 ├── maissorriso-assets/     8 unsorted jpegs named "0 (n).jpeg"
+├── franzmayer-assets/      dr-franz.webp, logo-azul.png, logo-branco.png
+├── .github/workflows/deploy.yml   GH Actions → Pages (builds oral-harmony, assembles _deploy/)
 ├── backups/                Pre-edit snapshots, .bak files (ignored by .gitignore)
 ├── GSAP-UI-UX-AUDIT.md     Cross-site accessibility/UX audit (issues + status)
 ├── push.sh                 File whose entire contents is one literal command (see "Gotchas")

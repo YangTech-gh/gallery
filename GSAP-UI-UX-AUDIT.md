@@ -427,3 +427,32 @@ All files that use `<img>` tags set `decoding="async"` — ✅ applied universal
 6. **Visibility API for `maissorriso.html`** — Marquee and emoji tweens waste CPU when tab is hidden
 7. **Ambient rotations in `sanare.html`** — `fiberRoot` and `speckRoot` rotations run unconditionally, ignoring reduced motion
 8. **`.gitignore`** — Add to exclude backup files from version control
+
+---
+
+## 7. Double Review — 2026-08-30 (supersedes stale claims above)
+
+The repo evolved well past the 2026-08-23 audit. Re-verification found most "critical fixes" already landed. This section is the current source of truth.
+
+### 7.1 Verified already-fixed (no action taken)
+- `viewport-fit=cover` present on **all** files (audit §2 stale).
+- `gsap.context()` / `gsap.matchMedia()` present in all six legacy files (audit §4.3 stale).
+- Focus traps: `index.html`, `sanare.html`, `gisele.html`, `maissorriso.html` all have trap + Escape + focus restore.
+- Touch targets: `index.html .lang-btn` now 44px (48px mobile); `tea.html .dot-btn` 44×44 with `min-width/min-height`; `lobo-mayer.html .esp-arrow` removed by redesign.
+- `tea.html` reduced-motion panel duration is `0` (not 0.16); `maissorriso.html` HAS a `visibilitychange` handler; `sanare.html` ambient `fiberRoot/speckRoot` rotations ARE gated by `REDUCED_MOTION`, GLB import has a `.catch` fallback sphere, and `ignoreMobileResize` is set.
+
+### 7.2 Applied on 2026-08-30
+- **`franz-mayer.html` rebuilt** from a truncated 8.9 KB stub into a full production site (Dr. Franz Maier, CRM 61337 — real content sourced from drfranzmaier.com.br + lobo-mayer.html). GSAP 3.15-native: `SplitText.create({autoSplit, onSplit})`, `gsap.context()` + `pagehide` revert, `gsap.matchMedia()` ScrollSmoother gate, `ScrollTrigger.batch` reveals, `quickTo` cursor/progress, `overwrite:'auto'`, `ignoreMobileResize`, visibility pause, theme + motion toggles (persisted), focus-trapped mobile menu, `onerror` on vendor scripts. New components: filterable expandable treatment index (aria-pressed chips + aria-expanded rows + per-treatment WhatsApp CTA), interactive SVG body-map synced to a condition list with dynamic WhatsApp CTA, stacked sticky-card formation deck.
+- **`deploy.yml`**: now copies `franzmayer-assets/` into the Pages artifact (was missing → broken images in prod).
+- **Vendor resilience**: `onerror="this.remove()"` added to every vendored `<script>` in all six legacy files (house pattern, previously absent everywhere).
+- **`lobo-mayer.html`**: Tab focus trap added to the overlay menu (Escape/focus-restore already existed); `visibilitychange` globalTimeline pause; `ScrollTrigger.config({ ignoreMobileResize: true })`.
+
+### 7.3 Known open items (deliberate, tracked)
+- `eye-original.glb` still not committed — sanare runs the fallback sphere. Commit the asset to restore the real model.
+- `oral-harmony` npm `gsap ^3.12.7` vs vendored 3.15.0 — bump + regenerate lockfile when convenient (separate Vite app, low risk either way).
+- `index.html .hero-right{display:none}` ≤600px remains a design choice (hero adapts to text-only on small screens).
+
+### 7.4 tea.html hero fix (2026-08-30, user-reported)
+- **Bug:** hero children (`.lede`, `.hero-badges`, `.btn-row`, `.scroll-hint`, `.hero-meta`) were hidden with `autoAlpha: 0` but revealed with an `opacity`-only `fromTo`, so `visibility: hidden` never cleared — hero showed only the title in every browser.
+- **Fix:** reveal now animates `autoAlpha` (visibility restored), plus a `document.hidden` guard in `runHeroReveal` that sets content visible immediately in background/preview tabs.
+- Sections themselves were always complete (pillars, method steps, card grid, space grid, contact card); they only appeared broken because of the hero bug and rAF-free preview tabs freezing transitions.

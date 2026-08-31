@@ -1892,15 +1892,15 @@ body{padding-top:30px!important;padding-bottom:30px!important}}
      - ScrollTrigger.batch() for many reveal items
      - quickTo() for ticker-friendly JS animations
      ====================================================== -->
-<script src="vendor/gsap/gsap.min.js" defer></script>
-<script src="vendor/gsap/ScrollTrigger.min.js" defer></script>
+<script src="vendor/gsap/gsap.min.js" defer onerror="this.remove()"></script>
+<script src="vendor/gsap/ScrollTrigger.min.js" defer onerror="this.remove()"></script>
 
-<script src="vendor/gsap/SplitText.min.js" defer></script>
-<script src="vendor/gsap/Draggable.min.js" defer></script>
-<script src="vendor/gsap/InertiaPlugin.min.js" defer></script>
-<script src="vendor/gsap/MotionPathPlugin.min.js" defer></script>
-<script src="vendor/gsap/EasePack.min.js" defer></script>
-<script src="vendor/babylon.js" defer></script>
+<script src="vendor/gsap/SplitText.min.js" defer onerror="this.remove()"></script>
+<script src="vendor/gsap/Draggable.min.js" defer onerror="this.remove()"></script>
+<script src="vendor/gsap/InertiaPlugin.min.js" defer onerror="this.remove()"></script>
+<script src="vendor/gsap/MotionPathPlugin.min.js" defer onerror="this.remove()"></script>
+<script src="vendor/gsap/EasePack.min.js" defer onerror="this.remove()"></script>
+<script src="vendor/babylon.js" defer onerror="this.remove()"></script>
 
 <script>
 (() => {
@@ -1951,7 +1951,17 @@ body{padding-top:30px!important;padding-bottom:30px!important}}
     else if (menuReturnFocus && document.activeElement !== navToggle) menuReturnFocus.focus?.();
   };
   navOverlay?.setAttribute('aria-hidden', 'true');
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && navOverlay?.classList.contains('is-open')) setMenu(false); });
+  document.addEventListener('keydown', (e) => {
+    if (!navOverlay?.classList.contains('is-open')) return;
+    if (e.key === 'Escape'){ setMenu(false); return; }
+    if (e.key === 'Tab'){
+      const els = $$('#navOverlay a, #navOverlay button').filter(el => !el.disabled);
+      if (!els.length) return;
+      const first = els[0], last = els[els.length - 1];
+      if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    }
+  });
   navToggle?.addEventListener('click', () => setMenu(!navOverlay.classList.contains('is-open')));
   links.forEach(a => a.addEventListener('click', () => setMenu(false)));
 
@@ -2489,6 +2499,10 @@ body{padding-top:30px!important;padding-bottom:30px!important}}
     const { gsap, ScrollTrigger, SplitText, MotionPathPlugin, Draggable, InertiaPlugin, EasePack } = window;
     // register plugins (per GSAP 3.15 docs)
     gsap.registerPlugin(ScrollTrigger, SplitText, MotionPathPlugin, Draggable, InertiaPlugin, EasePack && Object.values(EasePack).filter(Boolean));
+    ScrollTrigger.config({ ignoreMobileResize: true });
+    document.addEventListener('visibilitychange', () => {
+      document.hidden ? gsap.globalTimeline.pause() : gsap.globalTimeline.resume();
+    });
 
     // Master context — easy cleanup if anything ever resets
     const ctx = gsap.context(() => {});

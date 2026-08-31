@@ -45,7 +45,7 @@ jobs:
           cp -r vendor _deploy/vendor
 
           # Copy client asset folders
-          for dir in lobomayer-assets maissorriso-assets; do
+          for dir in lobomayer-assets maissorriso-assets franzmayer-assets; do
             [ -d "$dir" ] && cp -r "$dir" "_deploy/$dir"
           done
 

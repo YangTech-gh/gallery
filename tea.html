@@ -670,11 +670,11 @@ body{padding-top:30px !important;padding-bottom:30px !important}
 </div>
 </div>
 
-<script src="vendor/gsap/gsap.min.js"></script>
-<script src="vendor/gsap/ScrollTrigger.min.js"></script>
-<script src="vendor/gsap/SplitText.min.js"></script>
-<script src="vendor/gsap/MorphSVGPlugin.min.js"></script>
-<script src="vendor/gsap/Observer.min.js"></script>
+<script src="vendor/gsap/gsap.min.js" onerror="this.remove()"></script>
+<script src="vendor/gsap/ScrollTrigger.min.js" onerror="this.remove()"></script>
+<script src="vendor/gsap/SplitText.min.js" onerror="this.remove()"></script>
+<script src="vendor/gsap/MorphSVGPlugin.min.js" onerror="this.remove()"></script>
+<script src="vendor/gsap/Observer.min.js" onerror="this.remove()"></script>
 
 <script>
 (function(){
@@ -861,6 +861,11 @@ body{padding-top:30px !important;padding-bottom:30px !important}
         { clearProps: 'all', opacity: 1, y: 0 });
       return;
     }
+    if (document.hidden) {
+      gsap.set('#s-hero .lede, #s-hero .hero-badges, #s-hero .btn-row, #s-hero .scroll-hint, #s-hero .hero-meta',
+        { autoAlpha: 1, y: 0, clearProps: 'transform' });
+      return;
+    }
     var heroTitle = document.getElementById('hero-title');
     if (HAS_SPLIT) {
       document.fonts.ready.then(function(){
@@ -876,8 +881,8 @@ body{padding-top:30px !important;padding-bottom:30px !important}
       gsap.fromTo(heroTitle, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' });
     }
     gsap.fromTo('#s-hero .lede, #s-hero .hero-badges, #s-hero .btn-row, #s-hero .scroll-hint, #s-hero .hero-meta',
-      { opacity: 0, y: 16 },
-      { opacity: 1, y: 0, duration: 0.8, stagger: 0.08, delay: 0.25, ease: 'power2.out', clearProps: 'transform' }
+      { autoAlpha: 0, y: 16 },
+      { autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.08, delay: 0.25, ease: 'power2.out', clearProps: 'transform' }
     );
   }
 
