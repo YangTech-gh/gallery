@@ -215,10 +215,10 @@ export default function Home() {
           .from(".nav-inner", { y: -18, autoAlpha: 0, duration: 0.58 })
           .from(".hero-kicker, .hero-copy, .hero-actions", { y: 24, autoAlpha: 0, duration: 0.7, stagger: 0.09 }, "<0.18")
           .from(split.words, { yPercent: 110, rotate: 4, duration: 0.95, stagger: 0.034 }, "<0.04")
-          .from(".hero-orbit", { scale: 0.82, autoAlpha: 0, duration: 1.15, ease: "soft-bounce" }, "<0.14")
+          .from(".hero-image", { scale: 1.08, autoAlpha: 0, duration: 1.15, ease: "soft-bounce" }, "<0.14")
           .to(".availability", { duration: 0.9, scrambleText: { text: "Seg–Sex · atendimento com hora marcada", chars: "lowerCase" } }, "<0.1");
       } else {
-        gsap.set(".nav-inner, .hero-kicker, .hero-copy, .hero-actions, .hero-title, .hero-orbit", { autoAlpha: 1 });
+        gsap.set(".nav-inner, .hero-kicker, .hero-copy, .hero-actions, .hero-title, .hero-image", { autoAlpha: 1 });
       }
 
       const careRule = CSSRulePlugin.getRule(".care-rail::before");
@@ -255,7 +255,7 @@ export default function Home() {
             duration: 0.85,
             ease: "oral-out",
             immediateRender: false,
-            scrollTrigger: { trigger: element, start: "top 86%", toggleActions: "play none none reverse" },
+            scrollTrigger: { trigger: element, start: "top 86%", toggleActions: "play none none none" },
           });
         });
 
@@ -430,13 +430,9 @@ export default function Home() {
                 </div>
                 <p className="availability"><Clock3 size={14} aria-hidden="true" /> Seg–Sex · atendimento com hora marcada</p>
               </div>
-              <div className="hero-orbit" aria-label="Marca gráfica da Oral Harmony">
-                <div className="orbit-note"><Sparkles size={15} aria-hidden="true" /> cuidado com intenção</div>
-              <div className="orbit-center">
-                <img src="./assets/irmas-hero.png" alt="Bruna e Isabela - Oral Harmony" className="orbit-portrait" />
-              </div>
-              <div className="orbit-petal petal-one" /><div className="orbit-petal petal-two" /><div className="orbit-petal petal-three" />
-              <p className="orbit-caption">ORAL<br />HARMONY</p>
+              <div className="hero-image" aria-label="Bruna e Isabela - Oral Harmony">
+                <img src="./assets/irmas-hero.png" alt="Bruna e Isabela - Oral Harmony" />
+                <div className="hero-image-overlay" />
               </div>
             </div>
             <div className="hero-index"><span>01</span><i /> <span>06</span></div>
