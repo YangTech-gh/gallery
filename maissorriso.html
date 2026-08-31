@@ -300,118 +300,167 @@
     .arc-item-body p{padding-left:0;margin-top:.4rem;}
   }
 
-  /* ---------- Treatments (horizontal pinned on desktop) ---------- */
-  .treatments{padding:clamp(100px,13vw,140px) 0 0;overflow:hidden;position:relative;contain:layout style;}
+  /* ---------- Treatments (Bento Grid) ---------- */
+  .treatments{padding:clamp(80px,12vw,140px) 0;overflow:hidden;position:relative;contain:layout style;}
   .treatments::before{
-    content:'';position:absolute;top:60px;right:8%;width:180px;height:180px;
-    border-radius:50%;background:radial-gradient(circle,rgba(227,133,152,.12),transparent 70%);
-    pointer-events:none;
+    content:'';position:absolute;top:10%;right:5%;width:400px;height:400px;
+    border-radius:50%;background:radial-gradient(circle,rgba(227,133,152,.08),transparent 70%);
+    pointer-events:none;filter:blur(60px);
   }
-  .treatments-decor{
-    position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;
+  .treatments::after{
+    content:'';position:absolute;bottom:5%;left:8%;width:300px;height:300px;
+    border-radius:50%;background:radial-gradient(circle,rgba(198,154,82,.06),transparent 70%);
+    pointer-events:none;filter:blur(50px);
   }
-  .treatments-decor .decor-dot{
-    position:absolute;width:8px;height:8px;border-radius:50%;background:var(--rose);opacity:.15;
+  .treatments-decor{display:none;}
+
+  .section-head{
+    display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;
+    margin-bottom:clamp(2.5rem,5vw,4rem);flex-wrap:wrap;
+    padding:0 clamp(20px,5vw,64px);max-width:1220px;margin-left:auto;margin-right:auto;
+    position:relative;z-index:1;
   }
-  .treatments-decor .decor-dot:nth-child(1){top:80px;left:5%;}
-  .treatments-decor .decor-dot:nth-child(2){top:160px;right:8%;width:12px;height:12px;background:var(--gold);opacity:.12;}
-  .treatments-decor .decor-dot:nth-child(3){bottom:200px;left:18%;width:6px;height:6px;}
-  .treatments-decor .decor-line{
-    position:absolute;width:60px;height:1px;background:var(--line);opacity:.3;transform:rotate(25deg);
-  }
-  .treatments-decor .decor-line:nth-child(4){top:120px;right:15%;}
-  .treatments-decor .decor-line:nth-child(5){bottom:160px;left:8%;transform:rotate(-15deg);width:40px;}
-  .treatments-decor .decor-text{
-    position:absolute;font-family:var(--disp);font-style:italic;font-size:.75rem;
-    color:var(--ink-soft);opacity:.18;white-space:nowrap;
-  }
-  .treatments-decor .decor-text:nth-child(6){top:40px;left:3%;transform:rotate(-8deg);}
-  .treatments-decor .decor-text:nth-child(7){bottom:100px;right:4%;transform:rotate(5deg);}
-  .treatments-decor .decor-emoji{
-    position:absolute;font-size:2.4rem;opacity:.3;cursor:grab;
-    user-select:none;-webkit-user-select:none;pointer-events:all;
-    transition:opacity .3s,transform .3s var(--ease-out);z-index:0;
-    filter:drop-shadow(0 2px 6px rgba(0,0,0,.08));
-  }
-  .treatments-decor .decor-emoji:hover{opacity:.65;transform:scale(1.3) rotate(8deg);}
-  .treatments-decor .decor-emoji:nth-child(8){top:20px;left:4%;font-size:3rem;transform:rotate(-12deg);}
-  .treatments-decor .decor-emoji:nth-child(9){top:70px;right:8%;font-size:2rem;transform:rotate(15deg);}
-  .treatments-decor .decor-emoji:nth-child(10){top:150px;left:18%;font-size:2.2rem;transform:rotate(-6deg);}
-  .treatments-decor .decor-emoji:nth-child(11){top:100px;right:20%;font-size:1.8rem;transform:rotate(10deg);}
-  .treatments-decor .decor-emoji:nth-child(12){bottom:300px;left:6%;font-size:2.6rem;transform:rotate(-20deg);}
-  .treatments-decor .decor-emoji:nth-child(13){bottom:250px;right:5%;font-size:2rem;transform:rotate(8deg);}
-  .treatments-decor .decor-emoji:nth-child(14){bottom:180px;left:15%;font-size:2.2rem;transform:rotate(-10deg);}
-  .treatments-decor .decor-emoji:nth-child(15){bottom:120px;right:12%;font-size:2.8rem;transform:rotate(18deg);}
-  .treatments-decor .decor-emoji:nth-child(16){top:220px;left:10%;font-size:1.8rem;transform:rotate(5deg);}
-  .treatments-decor .decor-emoji:nth-child(17){top:280px;right:15%;font-size:2rem;transform:rotate(-8deg);}
-  .treatments-decor .decor-emoji:nth-child(18){bottom:80px;left:25%;font-size:2.4rem;transform:rotate(12deg);}
-  .treatments-decor .decor-emoji:nth-child(19){bottom:40px;right:22%;font-size:1.6rem;transform:rotate(-15deg);}
-  .treatments-decor .decor-emoji:nth-child(20){top:50px;left:30%;font-size:2rem;transform:rotate(7deg);}
-  .treatments-decor .decor-emoji:nth-child(21){bottom:200px;right:28%;font-size:1.8rem;transform:rotate(-5deg);}
-  .treatments-decor .decor-emoji:nth-child(22){top:180px;left:35%;font-size:2.2rem;transform:rotate(14deg);}
-  .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;margin-bottom:3.4rem;flex-wrap:wrap;padding:0 clamp(20px,5vw,64px);max-width:1220px;margin-left:auto;margin-right:auto;position:relative;z-index:1;}
-  .section-head h2{font-size:clamp(2rem,3.6vw,2.7rem);max-width:15ch;}
-  .section-head p{max-width:34ch;}
+  .section-head h2{font-size:clamp(1.8rem,3.6vw,2.7rem);max-width:18ch;line-height:1.12;}
+  .section-head p{max-width:36ch;font-size:1rem;color:var(--ink-soft);}
   .head-media{
-    flex:0 0 auto;width:clamp(200px,24vw,280px);aspect-ratio:16/10;border-radius:20px;overflow:hidden;
+    flex:0 0 auto;width:clamp(180px,22vw,260px);aspect-ratio:16/10;border-radius:16px;overflow:hidden;
     position:relative;box-shadow:var(--shadow);border:1px solid var(--line);
   }
   .head-media img{width:100%;height:100%;object-fit:cover;transform:scale(1.04);transition:transform 1.2s var(--ease-out);}
   .head-media:hover img{transform:scale(1.12);}
-  .head-media::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(11,51,45,.14),transparent 55%);}
+  .head-media::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(11,51,45,.12),transparent 55%);}
   @media (max-width:700px){ .head-media{display:none;} }
 
-  .track-viewport{width:100%;display:flex;flex-direction:column;gap:1.5rem;}
-  .card-track{display:flex;gap:1.5rem;padding:0 clamp(20px,5vw,64px);align-items:stretch;}
-  .treatments-grid{display:grid;gap:1.2rem;padding:0 clamp(20px,5vw,64px);grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
-  @media(min-width:900px){.treatments-grid{grid-template-columns:repeat(2,1fr);gap:1.4rem;}}
-  @media(min-width:1180px){.treatments-grid{grid-template-columns:repeat(3,1fr);}}
-  .treatments-cta{margin:1.5rem clamp(20px,5vw,64px) 0;display:flex;justify-content:center;}
-  .treatments-cta .btn{padding:1.05rem 2rem;font-size:.95rem;gap:9px;}
-  .treatments-cta svg{width:18px;height:18px;}
+  /* Bento Grid Layout */
+  .track-viewport{width:100%;max-width:1220px;margin:0 auto;padding:0 clamp(20px,5vw,64px);}
+  .treatments-grid{
+    display:grid;gap:1rem;
+    grid-template-columns:repeat(4,1fr);
+    grid-auto-rows:minmax(180px,auto);
+  }
+
+  /* Card size variants */
+  .card--lg{grid-column:span 2;grid-row:span 2;}
+  .card--md{grid-column:span 2;}
+  .card--sm{grid-column:span 1;}
+
+  /* Card base */
   .card{
-    background:var(--porcelain-2);border:1px solid var(--line);border-radius:24px;
-    padding:2.4rem 1.9rem;flex:0 0 clamp(250px,27vw,330px);
-    transition:box-shadow .45s,border-color .45s,background .45s;
+    background:var(--porcelain-2);border:1px solid var(--line);border-radius:20px;
+    padding:clamp(1.6rem,2.5vw,2.2rem);
+    transition:box-shadow .4s var(--ease-out),border-color .4s,transform .4s var(--ease-out),background .4s;
     display:flex;flex-direction:column;position:relative;overflow:hidden;
+    cursor:default;
   }
   .card::before{
-    content:'';position:absolute;top:-30px;right:-30px;width:80px;height:80px;
-    border-radius:50%;opacity:0;transition:opacity .4s;
+    content:'';position:absolute;inset:0;border-radius:20px;opacity:0;transition:opacity .5s var(--ease-out);
+    pointer-events:none;z-index:0;
   }
-  .card::after{
-    content:'';position:absolute;inset:0;border-radius:24px;opacity:0;transition:opacity .4s;
-    background:linear-gradient(135deg,rgba(227,133,152,.06),transparent 60%);
-    pointer-events:none;
-  }
+  .card:nth-child(1)::before{background:linear-gradient(135deg,rgba(227,133,152,.06),transparent 50%);}
+  .card:nth-child(2)::before{background:linear-gradient(135deg,rgba(198,154,82,.06),transparent 50%);}
+  .card:nth-child(3)::before{background:linear-gradient(135deg,rgba(59,90,74,.06),transparent 50%);}
+  .card:nth-child(4)::before{background:linear-gradient(135deg,rgba(227,133,152,.05),transparent 50%);}
+  .card:nth-child(n+5)::before{background:linear-gradient(135deg,rgba(198,154,82,.04),transparent 50%);}
   .card:hover::before{opacity:1;}
-  .card:hover::after{opacity:1;}
-  .card:nth-child(3n+1)::before{background:radial-gradient(circle,rgba(227,133,152,.15),transparent 70%);}
-  .card:nth-child(3n+2)::before{background:radial-gradient(circle,rgba(198,154,82,.15),transparent 70%);}
-  .card:nth-child(3n)::before{background:radial-gradient(circle,rgba(59,90,74,.15),transparent 70%);}
-  .card:hover{box-shadow:var(--shadow-lg);background:var(--porcelain);border-color:rgba(16,48,43,.06);}
-  .card .num{font-family:var(--disp);font-style:italic;color:var(--rose-deep);font-size:1.05rem;}
-  .card h3{margin-top:1rem;font-size:1.22rem;font-weight:600;}
-  .card p{margin-top:.7rem;font-size:.92rem;flex:1;}
+  .card:hover{
+    box-shadow:0 20px 50px -20px rgba(11,51,45,.18),0 0 0 1px rgba(16,48,43,.04);
+    border-color:rgba(16,48,43,.06);background:var(--porcelain);
+    transform:translateY(-3px);
+  }
+
+  /* Card icon */
+  .card-icon{
+    width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+    font-size:1.3rem;flex-shrink:0;position:relative;z-index:1;
+    transition:transform .4s var(--ease-out);
+  }
+  .card:hover .card-icon{transform:scale(1.08);}
+  .card--lg .card-icon{width:52px;height:52px;border-radius:14px;font-size:1.5rem;}
+  .card-icon--rose{background:rgba(227,133,152,.12);color:var(--rose-deep);}
+  .card-icon--gold{background:rgba(198,154,82,.12);color:var(--gold);}
+  .card-icon--teal{background:rgba(11,51,45,.08);color:var(--teal-deep);}
+  .card-icon--mint{background:rgba(185,220,201,.25);color:var(--ink);}
+
+  /* Card category pill */
+  .card-tag{
+    display:inline-flex;align-items:center;gap:.35em;
+    font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--ink-soft);opacity:.6;margin-top:.8rem;position:relative;z-index:1;
+  }
+  .card-tag::before{content:'';width:4px;height:4px;border-radius:50%;background:currentColor;}
+
+  /* Card number */
+  .card .num{
+    font-family:var(--disp);font-style:italic;font-size:.9rem;color:var(--rose-deep);
+    opacity:.5;position:relative;z-index:1;margin-bottom:.4rem;
+  }
+
+  /* Card title */
+  .card h3{
+    margin-top:.3rem;font-size:clamp(1.05rem,1.8vw,1.35rem);font-weight:600;line-height:1.2;
+    position:relative;z-index:1;
+  }
+  .card--lg h3{font-size:clamp(1.2rem,2.2vw,1.6rem);}
+
+  /* Card description */
+  .card p{
+    margin-top:.6rem;font-size:.9rem;line-height:1.6;color:var(--ink-soft);
+    flex:1;position:relative;z-index:1;
+  }
+  .card--lg p{font-size:.95rem;max-width:42ch;}
+  .card--sm p{font-size:.85rem;}
+
+  /* Card detail footer */
   .card .card-detail{
-    margin-top:1rem;padding-top:1rem;border-top:1px solid var(--line);
-    font-size:.82rem;color:var(--ink-soft);font-style:italic;
+    margin-top:auto;padding-top:.9rem;border-top:1px solid var(--line);
+    font-size:.78rem;color:var(--ink-soft);font-style:italic;position:relative;z-index:1;
   }
+
+  /* Card link */
   .card .card-link{
-    margin-top:1.4rem;font-size:.8rem;font-weight:700;color:var(--rose-deep);
+    margin-top:1rem;font-size:.78rem;font-weight:700;color:var(--rose-deep);
     display:inline-flex;align-items:center;gap:.4em;letter-spacing:.04em;
+    position:relative;z-index:1;
   }
-  .card .card-link svg{width:14px;height:14px;transition:transform .35s var(--ease-out);}
-  .card:hover .card-link svg{transform:translateX(5px);}
-  @media (min-width:901px){
-    .card-track{padding-bottom:0;width:max-content;}
-    .card-track--b{padding-left:clamp(20px,5vw,64px);padding-right:0;}
+  .card .card-link svg{width:13px;height:13px;transition:transform .35s var(--ease-out);}
+  .card:hover .card-link svg{transform:translateX(4px);}
+
+  /* Large card glow accent */
+  .card--lg::after{
+    content:'';position:absolute;top:-40px;right:-40px;width:120px;height:120px;
+    border-radius:50%;pointer-events:none;z-index:0;opacity:0;transition:opacity .5s var(--ease-out);
   }
-  @media (max-width:900px){
-    .track-viewport{gap:1.2rem;}
-    .card-track{flex-direction:column;padding:0 clamp(20px,5vw,64px);}
-    .card-track--b{flex-direction:column;}
-    .card{flex:1 1 auto;}
+  .card--lg:nth-child(1)::after{background:radial-gradient(circle,rgba(227,133,152,.18),transparent 70%);}
+  .card--lg:nth-child(2)::after{background:radial-gradient(circle,rgba(198,154,82,.18),transparent 70%);}
+  .card--lg:hover::after{opacity:1;}
+
+  /* CTA */
+  .treatments-cta{margin-top:clamp(2rem,4vw,3rem);display:flex;justify-content:center;}
+  .treatments-cta .btn{padding:1rem 2rem;font-size:.92rem;gap:8px;}
+  .treatments-cta svg{width:16px;height:16px;}
+
+  /* Bento responsive */
+  @media(min-width:901px){
+    .treatments-grid{gap:1.1rem;}
+  }
+  @media(max-width:900px){
+    .treatments-grid{
+      grid-template-columns:repeat(2,1fr);
+      grid-auto-rows:minmax(160px,auto);
+    }
+    .card--lg{grid-column:span 2;grid-row:span 1;}
+    .card--md{grid-column:span 2;}
+    .card--sm{grid-column:span 1;}
+    .card{padding:clamp(1.3rem,2vw,1.8rem);}
+    .card--lg h3{font-size:1.2rem;}
+  }
+  @media(max-width:580px){
+    .treatments-grid{
+      grid-template-columns:1fr;
+      grid-auto-rows:auto;
+    }
+    .card--lg,.card--md,.card--sm{grid-column:span 1;grid-row:span 1;}
+    .card{padding:1.5rem 1.4rem;}
   }
 
   /* ---------- Marquee ---------- */
@@ -576,11 +625,9 @@
     .hero-aside{border-left:none;border-top:1px solid var(--line);padding-left:0;padding-top:1.8rem;}
     .about-grid, .contact-grid{grid-template-columns:1fr;}
     .values{grid-template-columns:1fr;}
-    .treatments-decor .decor-emoji{opacity:.18;font-size:1.8rem;}
   }
   @media (max-width:600px){
     .hero-grid{gap:1.8rem;}
-    .treatments-decor .decor-emoji{display:none;}
     .values{grid-template-columns:1fr;}
     footer{padding-bottom:calc(28px + 56px);}
   }
@@ -786,29 +833,8 @@ body{padding-top:30px !important;padding-bottom:30px !important}
     </div>
   </section>
 
-  <!-- TREATMENTS CARDS (horizontal pinned) -->
+  <!-- TREATMENTS CARDS (Bento Grid) -->
   <section class="treatments" id="treatments-cards">
-    <div class="treatments-decor" aria-hidden="true">
-      <div class="decor-dot"></div><div class="decor-dot"></div><div class="decor-dot"></div>
-      <div class="decor-line"></div><div class="decor-line"></div>
-      <span class="decor-text">seu sorriso, nosso cuidado</span>
-      <span class="decor-text">tecnologia + carinho</span>
-      <span class="decor-emoji" data-draggable>🦷</span>
-      <span class="decor-emoji" data-draggable>✨</span>
-      <span class="decor-emoji" data-draggable>💎</span>
-      <span class="decor-emoji" data-draggable>🪥</span>
-      <span class="decor-emoji" data-draggable>😁</span>
-      <span class="decor-emoji" data-draggable>🩺</span>
-      <span class="decor-emoji" data-draggable>💊</span>
-      <span class="decor-emoji" data-draggable>🔬</span>
-      <span class="decor-emoji" data-draggable>🛡️</span>
-      <span class="decor-emoji" data-draggable>🩹</span>
-      <span class="decor-emoji" data-draggable>👶</span>
-      <span class="decor-emoji" data-draggable>🌿</span>
-      <span class="decor-emoji" data-draggable>🎯</span>
-      <span class="decor-emoji" data-draggable>❤️</span>
-      <span class="decor-emoji" data-draggable>🏥</span>
-    </div>
     <div class="section-head">
       <div>
         <h2 data-reveal>Tratamentos pensados para cada fase do seu sorriso</h2>
@@ -820,17 +846,86 @@ body{padding-top:30px !important;padding-bottom:30px !important}
     </div>
     <div class="track-viewport">
       <div class="treatments-grid" id="treatmentsGrid">
-        <article class="card" data-reveal><span class="num">01</span><h3>Clareamento dental</h3><p>Técnicas de consultório e caseiras para um branco natural, respeitando a sensibilidade de cada dente.</p><span class="card-detail">Fórmulas personalizadas · Resultados em poucas sessões</span></article>
-        <article class="card" data-reveal data-lag=".04"><span class="num">02</span><h3>Ortodontia</h3><p>Aparelhos fixos e alinhadores, com acompanhamento próximo em cada etapa do movimento dos dentes.</p><span class="card-detail">Alinhadores transparentes · Aparelhos estéticos</span></article>
-        <article class="card" data-reveal data-lag=".08"><span class="num">03</span><h3>Implantes</h3><p>Reposição de dentes perdidos com planejamento cuidadoso, do diagnóstico à reabilitação final.</p><span class="card-detail">Planejamento digital · Próteses sobre implantes</span></article>
-        <article class="card" data-reveal data-lag=".12"><span class="num">04</span><h3>Estética dental</h3><p>Facetas, lentes e restaurações que respeitam a harmonia natural do seu sorriso.</p><span class="card-detail">Lentes de contato dental · Facetas de porcelana</span></article>
-        <article class="card" data-reveal data-lag=".16"><span class="num">05</span><h3>Limpeza e prevenção</h3><p>Profilaxia periódica para manter a saúde bucal em dia e evitar problemas maiores.</p><span class="card-detail">Limpeza profunda · Aplicação de flúor</span></article>
-        <article class="card" data-reveal data-lag=".20"><span class="num">06</span><h3>Próteses dentárias</h3><p>Próteses fixas e removíveis para devolver a função mastigatória e a estética do sorriso.</p><span class="card-detail">Próteses sobre implantes · Metalocerâmica</span></article>
-        <article class="card" data-reveal data-lag=".24"><span class="num">07</span><h3>Odontopediatria</h3><p>Cuidado dental para crianças em ambiente lúdico e acolhedor, prevenindo desde cedo.</p><span class="card-detail">Atendimento humanizado · Foco na prevenção</span></article>
-        <article class="card" data-reveal data-lag=".28"><span class="num">08</span><h3>Emergência dental</h3><p>Atendimento rápido para dores intensas, fraturas e situações que não podem esperar.</p><span class="card-detail">Agenda prioritária · Atendimento no mesmo dia</span></article>
-        <article class="card" data-reveal data-lag=".32"><span class="num">09</span><h3>Periodontia</h3><p>Tratamento de gengivite e periodontite com raspagem, alisamento e acompanhamento.</p><span class="card-detail">Tratamento minimamente invasivo · Controle rigoroso</span></article>
+        <!-- Row 1: Two large featured cards -->
+        <article class="card card--lg" data-reveal>
+          <span class="card-icon card-icon--rose" aria-hidden="true">🦷</span>
+          <span class="card-tag">Estética</span>
+          <span class="num">01</span>
+          <h3>Clareamento dental</h3>
+          <p>Técnicas de consultório e caseiras para um branco natural, respeitando a sensibilidade de cada dente. Resultados visíveis já nas primeiras sessões.</p>
+          <span class="card-detail">Fórmulas personalizadas · Resultados em poucas sessões</span>
+          <a class="card-link" href="https://wa.me/5519991621512" target="_blank" rel="noopener">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </article>
+        <article class="card card--lg" data-reveal>
+          <span class="card-icon card-icon--gold" aria-hidden="true">🔧</span>
+          <span class="card-tag">Reabilitação</span>
+          <span class="num">02</span>
+          <h3>Implantes</h3>
+          <p>Reposição de dentes perdidos com planejamento cuidadoso, do diagnóstico à reabilitação final. Tecnologia digital para precisão milimétrica.</p>
+          <span class="card-detail">Planejamento digital · Próteses sobre implantes</span>
+          <a class="card-link" href="https://wa.me/5519991621512" target="_blank" rel="noopener">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </article>
+
+        <!-- Row 2: Three medium cards -->
+        <article class="card card--md" data-reveal>
+          <span class="card-icon card-icon--teal" aria-hidden="true">😁</span>
+          <span class="card-tag">Alinhamento</span>
+          <span class="num">03</span>
+          <h3>Ortodontia</h3>
+          <p>Aparelhos fixos e alinhadores, com acompanhamento próximo em cada etapa do movimento dos dentes.</p>
+          <span class="card-detail">Alinhadores transparentes · Aparelhos estéticos</span>
+        </article>
+        <article class="card card--md" data-reveal>
+          <span class="card-icon card-icon--rose" aria-hidden="true">✨</span>
+          <span class="card-tag">Harmonia</span>
+          <span class="num">04</span>
+          <h3>Estética dental</h3>
+          <p>Facetas, lentes e restaurações que respeitam a harmonia natural do seu sorriso.</p>
+          <span class="card-detail">Lentes de contato dental · Facetas de porcelana</span>
+        </article>
+        <article class="card card--md" data-reveal>
+          <span class="card-icon card-icon--mint" aria-hidden="true">🛡️</span>
+          <span class="card-tag">Prevenção</span>
+          <span class="num">05</span>
+          <h3>Limpeza e prevenção</h3>
+          <p>Profilaxia periódica para manter a saúde bucal em dia e evitar problemas maiores.</p>
+          <span class="card-detail">Limpeza profunda · Aplicação de flúor</span>
+        </article>
+
+        <!-- Row 3: Four small cards -->
+        <article class="card card--sm" data-reveal>
+          <span class="card-icon card-icon--gold" aria-hidden="true">🦷</span>
+          <span class="card-tag">Próteses</span>
+          <span class="num">06</span>
+          <h3>Próteses dentárias</h3>
+          <p>Próteses fixas e removíveis para devolver a função mastigatória e a estética do sorriso.</p>
+          <span class="card-detail">Metalocerâmica · Próteses sobre implantes</span>
+        </article>
+        <article class="card card--sm" data-reveal>
+          <span class="card-icon card-icon--teal" aria-hidden="true">👶</span>
+          <span class="card-tag">Infantil</span>
+          <span class="num">07</span>
+          <h3>Odontopediatria</h3>
+          <p>Cuidado dental para crianças em ambiente lúdico e acolhedor, prevenindo desde cedo.</p>
+          <span class="card-detail">Atendimento humanizado · Foco na prevenção</span>
+        </article>
+        <article class="card card--sm" data-reveal>
+          <span class="card-icon card-icon--rose" aria-hidden="true">🚨</span>
+          <span class="card-tag">Urgência</span>
+          <span class="num">08</span>
+          <h3>Emergência dental</h3>
+          <p>Atendimento rápido para dores intensas, fraturas e situações que não podem esperar.</p>
+          <span class="card-detail">Agenda prioritária · No mesmo dia</span>
+        </article>
+        <article class="card card--sm" data-reveal>
+          <span class="card-icon card-icon--mint" aria-hidden="true">🌿</span>
+          <span class="card-tag">Gengiva</span>
+          <span class="num">09</span>
+          <h3>Periodontia</h3>
+          <p>Tratamento de gengivite e periodontite com raspagem, alisamento e acompanhamento.</p>
+          <span class="card-detail">Minimamente invasivo · Controle rigoroso</span>
+        </article>
       </div>
-      <!-- single CTA at end of grid -->
       <div class="treatments-cta" data-reveal>
         <a class="btn btn-solid magnetic" href="https://wa.me/5519991621512" target="_blank" rel="noopener">
           Agendar avaliação

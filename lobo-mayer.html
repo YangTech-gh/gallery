@@ -1042,9 +1042,11 @@ body{padding-top:30px!important;padding-bottom:30px!important}
 .yang-mq--top{background:linear-gradient(90deg,#000 0%,#1a1a1a 50%,#000 100%);background-size:200% 100%;animation:bgShift 6s ease-in-out infinite alternate;color:#fff;border-bottom:1px solid rgba(255,255,255,.12)}
 .yang-mq--btm{background:linear-gradient(90deg,#111 0%,#222 50%,#111 100%);background-size:200% 100%;animation:bgShift 6s ease-in-out infinite alternate-reverse;color:#fff;border-top:1px solid rgba(255,255,255,.12)}
 @keyframes bgShift{0%{background-position:0% 50%}100%{background-position:100% 50%}}
-.yang-mq:hover{filter:invert(1);z-index:210}
+.yang-mq:hover{filter:invert(1);z-index:99999}
 .yang-mq:hover .yang-mq__sep{transform:rotate(90deg)}
 .yang-mq:hover .yang-mq__inner{animation-play-state:paused}
+.yang-mq__btn{transition:background .25s,transform .2s,box-shadow .25s}
+.yang-mq:hover .yang-mq__btn{background:rgba(255,255,255,.45);transform:scale(1.08);box-shadow:0 0 8px rgba(255,255,255,.3)}
 @media (prefers-reduced-motion:reduce){.yang-mq__inner,.yang-mq--top,.yang-mq--btm{animation:none!important}
 body{padding-top:30px!important;padding-bottom:30px!important}}
 </style>
