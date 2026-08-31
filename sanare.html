@@ -1317,7 +1317,7 @@
 
     const camState = { alpha: camera.alpha, beta: camera.beta, radius: camera.radius };
     const pupilState = { scale: fitScale };
-    const panState = { x: 3.2 };
+    const panState = { x: -3.2 };
 
     scene.registerBeforeRender(() => {
       camera.alpha = camState.alpha;
@@ -1343,9 +1343,9 @@
       });
     });
 
-    // --- Scroll-driven pan: eye drifts from right to left across the page ---
+    // --- Scroll-driven pan: eye drifts from left to right across the page ---
     gsap.to(panState, {
-      x: -3.2,
+      x: 3.2,
       ease: 'none',
       scrollTrigger: {
         trigger: 'main',
