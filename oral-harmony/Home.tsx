@@ -10,6 +10,7 @@ import {
   Check,
   ChevronDown,
   Clock3,
+  Instagram,
   MapPin,
   Menu,
   MoveRight,
@@ -49,6 +50,8 @@ const clinicImages = {
   equipe: "./assets/irmas-black&white-style.jpg",
   sorriso: "./assets/irmas-hero.png",
   avaliacao: "./assets/irmas-hero.png",
+  sorriso1: "./assets/sorriso-1.jpg",
+  sorriso2: "./assets/sorriso-2.jpg",
 };
 
 const services = [
@@ -215,10 +218,11 @@ export default function Home() {
           .from(".nav-inner", { y: -18, autoAlpha: 0, duration: 0.58 })
           .from(".hero-kicker, .hero-copy, .hero-actions", { y: 24, autoAlpha: 0, duration: 0.7, stagger: 0.09 }, "<0.18")
           .from(split.words, { yPercent: 110, rotate: 4, duration: 0.95, stagger: 0.034 }, "<0.04")
-          .from(".hero-image", { scale: 1.08, autoAlpha: 0, duration: 1.15, ease: "soft-bounce" }, "<0.14")
+          .from(".hero-image-primary", { scale: 1.08, autoAlpha: 0, duration: 1.15, ease: "soft-bounce" }, "<0.14")
+          .from(".hero-image-secondary", { y: 40, autoAlpha: 0, scale: 0.92, duration: 1, ease: "soft-bounce" }, "<0.3")
           .to(".availability", { duration: 0.9, scrambleText: { text: "Seg–Sex · atendimento com hora marcada", chars: "lowerCase" } }, "<0.1");
       } else {
-        gsap.set(".nav-inner, .hero-kicker, .hero-copy, .hero-actions, .hero-title, .hero-image", { autoAlpha: 1 });
+        gsap.set(".nav-inner, .hero-kicker, .hero-copy, .hero-actions, .hero-title, .hero-image-primary, .hero-image-secondary", { autoAlpha: 1 });
       }
 
       const careRule = CSSRulePlugin.getRule(".care-rail::before");
@@ -394,6 +398,9 @@ export default function Home() {
             <button onClick={() => scrollTo("#contato")}>Contato</button>
           </nav>
           <div className="nav-cta">
+            <a className="nav-instagram" href="https://www.instagram.com/oral.harmony/" target="_blank" rel="noreferrer" aria-label="Instagram da Oral Harmony">
+              <Instagram size={17} aria-hidden="true" />
+            </a>
             <button className="nav-book" onClick={() => scrollTo("#contato")}>
               Agendar avaliação <ArrowUpRight size={15} aria-hidden="true" />
             </button>
@@ -406,6 +413,7 @@ export default function Home() {
           <button onClick={() => scrollTo("#a-clinica")}>A clínica</button>
           <button onClick={() => scrollTo("#cuidados")}>Cuidados</button>
           <button onClick={() => scrollTo("#contato")}>Contato</button>
+          <a className="mobile-instagram" href="https://www.instagram.com/oral.harmony/" target="_blank" rel="noreferrer"><Instagram size={16} aria-hidden="true" /> Instagram</a>
         </div>
       </header>
 
@@ -428,11 +436,22 @@ export default function Home() {
                   </button>
                   <button className="text-button" onClick={() => scrollTo("#a-clinica")}>Conheça nossa história <ArrowDownRight size={17} aria-hidden="true" /></button>
                 </div>
-                <p className="availability"><Clock3 size={14} aria-hidden="true" /> Seg–Sex · atendimento com hora marcada</p>
+                <div className="hero-footer-row">
+                  <p className="availability"><Clock3 size={14} aria-hidden="true" /> Seg–Sex · atendimento com hora marcada</p>
+                  <a className="hero-instagram" href="https://www.instagram.com/oral.harmony/" target="_blank" rel="noreferrer" aria-label="Siga no Instagram">
+                    <Instagram size={16} aria-hidden="true" /> @oral.harmony
+                  </a>
+                </div>
               </div>
-              <div className="hero-image" aria-label="Bruna e Isabela - Oral Harmony">
-                <img src="./assets/irmas-hero.png" alt="Bruna e Isabela - Oral Harmony" />
-                <div className="hero-image-overlay" />
+              <div className="hero-image-group">
+                <div className="hero-image hero-image-primary" aria-label="Bruna e Isabela - Oral Harmony">
+                  <img src="./assets/irmas-hero.png" alt="Bruna e Isabela - Oral Harmony" />
+                  <div className="hero-image-overlay" />
+                </div>
+                <div className="hero-image hero-image-secondary" aria-label="Estilo Black & White - Oral Harmony">
+                  <img src="./assets/irmas-black&white-style.jpg" alt="Bruna e Isabela - Oral Harmony" />
+                  <div className="hero-image-overlay-secondary" />
+                </div>
               </div>
             </div>
             <div className="hero-index"><span>01</span><i /> <span>06</span></div>
@@ -466,6 +485,10 @@ export default function Home() {
                 <p>Em uma avaliação com calma, entendemos o que você procura, explicamos cada possibilidade e construímos um caminho que respeita o seu momento.</p>
                 <div className="consultation-steps"><span><b>01</b> Entender suas prioridades</span><span><b>02</b> Traduzir opções com clareza</span><span><b>03</b> Planejar com segurança</span></div>
               </div>
+              <div className="consultation-gallery" data-reveal>
+                <figure className="consultation-photo consultation-photo-main"><img src={clinicImages.sorriso1} alt="Resultado de sorriso - Oral Harmony" /></figure>
+                <figure className="consultation-photo consultation-photo-accent"><img src={clinicImages.sorriso2} alt="Detalhe de tratamento - Oral Harmony" /></figure>
+              </div>
             </div>
             <div className="consultation-line" aria-hidden="true"><svg viewBox="0 0 760 162" preserveAspectRatio="none"><path d="M-16 127C81 23 164 180 274 91S459 32 555 82c72 37 135-34 223-62" /></svg><span>do diálogo ao cuidado</span></div>
           </section>
@@ -496,7 +519,7 @@ export default function Home() {
 
           <section className="precision section-shell">
             <div className="precision-symbol" aria-hidden="true"><span /><span /><span /></div>
-            <figure className="precision-portrait" data-reveal><img src={clinicImages.avaliacao} alt="Detalhe da experiência de avaliação da Oral Harmony" /><figcaption>Consulta com conversa clara, sem pressa.</figcaption></figure>
+            <figure className="precision-portrait" data-reveal><img src={clinicImages.sorriso2} alt="Detalhe da experiência de avaliação da Oral Harmony" /><figcaption>Consulta com conversa clara, sem pressa.</figcaption></figure>
             <div className="precision-copy" data-reveal>
               <p className="eyebrow"><span className="eyebrow-dot" /> Cuidado com propósito</p>
               <h2>Precisão que acolhe. <br></br><i>Leveza que permanece.</i></h2>
@@ -557,6 +580,7 @@ export default function Home() {
             <div className="contact-details" data-reveal>
               <a href="https://maps.google.com/?q=Avenida+Marechal+Castelo+Branco,+190,+Po%C3%A7os+de+Caldas+-+MG" target="_blank" rel="noreferrer"><MapPin size={18} /><span>Avenida Marechal Castelo Branco, 190<br />Jardim São Paulo · Poços de Caldas, MG</span><ArrowUpRight size={16} /></a>
               <a href="mailto:oralharmony.odontologia@hotmail.com"><CalendarDays size={18} /><span>oralharmony.odontologia@hotmail.com<br /><b>Agendamentos e informações</b></span><ArrowUpRight size={16} /></a>
+              <a href="https://www.instagram.com/oral.harmony/" target="_blank" rel="noreferrer"><Instagram size={18} /><span>@oral.harmony<br /><b>Acompanhe nosso trabalho</b></span><ArrowUpRight size={16} /></a>
               <div className="contact-hours"><Clock3 size={18} /><span>Seg–Qui: 08h–19h<br />Sex: 08h–18h</span></div>
             </div>
             <PlugLabel>ScrollToPlugin + CSSRulePlugin</PlugLabel>
@@ -564,7 +588,7 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className="site-footer"><Wordmark /><span>© {new Date().getFullYear()} Oral Harmony</span><a href="https://instagram.com/oral.harmony" target="_blank" rel="noreferrer">Instagram <ArrowUpRight size={14} /></a></footer>
+      <footer className="site-footer"><Wordmark /><span>© {new Date().getFullYear()} Oral Harmony</span><a href="https://www.instagram.com/oral.harmony/" target="_blank" rel="noreferrer"><Instagram size={14} aria-hidden="true" /> Instagram <ArrowUpRight size={14} /></a></footer>
     </div>
   );
 }
