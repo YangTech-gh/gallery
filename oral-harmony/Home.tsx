@@ -113,13 +113,7 @@ gsap.registerPlugin(
 function Wordmark() {
   return (
     <a className="brand" href="#inicio" aria-label="Oral Harmony, início">
-      <span className="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 48 48" fill="none">
-          <path d="M8 24C8 15.4 15.2 8 24 8c4.7 0 8.9 2 11.9 5.3" />
-          <path d="M40 24c0 8.6-7.2 16-16 16-4.7 0-8.9-2-11.9-5.3" />
-          <path d="M13.2 32.2c2.8-1.8 5.8-2.7 9-2.7 5.2 0 9.6 2.3 12.6 6" />
-        </svg>
-      </span>
+      <img className="brand-mark" src="./assets/logo-greybackground.png" alt="" aria-hidden="true" width="44" height="44" />
       <span className="brand-type">
         <strong>ORAL</strong>
         <em>HARMONY</em>
