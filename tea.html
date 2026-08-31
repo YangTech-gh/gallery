@@ -294,9 +294,7 @@
     border-radius:var(--card-radius);
     padding:clamp(12px,1.6vw,22px);
     position:relative;
-    transition:transform .22s var(--ease),box-shadow .22s var(--ease);
   }
-  .method-step:hover{ transform:translateY(-2px); box-shadow:4px 4px 0 var(--ink); }
   .method-step .dot{
     width:clamp(32px,5vh,44px); height:clamp(32px,5vh,44px); border-radius:50%;
     border:2px solid var(--ink); color:var(--white); flex:none;
@@ -461,7 +459,7 @@
 <style id="enterprise-ux-polish">
   :root{--enterprise-accent:var(--pink);--enterprise-ink:var(--ink);}html{scrollbar-color:var(--enterprise-accent) transparent;}body{min-height:100%;text-rendering:optimizeLegibility;}img{max-width:100%;height:auto;}
   .enterprise-progress{position:fixed;inset:0 auto auto 0;z-index:9999;width:100%;height:3px;background:var(--enterprise-accent);transform:scaleX(0);transform-origin:left;pointer-events:none;}.enterprise-skip{position:fixed;z-index:10000;left:1rem;top:-4rem;padding:.75rem 1rem;border:2px solid var(--ink);border-radius:999px;background:var(--yellow);color:var(--ink);font:700 .78rem/1 system-ui,sans-serif;letter-spacing:.04em;transition:top .2s var(--ease);}.enterprise-skip:focus{top:1rem;outline:3px solid var(--blue);outline-offset:3px;}
-  :where(a,button,input,select,textarea,[tabindex]):focus-visible{outline:3px solid var(--enterprise-accent)!important;outline-offset:4px;border-radius:4px;}@media(hover:hover) and (pointer:fine){.card,.method-step,.contact-card{transition:transform .25s var(--ease),box-shadow .25s var(--ease);}.card:hover,.method-step:hover,.contact-card:hover{transform:translateY(-3px);box-shadow:6px 7px 0 var(--ink);}}@media(max-width:700px){.enterprise-progress{height:2px}.enterprise-skip{left:.75rem}body{padding-bottom:env(safe-area-inset-bottom)}}@media(prefers-reduced-motion:reduce){.enterprise-progress{display:none}.enterprise-skip{transition:none}}
+  :where(a,button,input,select,textarea,[tabindex]):focus-visible{outline:3px solid var(--enterprise-accent)!important;outline-offset:4px;border-radius:4px;}@media(hover:hover) and (pointer:fine){.card,.contact-card{transition:transform .25s var(--ease),box-shadow .25s var(--ease);}.card:hover,.contact-card:hover{transform:translateY(-3px);box-shadow:6px 7px 0 var(--ink);}}@media(max-width:700px){.enterprise-progress{height:2px}.enterprise-skip{left:.75rem}body{padding-bottom:env(safe-area-inset-bottom)}}@media(prefers-reduced-motion:reduce){.enterprise-progress{display:none}.enterprise-skip{transition:none}}
 </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -925,15 +923,18 @@ body{padding-top:30px !important;padding-bottom:30px !important}
     if (i > sections.length - 1) i = sections.length - 1;
     if (i === current || busy) return;
     busy = true;
-    settleUntil = performance.now() + 320;
+    settleUntil = performance.now() + 600;
     var fromS = sections[current], toS = sections[i];
     var dir = i > current ? 1 : -1;
     var reduce = reduceMotionMQ.matches || userReduced;
     var dur = reduce ? 0 : 0.8;
 
+    var safetyTimer = setTimeout(function(){ busy = false; }, 2200);
+
     var tl = gsap.timeline({
       defaults: { ease: 'power3.inOut' },
       onComplete: function(){
+        clearTimeout(safetyTimer);
         current = i;
         sections.forEach(function(s, idx){
           var active = idx === i;
@@ -947,7 +948,7 @@ body{padding-top:30px !important;padding-bottom:30px !important}
         if (history.replaceState) history.replaceState(null, '', '#' + toS.el.id);
         if (options.focus) toS.el.focus({ preventScroll: true });
         busy = false;
-        settleUntil = performance.now() + 280;
+        settleUntil = performance.now() + 400;
       }
     });
 
@@ -968,14 +969,14 @@ body{padding-top:30px !important;padding-bottom:30px !important}
       toS.el.classList.add('is-active');
       toS.el.setAttribute('aria-hidden', 'false');
       toS.el.removeAttribute('inert');
-      gsap.set(toS.el, { opacity: 0, y: reduce ? 0 : (dir * 22) });
     }, null, dur * 0.48);
 
-    tl.to(toS.el, { opacity: 1, y: 0, duration: dur * 0.52 }, dur * 0.48);
+    tl.set(toS.el, { opacity: 0, y: reduce ? 0 : (dir * 22) }, dur * 0.48);
+    tl.to(toS.el, { opacity: 1, y: 0, duration: dur * 0.52 }, dur * 0.48 + 0.01);
 
     if (toS.el.id === 's-metodo') {
       var steps = toS.el.querySelectorAll('.method-steps-full .method-step');
-      if (steps.length) tl.fromTo(steps, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: dur * 0.6, stagger: 0.08, ease: 'power2.out' }, dur * 0.5);
+      if (steps.length) tl.fromTo(steps, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: dur * 0.6, stagger: 0.08, ease: 'power2.out' }, dur * 0.52);
     }
     if (toS.el.id === 's-espaco' && !reduce) {
       var spacePhotos = toS.el.querySelectorAll('.space-grid figure');
