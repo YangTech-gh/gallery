@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Política de Cookies — Dr. Franz Maier</title>
+<meta name="description" content="Política de Cookies do site do Dr. Franz Maier — Medicina Intervencionista da Dor em Poços de Caldas, MG.">
+<meta name="theme-color" content="#061218" id="themeColor">
+<meta name="color-scheme" content="dark">
+
+<link rel="icon" type="image/png" href="franzmayer-assets/logo-azul.png">
+<link rel="apple-touch-icon" href="franzmayer-assets/logo-azul.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script>
+(function(){
+  try{
+    var t=localStorage.getItem('fm-theme');
+    if(!t) t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';
+    document.documentElement.setAttribute('data-theme',t);
+    if(t==='light'){
+      var m=document.getElementById('themeColor'); if(m) m.setAttribute('content','#fbf9f3');
+      document.documentElement.style.colorScheme='light';
+    }
+  }catch(e){}
+})();
+</script>
+
+<style>
+:root{
+  --rgb-hero:6,18,24; --rgb-deep:6,18,24; --rgb-deep-2:8,13,20;
+  --rgb-ink:243,239,230; --rgb-ink-dim:169,173,196; --rgb-ink-mute:124,130,150;
+  --rgb-gold:214,178,122; --rgb-gold-soft:236,217,173;
+  --rgb-blue:126,175,196; --rgb-blue-soft:168,207,224;
+
+  --bg-hero:rgb(var(--rgb-hero)); --bg-deep:rgb(var(--rgb-deep)); --bg-deep-2:rgb(var(--rgb-deep-2));
+  --ink:rgb(var(--rgb-ink)); --ink-dim:rgb(var(--rgb-ink-dim)); --ink-mute:rgb(var(--rgb-ink-mute));
+  --gold:rgb(var(--rgb-gold)); --gold-soft:rgb(var(--rgb-gold-soft));
+  --blue:rgb(var(--rgb-blue)); --blue-soft:rgb(var(--rgb-blue-soft));
+
+  --gold-line:rgba(var(--rgb-gold),.28); --blue-line:rgba(var(--rgb-blue),.28);
+  --deco-line:rgba(var(--rgb-gold),.08);
+  --surface-glass:rgba(var(--rgb-deep),.55);
+
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'Inter',system-ui,-apple-system,sans-serif;
+  --gutter:clamp(1.1rem,4vw,3.2rem);
+  --radius:16px;
+}
+
+[data-theme="light"]{
+  --rgb-hero:245,242,234; --rgb-deep:251,249,243; --rgb-deep-2:255,253,250;
+  --rgb-ink:22,28,42; --rgb-ink-dim:64,72,90; --rgb-ink-mute:124,132,150;
+  --rgb-gold:154,103,46; --rgb-gold-soft:196,148,84;
+  --rgb-blue:85,130,160; --rgb-blue-soft:118,162,188;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;background:var(--bg-deep);color:var(--ink);font-family:var(--sans);}
+body{min-height:100vh;line-height:1.65;font-size:15px;}
+
+/* HEADER */
+.header{position:sticky;top:0;z-index:300;display:flex;align-items:center;justify-content:space-between;
+  padding:.75rem var(--gutter);background:var(--bg-deep);border-bottom:1px solid var(--deco-line);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
+.brand{display:flex;align-items:center;gap:.8rem;text-decoration:none;color:var(--ink);}
+.brand img{width:36px;height:36px;border-radius:50%;}
+.brand-name{font-family:var(--serif);font-weight:600;font-size:1.1rem;letter-spacing:-.01em;}
+.brand-name small{display:block;font-family:var(--sans);font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--blue-soft);}
+.back-link{font-size:.78rem;color:var(--blue-soft);text-decoration:none;letter-spacing:.1em;text-transform:uppercase;
+  transition:color .25s;}
+.back-link:hover{color:var(--gold-soft);}
+
+/* CONTENT */
+.policy{max-width:760px;margin-inline:auto;padding:clamp(3rem,8vw,5rem) var(--gutter) clamp(4rem,10vw,7rem);}
+.policy h1{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,5vw,3.2rem);letter-spacing:-.01em;margin-bottom:1rem;}
+.policy .updated{font-size:.82rem;color:var(--ink-mute);margin-bottom:2.5rem;display:block;}
+.policy h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.2rem,2.5vw,1.6rem);
+  margin:2.5rem 0 1rem;color:var(--blue-soft);letter-spacing:-.005em;}
+.policy h3{font-family:var(--sans);font-weight:600;font-size:1rem;margin:1.8rem 0 .6rem;color:var(--gold-soft);}
+.policy p{color:var(--ink-dim);margin-bottom:1rem;max-width:68ch;}
+.policy ul{color:var(--ink-dim);margin:.6rem 0 1.2rem 1.4rem;}
+.policy li{margin-bottom:.4rem;}
+.policy a{color:var(--blue-soft);text-decoration:underline;text-decoration-color:var(--blue-line);text-underline-offset:3px;}
+.policy a:hover{color:var(--gold-soft);text-decoration-color:var(--gold-line);}
+.policy strong{color:var(--ink);}
+
+.cookie-table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:.85rem;}
+.cookie-table th{text-align:left;padding:.6rem .8rem;background:var(--bg-deep-2);color:var(--blue-soft);
+  font-weight:600;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--deco-line);}
+.cookie-table td{padding:.55rem .8rem;border-bottom:1px solid var(--deco-line);color:var(--ink-dim);vertical-align:top;}
+.cookie-table tr:last-child td{border-bottom:0;}
+.cookie-table td:first-child{color:var(--ink);font-weight:500;}
+
+.contact-block{background:var(--surface-glass);border:1px solid var(--deco-line);border-radius:var(--radius);
+  padding:1.6rem;margin:2rem 0;}
+.contact-block p{margin-bottom:.4rem;}
+
+/* FOOTER */
+.footer{border-top:1px solid var(--deco-line);background:var(--bg-deep-2);padding:2rem var(--gutter);}
+.footer-inner{max-width:760px;margin-inline:auto;display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;
+  align-items:center;font-size:.72rem;color:var(--ink-mute);}
+.footer-inner a{color:var(--gold-soft);text-decoration:none;transition:color .25s;}
+.footer-inner a:hover{color:var(--blue-soft);}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="franz-maier.html" class="brand">
+    <img src="franzmayer-assets/logo-azul.png" alt="Logo Dr. Franz Maier">
+    <span class="brand-name">Dr. Franz Maier<small>Medicina Intervencionista da Dor</small></span>
+  </a>
+  <a href="franz-maier.html" class="back-link">← Voltar</a>
+</header>
+
+<main class="policy">
+  <h1>Política de Cookies</h1>
+  <span class="updated">Última atualização: 30/08/2026</span>
+
+  <h2>1. Introdução</h2>
+  <p>Este site, <a href="https://drfranzmaier.com.br">https://drfranzmaier.com.br</a> (doravante: "o site"), usa cookies e outras tecnologias relacionadas para melhorar sua experiência de navegação. Nos documentos abaixo, informamos sobre o uso de cookies no nosso site, seus tipos, finalidades e como você pode gerenciá-los.</p>
+
+  <h2>2. O que são cookies?</h2>
+  <p>Um cookie é um pequeno arquivo simples enviado junto com as páginas deste site e armazenado pelo seu navegador no disco rígido do seu computador ou em outro dispositivo. As informações armazenadas nele podem ser retornadas aos nossos servidores, ou aos servidores de terceiros relevantes, durante um acesso posterior.</p>
+
+  <h2>3. O que são scripts?</h2>
+  <p>Um script é um trecho de código de programa, usado para fazer com que nosso site funcione de forma adequada e interativa. Esse código é executado em nosso servidor ou no seu dispositivo.</p>
+
+  <h2>4. O que é um web beacon?</h2>
+  <p>Um web beacon (ou pixel de rastreamento) é um pequeno trecho invisível de texto ou imagem em um site, usado para monitorar o tráfego. Para isso, vários dados sobre você são armazenados usando web beacons.</p>
+
+  <h2>5. Cookies que utilizamos</h2>
+
+  <h3>5.1 Cookies técnicos ou funcionais</h3>
+  <p>Alguns cookies garantem que determinadas partes do site funcionem corretamente e que suas preferências de usuário sejam armazenadas. Ao inserir cookies funcionais, facilitamos seu acesso ao nosso site. Assim, você não precisa inserir repetidamente as mesmas informações ao acessar nosso site. Podemos inserir esses cookies sem seu consentimento.</p>
+
+  <h3>5.2 Cookies de estatísticas</h3>
+  <p>Usamos cookies de estatísticas para otimizar a experiência do site para nossos usuários. Com esses cookies, recebemos informações sobre o uso do nosso site. Solicitamos sua permissão para inserir cookies de estatísticas.</p>
+
+  <h3>5.3 Cookies de publicidade</h3>
+  <p>Neste site, usamos cookies de publicidade, o que nos permite ter informações sobre os resultados da campanha. Isso acontece com base em um perfil que criamos baseado no seu comportamento em nosso site. Com esses cookies, você, como visitante do site, é vinculado a um ID único, mas esses cookies não criarão um perfil do seu comportamento e interesses para veicular anúncios personalizados.</p>
+
+  <h3>5.4 Cookies de marketing/rastreamento</h3>
+  <p>Cookies de marketing/rastreamento são cookies ou qualquer outra forma de armazenamento local, usados para criar perfis de usuário, para exibir publicidade ou para rastrear o usuário neste site, ou em vários sites, com objetivos de marketing semelhantes. Solicitamos sua permissão para inseri-los.</p>
+
+  <h3>5.5 Redes sociais</h3>
+  <p>Em nosso site, incluímos conteúdo de WhatsApp, Instagram e Facebook para promover páginas da internet ou compartilhar em redes sociais. Esse conteúdo é incorporado com código derivado dessas plataformas e insere cookies.</p>
+
+  <h2>6. Cookies detalhados</h2>
+
+  <h3>Google Analytics</h3>
+  <table class="cookie-table">
+    <thead><tr><th>Nome</th><th>Expiração</th><th>Finalidade</th></tr></thead>
+    <tbody>
+      <tr><td>_ga</td><td>2 anos</td><td>Armazenar identificador de visitante único</td></tr>
+      <tr><td>_ga_*</td><td>2 anos</td><td>Manter estado da sessão</td></tr>
+      <tr><td>_gid</td><td>24 horas</td><td>Armazenar identificador de visitante único</td></tr>
+      <tr><td>_gat</td><td>1 minuto</td><td>Controlar taxa de requisições</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Google Ads</h3>
+  <table class="cookie-table">
+    <thead><tr><th>Nome</th><th>Expiração</th><th>Finalidade</th></tr></thead>
+    <tbody>
+      <tr><td>_gcl_au</td><td>3 meses</td><td>Armazenar e rastrear conversões</td></tr>
+      <tr><td>IDE</td><td>13 meses</td><td>Habilitar funcionalidade de remarketing</td></tr>
+      <tr><td>NID</td><td>6 meses</td><td>Armazenar preferências e informações</td></tr>
+      <tr><td>test_cookie</td><td>15 minutos</td><td>Verificar se o navegador suporta cookies</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Facebook / Meta</h3>
+  <table class="cookie-table">
+    <thead><tr><th>Nome</th><th>Expiração</th><th>Finalidade</th></tr></thead>
+    <tbody>
+      <tr><td>_fbp</td><td>3 meses</td><td>Armazenar e rastrear visitas entre sites</td></tr>
+      <tr><td>_fbc</td><td>2 anos</td><td>Armazenar última visita</td></tr>
+      <tr><td>fr</td><td>3 meses</td><td>Habilitar entrega de anúncios</td></tr>
+    </tbody>
+  </table>
+
+  <h3>WhatsApp</h3>
+  <table class="cookie-table">
+    <thead><tr><th>Nome</th><th>Expiração</th><th>Finalidade</th></tr></thead>
+    <tbody>
+      <tr><td>wa_lang_pref</td><td>6 dias</td><td>Armazenar configurações de idioma</td></tr>
+      <tr><td>wa_ul</td><td>Sessão</td><td>Conceder acesso</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Funcionais (Internos)</h3>
+  <table class="cookie-table">
+    <thead><tr><th>Nome</th><th>Expiração</th><th>Finalidade</th></tr></thead>
+    <tbody>
+      <tr><td>fm-theme</td><td>Persistente</td><td>Armazenar preferência de tema (claro/escuro)</td></tr>
+      <tr><td>cmplz_*</td><td>365 dias</td><td>Gerenciar consentimento de cookies</td></tr>
+    </tbody>
+  </table>
+
+  <h2>7. Ativação/desativação e exclusão de cookies</h2>
+  <p>Você pode usar seu navegador para excluir cookies automática ou manualmente. Você também pode especificar que determinados cookies não podem ser inseridos. Outra opção é alterar as configurações do navegador para que você receba uma mensagem sempre que um cookie for inserido.</p>
+  <p>Observe que nosso site pode não funcionar corretamente se todos os cookies estiverem desativados. Se você excluir os cookies do seu navegador, eles serão inseridos novamente, após seu consentimento, quando você acessar nosso site novamente.</p>
+  <ul>
+    <li><strong>Chrome:</strong> Configurações → Privacidade e segurança → Cookies</li>
+    <li><strong>Firefox:</strong> Configurações → Privacidade e segurança → Cookies e dados de sites</li>
+    <li><strong>Safari:</strong> Preferências → Privacidade → Gerenciar dados do site</li>
+    <li><strong>Edge:</strong> Configurações → Privacidade, pesquisa e serviços → Cookies</li>
+  </ul>
+
+  <h2>8. Seus direitos em relação aos dados pessoais</h2>
+  <p>Você tem os seguintes direitos em relação aos seus dados pessoais:</p>
+  <ul>
+    <li>Confirmação da existência do processamento;</li>
+    <li>Acesso aos dados;</li>
+    <li>Correção de dados incompletos, imprecisos ou desatualizados;</li>
+    <li>Anonimização, bloqueio ou exclusão dos dados desnecessários, excessivos ou processados em desacordo com a LGPD;</li>
+    <li>Portabilidade dos dados para outro provedor de serviços ou produtos;</li>
+    <li>Exclusão dos dados pessoais processados com o consentimento do titular;</li>
+    <li>Informações sobre entidades públicas e privadas com as quais o controlador compartilhou dados;</li>
+    <li>Informações sobre a possibilidade de não fornecer consentimento e as consequências da rejeição.</li>
+  </ul>
+  <p>Para exercer esses direitos, fale conosco. Se tiver uma reclamação sobre como processamos seus dados, você também tem o direito de enviar uma reclamação à Autoridade Nacional de Proteção de Dados (ANPD):</p>
+
+  <div class="contact-block">
+    <p><strong>Autoridade Nacional de Proteção de Dados — ANPD</strong></p>
+    <p>Esplanada dos Ministérios, Bloco C, 2º andar</p>
+    <p>CEP 70297-400 — Brasília – DF</p>
+    <p><a href="https://www.gov.br/anpd/pt-br/canais_atendimento/" target="_blank" rel="noopener">Site da ANPD</a></p>
+  </div>
+
+  <h2>9. Detalhes de contato</h2>
+  <div class="contact-block">
+    <p><strong>Dr. Franz Maier</strong></p>
+    <p>Rua Ceará, Nº 500, Centro — Poços de Caldas, MG</p>
+    <p>CEP: 37.701-712</p>
+    <p>Site: <a href="https://drfranzmaier.com.br">drfranzmaier.com.br</a></p>
+    <p>WhatsApp: <a href="https://wa.me/5535997542383">(35) 99754-2383</a></p>
+    <p>Telefone: <a href="tel:+553537142601">(35) 3714-2601</a></p>
+  </div>
+
+  <p style="color:var(--ink-mute);font-size:.82rem;margin-top:2rem;">Esta política de cookies foi elaborada com base na legislação brasileira (LGPD) e nas melhores práticas de privacidade digital.</p>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>© 2026 Dr. Franz Maier · Todos os direitos reservados</span>
+    <span><a href="politica-de-cookies.html">Cookies</a> · <a href="licenca.html">Licença</a> · <a href="franz-maier.html">Site principal</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

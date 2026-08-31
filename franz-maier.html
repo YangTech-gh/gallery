@@ -136,6 +136,9 @@ button{font-family:inherit;cursor:pointer;background:none;border:0;color:inherit
   display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.4rem;}
 #loader .lockup{position:relative;width:min(72vmin,520px);aspect-ratio:1;display:grid;place-items:center;}
 #loader .lockup img{width:64%;height:64%;object-fit:contain;border-radius:50%;border:2px solid rgba(var(--rgb-blue),.32);filter:drop-shadow(0 0 32px rgba(var(--rgb-blue),.25));}
+#loader .lockup .logo-light{display:none;}
+[data-theme="light"] #loader .lockup .logo-dark{display:none;}
+[data-theme="light"] #loader .lockup .logo-light{display:block;}
 #loader .ring{position:absolute;inset:0;border-radius:50%;border:1px solid var(--blue-line);
   border-top-color:var(--blue-soft);animation:spin 1.4s linear infinite;}
 #loader .ring.r2{border-top-color:var(--blue);animation-duration:2.2s;animation-direction:reverse;inset:14%;border-color:rgba(var(--rgb-blue),.16);}
@@ -238,7 +241,7 @@ body.menu-open .mobile-menu{clip-path:circle(150% at calc(100% - 34px) 32px);vis
 .hero-figure{position:relative;justify-self:center;width:min(100%,560px);}
 .hero-figure .frame{position:relative;aspect-ratio:4/5;border-radius:200px 200px 24px 24px;overflow:hidden;
   border:1px solid var(--blue-line);box-shadow:0 30px 80px rgba(0,0,0,.45);}
-.hero-figure .frame img{width:100%;height:100%;object-fit:cover;object-position:top center;}
+.hero-figure .frame img{width:100%;height:100%;object-fit:cover;object-position:center 8%;}
 .hero-figure .halo{position:absolute;inset:-9%;border-radius:50%;border:1px dashed var(--blue-line);pointer-events:none;}
 .hero-figure .orbit{position:absolute;inset:-9%;pointer-events:none;}
 .hero-figure .orbit i{position:absolute;top:0;left:50%;width:9px;height:9px;margin:-4.5px;border-radius:50%;
@@ -509,7 +512,8 @@ footer{border-top:1px solid var(--deco-line);background:var(--bg-deep-2);
 
 <div id="loader" role="status" aria-label="Carregando">
   <div class="lockup">
-    <img src="franzmayer-assets/logo-branco.png" alt="" width="300" height="300">
+    <img src="franzmayer-assets/logo-branco.png" alt="" width="300" height="300" class="logo-dark">
+    <img src="franzmayer-assets/logo-azul.png" alt="" width="300" height="300" class="logo-light">
     <div class="ring"></div>
     <div class="ring r2"></div>
   </div>
@@ -1071,7 +1075,7 @@ footer{border-top:1px solid var(--deco-line);background:var(--bg-deep-2);
   </div>
   <div class="foot-base">
     <span>© <span id="year">2026</span> Dr. Franz Maier · Todos os direitos reservados</span>
-    <span>Site desenvolvido com cuidado por <a href="https://instagram.com/yang.techno" target="_blank" rel="noopener">Yang Tech</a></span>
+    <span><a href="politica-de-cookies.html">Política de Cookies</a> · <a href="licenca.html">Licença e Termos</a> · Site desenvolvido com cuidado por <a href="https://instagram.com/yang.techno" target="_blank" rel="noopener">Yang Tech</a></span>
   </div>
 </footer>
 

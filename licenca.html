@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Licença e Termos de Uso — Dr. Franz Maier</title>
+<meta name="description" content="Termos de uso e licença do site do Dr. Franz Maier — Medicina Intervencionista da Dor em Poços de Caldas, MG.">
+<meta name="theme-color" content="#061218" id="themeColor">
+<meta name="color-scheme" content="dark">
+
+<link rel="icon" type="image/png" href="franzmayer-assets/logo-azul.png">
+<link rel="apple-touch-icon" href="franzmayer-assets/logo-azul.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script>
+(function(){
+  try{
+    var t=localStorage.getItem('fm-theme');
+    if(!t) t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';
+    document.documentElement.setAttribute('data-theme',t);
+    if(t==='light'){
+      var m=document.getElementById('themeColor'); if(m) m.setAttribute('content','#fbf9f3');
+      document.documentElement.style.colorScheme='light';
+    }
+  }catch(e){}
+})();
+</script>
+
+<style>
+:root{
+  --rgb-hero:6,18,24; --rgb-deep:6,18,24; --rgb-deep-2:8,13,20;
+  --rgb-ink:243,239,230; --rgb-ink-dim:169,173,196; --rgb-ink-mute:124,130,150;
+  --rgb-gold:214,178,122; --rgb-gold-soft:236,217,173;
+  --rgb-blue:126,175,196; --rgb-blue-soft:168,207,224;
+
+  --bg-hero:rgb(var(--rgb-hero)); --bg-deep:rgb(var(--rgb-deep)); --bg-deep-2:rgb(var(--rgb-deep-2));
+  --ink:rgb(var(--rgb-ink)); --ink-dim:rgb(var(--rgb-ink-dim)); --ink-mute:rgb(var(--rgb-ink-mute));
+  --gold:rgb(var(--rgb-gold)); --gold-soft:rgb(var(--rgb-gold-soft));
+  --blue:rgb(var(--rgb-blue)); --blue-soft:rgb(var(--rgb-blue-soft));
+
+  --gold-line:rgba(var(--rgb-gold),.28); --blue-line:rgba(var(--rgb-blue),.28);
+  --deco-line:rgba(var(--rgb-gold),.08);
+  --surface-glass:rgba(var(--rgb-deep),.55);
+
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'Inter',system-ui,-apple-system,sans-serif;
+  --gutter:clamp(1.1rem,4vw,3.2rem);
+  --radius:16px;
+}
+
+[data-theme="light"]{
+  --rgb-hero:245,242,234; --rgb-deep:251,249,243; --rgb-deep-2:255,253,250;
+  --rgb-ink:22,28,42; --rgb-ink-dim:64,72,90; --rgb-ink-mute:124,132,150;
+  --rgb-gold:154,103,46; --rgb-gold-soft:196,148,84;
+  --rgb-blue:85,130,160; --rgb-blue-soft:118,162,188;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;background:var(--bg-deep);color:var(--ink);font-family:var(--sans);}
+body{min-height:100vh;line-height:1.65;font-size:15px;}
+
+/* HEADER */
+.header{position:sticky;top:0;z-index:300;display:flex;align-items:center;justify-content:space-between;
+  padding:.75rem var(--gutter);background:var(--bg-deep);border-bottom:1px solid var(--deco-line);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
+.brand{display:flex;align-items:center;gap:.8rem;text-decoration:none;color:var(--ink);}
+.brand img{width:36px;height:36px;border-radius:50%;}
+.brand-name{font-family:var(--serif);font-weight:600;font-size:1.1rem;letter-spacing:-.01em;}
+.brand-name small{display:block;font-family:var(--sans);font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--blue-soft);}
+.back-link{font-size:.78rem;color:var(--blue-soft);text-decoration:none;letter-spacing:.1em;text-transform:uppercase;
+  transition:color .25s;}
+.back-link:hover{color:var(--gold-soft);}
+
+/* CONTENT */
+.policy{max-width:760px;margin-inline:auto;padding:clamp(3rem,8vw,5rem) var(--gutter) clamp(4rem,10vw,7rem);}
+.policy h1{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,5vw,3.2rem);letter-spacing:-.01em;margin-bottom:1rem;}
+.policy .updated{font-size:.82rem;color:var(--ink-mute);margin-bottom:2.5rem;display:block;}
+.policy h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.2rem,2.5vw,1.6rem);
+  margin:2.5rem 0 1rem;color:var(--blue-soft);letter-spacing:-.005em;}
+.policy h3{font-family:var(--sans);font-weight:600;font-size:1rem;margin:1.8rem 0 .6rem;color:var(--gold-soft);}
+.policy p{color:var(--ink-dim);margin-bottom:1rem;max-width:68ch;}
+.policy ul{color:var(--ink-dim);margin:.6rem 0 1.2rem 1.4rem;}
+.policy li{margin-bottom:.4rem;}
+.policy a{color:var(--blue-soft);text-decoration:underline;text-decoration-color:var(--blue-line);text-underline-offset:3px;}
+.policy a:hover{color:var(--gold-soft);text-decoration-color:var(--gold-line);}
+.policy strong{color:var(--ink);}
+
+.highlight-box{background:var(--surface-glass);border:1px solid var(--blue-line);border-left:3px solid var(--blue);
+  border-radius:var(--radius);padding:1.4rem 1.6rem;margin:1.5rem 0;}
+.highlight-box p{margin-bottom:.4rem;}
+.highlight-box p:last-child{margin-bottom:0;}
+
+.warning-box{background:rgba(var(--rgb-gold),.06);border:1px solid var(--gold-line);border-left:3px solid var(--gold);
+  border-radius:var(--radius);padding:1.4rem 1.6rem;margin:1.5rem 0;}
+
+.contact-block{background:var(--surface-glass);border:1px solid var(--deco-line);border-radius:var(--radius);
+  padding:1.6rem;margin:2rem 0;}
+.contact-block p{margin-bottom:.4rem;}
+
+/* FOOTER */
+.footer{border-top:1px solid var(--deco-line);background:var(--bg-deep-2);padding:2rem var(--gutter);}
+.footer-inner{max-width:760px;margin-inline:auto;display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;
+  align-items:center;font-size:.72rem;color:var(--ink-mute);}
+.footer-inner a{color:var(--gold-soft);text-decoration:none;transition:color .25s;}
+.footer-inner a:hover{color:var(--blue-soft);}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="franz-maier.html" class="brand">
+    <img src="franzmayer-assets/logo-azul.png" alt="Logo Dr. Franz Maier">
+    <span class="brand-name">Dr. Franz Maier<small>Medicina Intervencionista da Dor</small></span>
+  </a>
+  <a href="franz-maier.html" class="back-link">← Voltar</a>
+</header>
+
+<main class="policy">
+  <h1>Licença e Termos de Uso</h1>
+  <span class="updated">Última atualização: 30/08/2026</span>
+
+  <h2>1. Aceitação dos Termos</h2>
+  <p>Ao acessar e utilizar este site, você concorda com os presentes Termos de Uso e com a nossa <a href="politica-de-cookies.html">Política de Cookies</a>. Se você não concordar com algum dos termos aqui estabelecidos, não deverá utilizar este site.</p>
+
+  <h2>2. Sobre o Site</h2>
+  <p>Este site é de propriedade e responsabilidade do <strong>Dr. Franz Maier</strong>, médico ortopedista e especialista em Medicina Intervencionista da Dor, inscrito no CRM/MG 61337, com RQE 38385.</p>
+  <p>O site tem caráter meramente informativo e promocional, destinado a apresentar os serviços médicos oferecidos pelo profissional, seus tratamentos, formação acadêmica e canais de contato.</p>
+
+  <h2>3. Isenção de Responsabilidade Médica</h2>
+
+  <div class="warning-box">
+    <p><strong>Atenção:</strong> As informações disponibilizadas neste site não substituem uma consulta médica presencial. O conteúdo aqui apresentado tem caráter exclusivamente educativo e informativo.</p>
+  </div>
+
+  <p>O conteúdo deste site não constitui aconselhamento médico, diagnóstico ou tratamento. Sempre procure o conselho de um médico ou outro profissional de saúde qualificado antes de iniciar qualquer tratamento.</p>
+  <p>Os resultados dos tratamentos descritos neste site podem variar de paciente para paciente. As imagens e depoimentos apresentados são apenas ilustrativos e não garantem resultados semelhantes.</p>
+
+  <h3>3.1 Limitação de Responsabilidade</h3>
+  <p>O Dr. Franz Maier e seus colaboradores não se responsabilizam por:</p>
+  <ul>
+    <li>Decisões tomadas com base nas informações do site;</li>
+    <li>Erros ou omissões no conteúdo publicado;</li>
+    <li>Links para sites de terceiros;</li>
+    <li>Danos diretos ou indiretos decorrentes do uso do site.</li>
+  </ul>
+
+  <h2>4. Propriedade Intelectual</h2>
+
+  <h3>4.1 Conteúdo do Site</h3>
+  <p>Todo o conteúdo deste site — incluindo, mas não se limitando a, textos, imagens, logotipos, ícones, gráficos, vídeos, código-fonte e design — é protegido por direitos autorais e outras leis de propriedade intelectual.</p>
+  <p>É proibida a reprodução, distribuição, modificação, exibição pública ou qualquer outro uso do conteúdo deste site sem autorização prévia e por escrito do proprietário.</p>
+
+  <h3>4.2 Uso Permitido</h3>
+  <p>Você pode:</p>
+  <ul>
+    <li>Visualizar e navegar pelo site para fins informativos pessoais;</li>
+    <li>Compartilhar links para as páginas do site em redes sociais;</li>
+    <li>Citar trechos do site, desde que com a devida atribuição.</li>
+  </ul>
+
+  <h3>4.3 Uso Proibido</h3>
+  <p>É expressamente proibido:</p>
+  <ul>
+    <li>Copiar, modificar ou distribuir o conteúdo sem autorização;</li>
+    <li>Usar o conteúdo para fins comerciais não autorizados;</li>
+    <li>Remover avisos de direitos autorais ou marcas d'água;</li>
+    <li>Tentar acessar áreas restritas do site;</li>
+    <li>Usar o site para fins ilegais ou não autorizados.</li>
+  </ul>
+
+  <h2>5. Links Externos</h2>
+  <p>Este site pode conter links para sites de terceiros. Esses links são fornecidos apenas para conveniência e não implicam endossamento, patrocínio ou recomendação por parte do Dr. Franz Maier.</p>
+  <p>Não temos controle sobre o conteúdo desses sites e não nos responsabilizamos por quaisquer danos ou perdas causados pelo uso deles.</p>
+
+  <h2>6. Privacidade e Dados Pessoais</h2>
+  <p>A coleta e o tratamento de dados pessoais realizados neste site seguem os princípios da <strong>Lei Geral de Proteção de Dados Pessoais (LGPD — Lei nº 13.709/2018)</strong>.</p>
+  <p>Para mais detalhes sobre como seus dados são tratados, consulte nossa <a href="politica-de-cookies.html">Política de Cookies</a>.</p>
+
+  <h2>7. Publicidade e Google Ads</h2>
+  <p>Este site pode utilizar o <strong>Google Ads</strong> e outras plataformas de publicidade online para veicular anúncios. Essas plataformas podem utilizar cookies e tecnologias de rastreamento para exibir anúncios relevantes com base em visitas anteriores ao site.</p>
+
+  <div class="highlight-box">
+    <p><strong>Google Ads:</strong> Utilizamos cookies de remarketing para exibir anúncios personalizados para usuários que anteriormente visitaram nosso site. Você pode optar por não receber anúncios personalizados访问ando as <a href="https://adssettings.google.com/" target="_blank" rel="noopener">Configurações de Anúncios do Google</a>.</p>
+  </div>
+
+  <h3>7.1 Opt-out de Anúncios</h3>
+  <p>Para saber mais sobre como o Google usa dados ao usar nossos parceiros' sites ou apps, visite: <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">Como o Google usa dados quando você usa sites e apps dos nossos parceiros</a>.</p>
+  <p>Você também pode optar por não participar de alguns serviços de publicidade visitando:</p>
+  <ul>
+    <li><a href="https://www.networkadvertising.org/choices/" target="_blank" rel="noopener">Network Advertising Initiative</a></li>
+    <li><a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener">Digital Advertising Alliance</a></li>
+    <li><a href="https://www.youronlinechoices.com/" target="_blank" rel="noopener">Your Online Choices (Europa)</a></li>
+  </ul>
+
+  <h2>8. Disponibilidade do Site</h2>
+  <p>Nos esforçamos para manter o site disponível e funcionando o tempo todo. No entanto, não nos responsabilizamos por interrupções, manutenções programadas ou quaisquer falhas técnicas que possam ocorrer.</p>
+  <p>Nos reservamos o direito de modificar, suspender ou desativar o site, total ou parcialmente, a qualquer momento, sem aviso prévio.</p>
+
+  <h2>9. Legislação Aplicável</h2>
+  <p>Estes Termos de Uso são regidos pelas leis da República Federativa do Brasil. Qualquer disputa decorrente do uso deste site será submetida à jurisdição exclusiva dos tribunais da comarca de Poços de Caldas, Minas Gerais.</p>
+
+  <h2>10. Alterações nestes Termos</h2>
+  <p>Estes Termos de Uso podem ser atualizados a qualquer momento, sem aviso prévio. Recomendamos que os usuários revisem periodicamente esta página.</p>
+  <p>O uso continuado do site após alterações nestes termos constitui aceitação das modificações.</p>
+
+  <h2>11. Contato</h2>
+  <div class="contact-block">
+    <p><strong>Dr. Franz Maier</strong></p>
+    <p>CRM/MG 61337 · RQE 38385</p>
+    <p>Rua Ceará, Nº 500, Centro — Poços de Caldas, MG</p>
+    <p>CEP: 37.701-712</p>
+    <p>Site: <a href="https://drfranzmaier.com.br">drfranzmaier.com.br</a></p>
+    <p>WhatsApp: <a href="https://wa.me/5535997542383">(35) 99754-2383</a></p>
+    <p>Telefone: <a href="tel:+553537142601">(35) 3714-2601</a></p>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>© 2026 Dr. Franz Maier · Todos os direitos reservados</span>
+    <span><a href="politica-de-cookies.html">Cookies</a> · <a href="licenca.html">Licença</a> · <a href="franz-maier.html">Site principal</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
